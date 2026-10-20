@@ -1,0 +1,18 @@
+# Dependencies / build
+node_modules/
+dist/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+*.tmp
+*.log
+
+# Secrets
+.env
+.env.*
+
+# Bản zip nộp bài (tạo ở bước cuối, không commit)
+*.zip
