@@ -15,12 +15,12 @@ Bài cá nhân HW02 (Domain Testing + Boundary Value Analysis) trên EShop (http
 
 | No. | Criteria | Grade | Self-Assessed Grade |
 |---|---|---|---|
-| 1 | Feature A — FR-02 (Domain + Boundary) | 25 | |
-| 2 | Feature B — FR-09 (Domain + Boundary) | 25 | |
-| 3 | Feature C — FR-16 (Domain + Boundary) | 25 | |
-| 4 | Feature D — FR-06 Mobile (Domain + Boundary) | 15 | |
-| 5 | Agent Skills | 10 | |
-| | **Total** | **100** | |
+| 1 | Feature A — FR-02 (Domain + Boundary) | 25 | 20|
+| 2 | Feature B — FR-09 (Domain + Boundary) | 25 | 20|
+| 3 | Feature C — FR-16 (Domain + Boundary) | 25 | 20|
+| 4 | Feature D — FR-06 Mobile (Domain + Boundary) | 15 | 5 |
+| 5 | Agent Skills | 10 | 5 |
+| | **Total** | **100** | 70|
 
 ## Test summary
 
