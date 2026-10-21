@@ -181,3 +181,27 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
   - Tạo, xóa coupon (FR-17, Ngọc): chỉ dùng `POST /api/admin/coupons` để chuẩn bị dữ liệu.
   - Tính tổng giỏ và đặt hàng (FR-07, FR-08). Lỗi ô tổng tiền sửa tay được là của FR-08; mình ghi nhận và báo cho Hương.
   - SQL Injection chuyên sâu: chỉ giữ 1 ca nhập ký tự đặc biệt, xem như lớp không hợp lệ.
+
+## 2. Biến input / output (S1)
+
+**Cách làm:**
+- Mỗi điều kiện C1–C5 gắn với ít nhất một biến.
+- Chỉ có 1 ô nhập (mã), nhưng kết quả phụ thuộc vào **7 biến gián tiếp**: thuộc tính coupon trong DB, ngày hiện tại, tổng đơn, token, số lần đã dùng.
+- Quan sát U3 cho thấy client gửi thêm `total_amount` và `user_id`. Vì vậy hai biến này cũng là input ở tầng API và phải được kiểm.
+- Biến output (`discount_amount`, `final_amount`) có miền riêng theo công thức. Domain testing theo output đòi hỏi chọn input sao cho output rơi vào từng miền: percent, fixed, final ≥ 0.
+
+| ID | Biến | Loại | Kiểu | Miền theo đặc tả | Nguồn |
+|---|---|---|---|---|---|
+| V1 | Mã coupon | Input trực tiếp | Chuỗi | Có trong DB và `is_active = 1` | C1 |
+| V2 | Ngày hiện tại so với `expired_at` | Gián tiếp (thời gian) | Ngày | Trước `expired_at` | C2 |
+| V3 | Tổng đơn hàng | Gián tiếp (từ giỏ) | Số tiền ₫ | ≥ `min_order_amount` (300.000 / 500.000 / 300.000 / 100.000) | C3 |
+| V4 | Token | Gián tiếp (trạng thái) | JWT | Hợp lệ | C4 |
+| V5 | Số lần user đã dùng mã | Gián tiếp (DB) | Số nguyên ≥ 0 | < `max_uses_per_user` (1 / 1 / 2 / 1) | C5 |
+| V6 | Loại coupon | Gián tiếp (DB) | {percent, fixed} | Một trong hai | Công thức |
+| V7 | `user_id` trong body | Input tầng API | Số nguyên | Phải trùng user trong JWT (A5) | U3, A5 |
+| V8 | `total_amount` trong body | Input tầng API | Số tiền | Phải bằng tổng giỏ thật (A5) | U3, R-total |
+| O1 | Chấp nhận / từ chối + thông báo | Output | status, chuỗi | Từ chối nêu đúng điều kiện vi phạm | R-all |
+| O2 | `discount_amount` | Output | Số tiền | percent: total × v / 100; fixed: v | R-percent, R-fixed |
+| O3 | `final_amount` | Output | Số tiền | total − discount, ≥ 0 (A7) | R-final |
+| O4 | Hiển thị trên UI | Output | Chuỗi | `₫`, phân cách hàng nghìn | R-money |
+| O5 | Lượt dùng sau đặt hàng | Output (DB) | Số nguyên | +1 khi đặt hàng thành công (A4) | C5 |
