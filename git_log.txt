@@ -1,3 +1,12 @@
+b647d9c | 2026-10-21 11:22:42 +0700 | Tran Thanh An | [report] Refresh PDF exports
+8b7140b | 2026-10-21 11:22:36 +0700 | Tran Thanh An | [report] Update AI prompt log
+95dbb98 | 2026-10-21 11:22:29 +0700 | Tran Thanh An | [report] Link bug report to GitHub issues
+38478a5 | 2026-10-21 11:22:28 +0700 | Tran Thanh An | [C-FR16][S7] Add GitHub issue links and screenshots
+ec5b7cb | 2026-10-21 11:22:28 +0700 | Tran Thanh An | [B-FR09][S7] Add GitHub issue links and screenshots
+acfe43c | 2026-10-21 11:22:28 +0700 | Tran Thanh An | [A-FR02][S7] Add GitHub issue links and screenshots
+f1ebcaa | 2026-10-21 11:22:13 +0700 | Tran Thanh An | [report] Finalize audit, critique and self-assessment
+6e1dba1 | 2026-10-21 09:40:53 +0700 | Tran Thanh An | [report] Add prefilled GitHub issue links
+edc6eb2 | 2026-10-21 09:21:13 +0700 | Tran Thanh An | [report] Export git commit log
 4f48e37 | 2026-10-21 09:21:13 +0700 | Tran Thanh An | [report] Refresh PDF exports
 1c8ba3c | 2026-10-21 09:20:38 +0700 | Tran Thanh An | [report] Mark demo video and mobile execution as not done
 9dd9ea7 | 2026-10-21 08:57:48 +0700 | Tran Thanh An | [report] Export git commit log
