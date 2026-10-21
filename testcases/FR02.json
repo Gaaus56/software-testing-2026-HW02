@@ -202,5 +202,77 @@
     "data": "t = 31 s",
     "steps": "Chờ 31 s → đăng nhập đúng",
     "expected": "Đăng nhập thành công"
+  },
+  {
+    "id": "FR02-EP-11",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-13",
+    "rule": "R3 (\"liên tiếp\"), A2",
+    "pre": "Backend vừa khởi động lại",
+    "data": "2 sai → đúng → 2 sai → đúng",
+    "steps": "Gọi tuần tự 6 request",
+    "expected": "Cả 2 lần đăng nhập đúng đều thành công (bộ đếm về 0 sau khi thành công)"
+  },
+  {
+    "id": "FR02-EP-12",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-14",
+    "rule": "A3",
+    "pre": "test@ đang bị khóa",
+    "data": "admin@eshop.com / Admin123!",
+    "steps": "Đăng nhập tài khoản khác",
+    "expected": "Tài khoản khác đăng nhập bình thường (khóa theo tài khoản)"
+  },
+  {
+    "id": "FR02-EP-13",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-03 (tầng API)",
+    "rule": "R4, A8",
+    "pre": "—",
+    "data": "email: abc",
+    "steps": "POST /api/login",
+    "expected": "Từ chối (4xx), không lỗi server"
+  },
+  {
+    "id": "FR02-EP-14",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "A7",
+    "rule": "A7",
+    "pre": "Tài khoản vừa hết khóa",
+    "data": "1 lần sai rồi đăng nhập đúng",
+    "steps": "Đợi mở khóa → 1 sai → đúng",
+    "expected": "Không bị khóa lại ngay (bộ đếm bắt đầu lại từ 0)"
+  },
+  {
+    "id": "FR02-BVA-08a",
+    "step": "S5",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "Khám phá thời gian khóa thực tế",
+    "rule": "R3",
+    "pre": "3 lần sai",
+    "data": "t = 175 s",
+    "steps": "Chờ 175 s → đăng nhập đúng",
+    "expected": "(Khám phá) — theo đặc tả phải mở khóa từ 30 s"
+  },
+  {
+    "id": "FR02-BVA-08b",
+    "step": "S5",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "Khám phá thời gian khóa thực tế",
+    "rule": "R3",
+    "pre": "3 lần sai",
+    "data": "t = 185 s",
+    "steps": "Chờ 185 s → đăng nhập đúng",
+    "expected": "(Khám phá) — theo đặc tả phải mở khóa từ 30 s"
   }
 ]

@@ -236,3 +236,60 @@ Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc 
 | FR02-BVA-06 | API | EC-02-12 (biên: 30 s) | R3, A4 | Như BVA-05 | t = 30 s | Chờ 30 s → đăng nhập đúng | Đăng nhập thành công (hết 30 giây khóa) |
 | FR02-BVA-07 | API | EC-02-12 (30 + 1) | R3 | Như BVA-05 | t = 31 s | Chờ 31 s → đăng nhập đúng | Đăng nhập thành công |
 <!-- /TC:S4 -->
+
+## 6. Review và bổ sung (S5)
+
+**Cách làm:** đọc lại từng TC ở mục 4–5, đối chiếu với đặc tả, quy tắc R1–R9 và giả định A1–A8, rồi kiểm tra 3 điều:
+- Mọi lớp ở mục 3 đều có TC phủ.
+- Mỗi TC chỉ chứa tối đa 1 lớp không hợp lệ.
+- Kết quả mong đợi chỉ lấy từ đặc tả hoặc giả định.
+
+Mỗi phát hiện được đánh giá theo mẫu AI-02: VALID (giữ nguyên) / INCOMPLETE (sửa) / INVALID (loại).
+
+### 6.1 Bảng review
+
+| # | Đối tượng | Đánh giá | Vấn đề | Xử lý | Căn cứ |
+|---|---|---|---|---|---|
+| RV1 | Bộ TC S3 | INCOMPLETE | EC-02-13 (reset bộ đếm sau khi thành công) và EC-02-14 (tài khoản khác) có trong bảng lớp nhưng **không có TC** | Thêm FR02-EP-11, FR02-EP-12 | Ma trận truy vết 6.3 |
+| RV2 | EC-02-03 | INCOMPLETE | Chỉ test ở UI. Nếu UI chặn được thì tầng API vẫn chưa được kiểm | Thêm FR02-EP-13 (tầng API) | A8 |
+| RV3 | Giả định A7 | INCOMPLETE | Có giả định nhưng không có TC | Thêm FR02-EP-14 | A7 |
+| RV4 | FR02-BVA-05…07 (bản nháp) | INCOMPLETE | Bản nháp thử đăng nhập mỗi giây cho tới khi mở khóa. Cách này phụ thuộc A5 (thử lúc khóa có kéo dài khóa không) | Sửa: mỗi giá trị biên dùng một lần khóa mới và **chỉ thử 1 lần** | A5 |
+| RV5 | FR02-EP-10 (bản nháp) | INCOMPLETE | Kết quả mong đợi chỉ ghi "có thông báo", thiếu R8 (vị trí) và R9 (ngôn ngữ) | Bổ sung vào kết quả mong đợi | R8, R9 |
+| RV6 | TC nháp "email viết hoa TEST@ESHOP.COM phải đăng nhập được" | INVALID | Đặc tả không nói email không phân biệt hoa/thường, nên không có oracle | Loại | — |
+| RV7 | U7 (nghi vấn khóa ~180 s) | — | BVA 29/30/31 s chỉ nói được là sai, chưa đo được thời gian thực tế | Thêm TC khám phá FR02-BVA-08a/b (175 s, 185 s) | R3 |
+| RV8 | FR02-EP-01…09, BVA-01…04 | VALID | Đúng quy tắc chia lớp, dữ liệu cụ thể, kết quả mong đợi có căn cứ | Giữ | — |
+
+### 6.2 Test case bổ sung
+
+<!-- TC:S5 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR02-EP-11 | API | EC-02-13 | R3 ("liên tiếp"), A2 | Backend vừa khởi động lại | 2 sai → đúng → 2 sai → đúng | Gọi tuần tự 6 request | Cả 2 lần đăng nhập đúng đều thành công (bộ đếm về 0 sau khi thành công) |
+| FR02-EP-12 | API | EC-02-14 | A3 | test@ đang bị khóa | admin@eshop.com / Admin123! | Đăng nhập tài khoản khác | Tài khoản khác đăng nhập bình thường (khóa theo tài khoản) |
+| FR02-EP-13 | API | EC-02-03 (tầng API) | R4, A8 | — | email: abc | POST /api/login | Từ chối (4xx), không lỗi server |
+| FR02-EP-14 | API | A7 | A7 | Tài khoản vừa hết khóa | 1 lần sai rồi đăng nhập đúng | Đợi mở khóa → 1 sai → đúng | Không bị khóa lại ngay (bộ đếm bắt đầu lại từ 0) |
+| FR02-BVA-08a | API | Khám phá thời gian khóa thực tế | R3 | 3 lần sai | t = 175 s | Chờ 175 s → đăng nhập đúng | (Khám phá) — theo đặc tả phải mở khóa từ 30 s |
+| FR02-BVA-08b | API | Khám phá thời gian khóa thực tế | R3 | 3 lần sai | t = 185 s | Chờ 185 s → đăng nhập đúng | (Khám phá) — theo đặc tả phải mở khóa từ 30 s |
+<!-- /TC:S5 -->
+
+### 6.3 Ma trận truy vết lớp → test case
+
+| Lớp | TC | Lớp | TC |
+|---|---|---|---|
+| EC-02-01 | EP-01, EP-02 | EC-02-10 | EP-07, EP-10, BVA-02, BVA-03 |
+| EC-02-02 | EP-03 | EC-02-11 | EP-07, BVA-05 |
+| EC-02-03 | EP-04, EP-13 | EC-02-12 | BVA-06, BVA-07, BVA-08b |
+| EC-02-04 | EP-05 | EC-02-13 | EP-11 |
+| EC-02-05 | EP-01 | EC-02-14 | EP-12 |
+| EC-02-06 | EP-02 | EC-02-15 | EP-03 |
+| EC-02-07 | EP-05 | EC-02-16 | EP-08 |
+| EC-02-08 | EP-06 | EC-02-17 | EP-09, EP-10 |
+| EC-02-09 | EP-01, BVA-01 | O3 | BVA-04 |
+
+**Tổng kết review:** bản nháp có 18 TC.
+- VALID 13: EP-01…09, BVA-01…04.
+- INCOMPLETE 4, đã sửa: EP-10, BVA-05…07.
+- INVALID 1, đã loại: TC email viết hoa.
+- Có 3 lỗ hổng độ phủ (RV1–RV3) và 1 nghi vấn (RV7), nên bổ sung 6 TC: 4 EP và 2 TC khám phá.
+
+Bộ cuối có **23 TC** (EP 14, BVA 9).
