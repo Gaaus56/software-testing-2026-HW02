@@ -226,5 +226,41 @@
     "data": "99999999999999999999 (20 chữ số)",
     "steps": "Như BVA-05",
     "expected": "(Khám phá) Không crash; không hiển thị số mũ/NaN"
+  },
+  {
+    "id": "FR06-EP-13",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "Mobile",
+    "covers": "EC-06-01 (mặc định)",
+    "rule": "R2",
+    "pre": "Mở chi tiết SP",
+    "data": "Không sửa ô (giá trị mặc định)",
+    "steps": "Quan sát giá trị mặc định → Thêm → Giỏ hàng",
+    "expected": "Mặc định 1; giỏ có số lượng 1"
+  },
+  {
+    "id": "FR06-EP-14",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "Mobile",
+    "covers": "FR-21",
+    "rule": "FR-21",
+    "pre": "Mở chi tiết SP giá 30.000.000",
+    "data": "—",
+    "steps": "Quan sát giá",
+    "expected": "Giá hiển thị có ₫ và phân cách hàng nghìn (30.000.000 ₫ hoặc 30,000,000 ₫)"
+  },
+  {
+    "id": "FR06-EP-15",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "Mobile",
+    "covers": "EC-06-05 (bàn phím)",
+    "rule": "R2",
+    "pre": "Như EP-01",
+    "data": "—",
+    "steps": "Chạm vào ô số lượng, quan sát bàn phím",
+    "expected": "Bàn phím số; ghi lại các ký tự không phải số gõ được (-, ., ,)"
   }
 ]

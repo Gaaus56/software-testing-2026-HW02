@@ -193,3 +193,45 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 | FR06-BVA-06 | Mobile | EC-06-10 (2^31) | A4 | Như EP-01 | 2147483648 | Như BVA-05 | (Khám phá) Không crash, không tràn số |
 | FR06-BVA-07 | Mobile | EC-06-10 (rất dài) | A4 | Như EP-01 | 99999999999999999999 (20 chữ số) | Như BVA-05 | (Khám phá) Không crash; không hiển thị số mũ/NaN |
 <!-- /TC:S4 -->
+
+## 6. Review và bổ sung (S5)
+
+### 6.1 Bảng review
+
+| # | Đối tượng | Đánh giá | Vấn đề | Xử lý | Căn cứ |
+|---|---|---|---|---|---|
+| RV1 | Bộ TC S3 | INCOMPLETE | Chưa kiểm giá trị mặc định của ô (lớp hợp lệ hay gặp nhất) | Thêm EP-13 | R2 |
+| RV2 | Bộ TC S3 | INCOMPLETE | Chưa kiểm định dạng giá (R4) | Thêm EP-14 | FR-21 |
+| RV3 | EC-06-05 | INCOMPLETE | Bàn phím `numeric` có thể không gõ được chữ, nên EP-05 cần cách đưa chữ vào (dán từ clipboard). Phải ghi lại các ký tự gõ được | Thêm EP-15; sửa bước của EP-05 | U2 |
+| RV4 | TC nháp "xoay ngang màn hình" | INVALID | Không thuộc Domain/BVA, đặc tả không nói | Loại | — |
+| RV5 | Các TC còn lại | VALID | — | Giữ | — |
+
+### 6.2 Test case bổ sung
+
+<!-- TC:S5 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR06-EP-13 | Mobile | EC-06-01 (mặc định) | R2 | Mở chi tiết SP | Không sửa ô (giá trị mặc định) | Quan sát giá trị mặc định → Thêm → Giỏ hàng | Mặc định 1; giỏ có số lượng 1 |
+| FR06-EP-14 | Mobile | FR-21 | FR-21 | Mở chi tiết SP giá 30.000.000 | — | Quan sát giá | Giá hiển thị có ₫ và phân cách hàng nghìn (30.000.000 ₫ hoặc 30,000,000 ₫) |
+| FR06-EP-15 | Mobile | EC-06-05 (bàn phím) | R2 | Như EP-01 | — | Chạm vào ô số lượng, quan sát bàn phím | Bàn phím số; ghi lại các ký tự không phải số gõ được (-, ., ,) |
+<!-- /TC:S5 -->
+
+### 6.3 Ma trận truy vết
+
+| Lớp | TC | Lớp | TC |
+|---|---|---|---|
+| EC-06-01 | EP-01, EP-13, BVA-02, BVA-03 | EC-06-08 | EP-08 |
+| EC-06-02 | EP-02 (= BVA-01) | EC-06-09 | EP-09 |
+| EC-06-03 | EP-03, BVA-04 | EC-06-10 | BVA-05…07 |
+| EC-06-04 | EP-04 | EC-06-11 | EP-01 |
+| EC-06-05 | EP-05, EP-15 | EC-06-12 | EP-10 |
+| EC-06-06 | EP-06 | EC-06-13 | EP-11 |
+| EC-06-07 | EP-07 | EC-06-14 | EP-12 |
+
+**Tổng kết review:** bản nháp có 20 TC (S3: 12, S4: 7, cộng 1 TC bị loại).
+- VALID 18.
+- INCOMPLETE 1, đã sửa bước: EP-05.
+- INVALID 1, đã loại: TC xoay màn hình.
+- Bổ sung 3 TC.
+
+Bộ cuối có **22 TC** (EP 15, BVA 7). Trong đó BVA-01 dùng chung với EP-02, nên số TC cần chạy là 21.
