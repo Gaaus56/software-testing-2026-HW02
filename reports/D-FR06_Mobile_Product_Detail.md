@@ -105,3 +105,16 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 
 - **Trong phạm vi:** màn chi tiết SP trên Mobile, ô Số lượng, nút Thêm vào giỏ và phản hồi, cách hiển thị thông tin SP.
 - **Ngoài phạm vi:** sửa số lượng trong Giỏ hàng Mobile (FR-07, Ngọc), thanh toán (FR-08), bản Web của trang chi tiết (FR-06 Web không ai nhận; chỉ ghi chú nếu tình cờ thấy lỗi).
+
+## 2. Biến input / output (S1)
+
+**Cách làm:** chỉ có 1 ô nhập, nhưng giá trị gõ vào là **chuỗi ký tự**. Vì vậy biến được tách theo các chiều của chuỗi: giá trị số, dấu, phần thập phân, ký tự không phải số, độ dài. Bên cạnh đó có trạng thái giỏ hàng và các output hiển thị.
+
+| ID | Biến | Loại | Miền theo đặc tả | Chiều biến đổi | Nguồn |
+|---|---|---|---|---|---|
+| V1 | Chuỗi trong ô Số lượng | Input trực tiếp | Số nguyên ≥ 1 | giá trị, dấu, thập phân, chữ, rỗng, khoảng trắng, số 0 đầu, độ dài | R2 |
+| V2 | Giỏ đã có SP này chưa | Gián tiếp (trạng thái) | — | chưa có / đã có | A5 |
+| O1 | Số lượng trong giỏ sau khi thêm | Output | Bằng số đã nhập (hoặc cộng dồn) | — | R2 |
+| O2 | Phản hồi sau khi bấm | Output | Có toast / badge | — | R3 |
+| O3 | Thông tin hiển thị | Output | Ảnh, tên, giá, mô tả, danh mục | — | R1 |
+| O4 | Định dạng giá | Output | `₫`, phân cách hàng nghìn | — | R4 |
