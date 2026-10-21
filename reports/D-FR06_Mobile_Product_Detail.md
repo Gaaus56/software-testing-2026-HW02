@@ -288,3 +288,16 @@ Bộ cuối có **22 TC** (EP 15, BVA 7). Trong đó BVA-01 dùng chung với EP
 | FR06-EP-14 | EP | _(chưa chạy)_ | Not run | | |
 | FR06-EP-15 | EP | _(chưa chạy)_ | Not run | | |
 <!-- /RESULTS -->
+
+## 9. Phân tích phần AI bỏ sót (S8)
+
+Đánh giá ở mức thiết kế (chưa thực thi trên thiết bị):
+
+| # | AI bỏ sót / làm sai | Phát hiện ở | Nguyên nhân | Giải thích |
+|---|---|---|---|---|
+| G1 | Không kiểm giá trị mặc định và định dạng giá | S5 (RV1, RV2) | Prompt | Prompt chỉ nhấn vào "ô số lượng"; AI bỏ qua output hiển thị (R1, R4) |
+| G2 | EP-05 (nhập chữ) không thực hiện được với bàn phím số | S5 (RV3) | Giới hạn tool | AI **không chạy được app** nên thiết kế theo giả định là ô nhập văn bản thông thường |
+| G3 | Khám phá giao diện (mục 1.5) dựa trên cấu trúc màn hình, chưa có quan sát thật | S0 | Giới hạn tool | AI không điều khiển được thiết bị di động; sinh viên phải bổ sung U4–U6 khi chạy |
+| G4 | Biên trên không có trong đặc tả; AI dùng biên kỹ thuật (2^31) | S4 | Độ phức tạp | Biên khám phá, cần ghi kết quả thực tế để đề xuất bổ sung đặc tả |
+
+**Rủi ro còn lại:** toàn bộ kết quả của FR-06 còn phụ thuộc vào lần chạy trên thiết bị. Sau khi chạy, cập nhật bảng này: TC nào lộ ra hành vi AI không lường trước (ví dụ ô tự sửa giá trị sai về 1, thiếu danh mục trên màn chi tiết) và vì sao.
