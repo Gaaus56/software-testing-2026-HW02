@@ -1,0 +1,49 @@
+ade9980 | 2026-10-21 08:57:40 +0700 | Tran Thanh An | [report] Add AI prompt log
+fa3e367 | 2026-10-21 08:50:23 +0700 | Tran Thanh An | [setup] Add submission packaging script
+7e93f57 | 2026-10-21 08:49:00 +0700 | Tran Thanh An | [report] Export PDF versions of reports and appendices
+4e50d41 | 2026-10-21 08:49:00 +0700 | Tran Thanh An | [report] Escape angle brackets in generated tables and issue drafts
+d7aae6c | 2026-10-21 08:47:43 +0700 | Tran Thanh An | [report] Add AI critique draft
+6d6bec6 | 2026-10-21 08:47:42 +0700 | Tran Thanh An | [forms] Fill AI-03 disclosure form
+2602aa0 | 2026-10-21 08:47:42 +0700 | Tran Thanh An | [forms] Fill AI-02 audit report
+93a3a3e | 2026-10-21 08:47:42 +0700 | Tran Thanh An | [report] Add test summary to README
+ab0bf64 | 2026-10-21 08:46:12 +0700 | Tran Thanh An | [skill] Document skills and design rationale
+6ee0341 | 2026-10-21 08:46:12 +0700 | Tran Thanh An | [skill] Add AI audit log export skill
+b043a99 | 2026-10-21 08:46:12 +0700 | Tran Thanh An | [skill] Add boundary value analysis skill
+4e5cd0f | 2026-10-21 08:46:11 +0700 | Tran Thanh An | [skill] Add domain testing skill
+076a8b5 | 2026-10-21 08:44:18 +0700 | Tran Thanh An | [D-FR06][S8] Analyse AI gaps
+1f4b24c | 2026-10-21 08:44:18 +0700 | Tran Thanh An | [D-FR06][S6] Add mobile execution checklist
+9790c6a | 2026-10-21 08:44:17 +0700 | Tran Thanh An | [D-FR06][S5] Review and add missing test cases
+fc5ce8f | 2026-10-21 08:44:17 +0700 | Tran Thanh An | [D-FR06][S4] Design boundary value test cases
+5a8793c | 2026-10-21 08:44:16 +0700 | Tran Thanh An | [D-FR06][S3] Design domain test cases
+cdf79e5 | 2026-10-21 08:44:16 +0700 | Tran Thanh An | [D-FR06][S2] Identify equivalence classes
+bd7580b | 2026-10-21 08:44:16 +0700 | Tran Thanh An | [D-FR06][S1] Identify input/output variables
+2242f8d | 2026-10-21 08:44:16 +0700 | Tran Thanh An | [D-FR06][S0] Extract spec and explore UI
+314ffdd | 2026-10-21 08:44:16 +0700 | Tran Thanh An | [C-FR16][S8] Analyse AI gaps
+7d7aaa9 | 2026-10-21 08:44:15 +0700 | Tran Thanh An | [C-FR16][S7] Report bugs
+75ec8fe | 2026-10-21 08:44:15 +0700 | Tran Thanh An | [C-FR16][S6] Execute tests and record results
+dbf1f1e | 2026-10-21 08:44:14 +0700 | Tran Thanh An | [C-FR16][S5] Review and add missing test cases
+8facd03 | 2026-10-21 08:44:14 +0700 | Tran Thanh An | [C-FR16][S4] Design boundary value test cases
+2ab8053 | 2026-10-21 08:44:13 +0700 | Tran Thanh An | [C-FR16][S3] Design domain test cases
+923544b | 2026-10-21 08:44:13 +0700 | Tran Thanh An | [C-FR16][S2] Identify equivalence classes
+97d75db | 2026-10-21 08:44:13 +0700 | Tran Thanh An | [C-FR16][S1] Identify input/output variables
+5bc7658 | 2026-10-21 08:44:13 +0700 | Tran Thanh An | [C-FR16][S0] Extract spec and explore UI
+a055942 | 2026-10-21 08:44:12 +0700 | Tran Thanh An | [B-FR09][S8] Analyse AI gaps
+ea3d773 | 2026-10-21 08:44:12 +0700 | Tran Thanh An | [B-FR09][S7] Report bugs
+acd6ea9 | 2026-10-21 08:44:12 +0700 | Tran Thanh An | [B-FR09][S6] Execute tests and record results
+030b6d9 | 2026-10-21 08:44:11 +0700 | Tran Thanh An | [B-FR09][S5] Review and add missing test cases
+d9bfc4c | 2026-10-21 08:44:11 +0700 | Tran Thanh An | [B-FR09][S4] Design boundary value test cases
+f15f232 | 2026-10-21 08:44:10 +0700 | Tran Thanh An | [B-FR09][S3] Design domain test cases
+694c073 | 2026-10-21 08:44:10 +0700 | Tran Thanh An | [B-FR09][S2] Identify equivalence classes
+5ebf1a8 | 2026-10-21 08:44:10 +0700 | Tran Thanh An | [B-FR09][S1] Identify input/output variables
+45d3cc6 | 2026-10-21 08:44:10 +0700 | Tran Thanh An | [B-FR09][S0] Extract spec and explore UI
+5e05b24 | 2026-10-21 08:44:09 +0700 | Tran Thanh An | [A-FR02][S8] Analyse AI gaps
+0dac8b9 | 2026-10-21 08:44:09 +0700 | Tran Thanh An | [A-FR02][S7] Report bugs
+a6afe4d | 2026-10-21 08:44:08 +0700 | Tran Thanh An | [A-FR02][S6] Execute tests and record results
+f3fedeb | 2026-10-21 08:43:23 +0700 | Tran Thanh An | [A-FR02][S5] Review and add missing test cases
+8971cf2 | 2026-10-21 08:43:23 +0700 | Tran Thanh An | [A-FR02][S4] Design boundary value test cases
+1bcb835 | 2026-10-21 08:43:22 +0700 | Tran Thanh An | [A-FR02][S3] Design domain test cases
+8aa1661 | 2026-10-21 08:43:07 +0700 | Tran Thanh An | [A-FR02][S2] Identify equivalence classes
+0614e3c | 2026-10-21 08:43:07 +0700 | Tran Thanh An | [A-FR02][S1] Identify input/output variables
+ef0aa89 | 2026-10-21 08:43:07 +0700 | Tran Thanh An | [A-FR02][S0] Extract spec and explore UI
+9e102b1 | 2026-10-21 08:43:07 +0700 | Tran Thanh An | [setup] Add test automation and report tooling
+a4007e0 | 2026-10-20 15:03:10 +0700 | Tran Thanh An | [setup] Init folder structure
