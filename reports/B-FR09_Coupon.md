@@ -310,3 +310,56 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | FR09-BVA-14 | API | EC-09-15 (max − 1) | C5 | test@ đã dùng VIP100 1 lần | VIP100, total 400.000 | POST /api/apply-coupon | Thành công (1 < 2) |
 | FR09-BVA-15 | API | EC-09-16 (= max) | C5 | test@ đã dùng VIP100 2 lần | VIP100, total 400.000 | POST /api/apply-coupon | Từ chối: đã dùng hết lượt (2/2) |
 <!-- /TC:S4 -->
+
+## 6. Review và bổ sung (S5)
+
+### 6.1 Bảng review
+
+| # | Đối tượng | Đánh giá | Vấn đề | Xử lý | Căn cứ |
+|---|---|---|---|---|---|
+| RV1 | Bộ TC S3 | INCOMPLETE | EC-09-20 (`user_id` giả) và EC-09-22 (`total_amount` khai khống) có trong bảng lớp nhưng **chưa có TC** | Thêm FR09-EP-16, FR09-EP-17 | A5, U3 |
+| RV2 | Bộ TC S3/S4 | INCOMPLETE | Chưa có TC cho miền output O3 (final âm khi fixed > total) | Thêm BVA-16…18 (output 99.999 / 100.000 / 100.001) | A7 |
+| RV3 | Giả định A4 | INCOMPLETE | Chưa kiểm C5 tính lượt lúc nào; EP-14 chỉ ghi lượt bằng API | Thêm EP-19 (áp 2 lần chưa mua) và EP-20 (đặt hàng thật qua UI rồi áp lại) | A4 |
+| RV4 | TC nháp "EP-18: khách chưa đăng nhập áp mã trên UI" | INVALID | Giỏ hàng chặn khách vào Checkout ("Bạn cần đăng nhập"); mở thẳng /checkout thì giỏ rỗng, tổng 0, nên luôn bị từ chối vì C3, không kiểm được C4. Trùng mục đích với EP-12 | Loại. Mã EP-18 bỏ trống để giữ nguyên lịch sử | C4 |
+| RV5 | FR09-BVA-03 (bản nháp) | INCOMPLETE | Kết quả mong đợi "30.000" chưa tính phần lẻ 0,1 ₫ | Ghi rõ 30.000,1, cho sai số ≤ 0,5 (A8) | A8 |
+| RV6 | FR09-EP-05 (bản nháp) | INCOMPLETE | Ghi "tạo coupon inactive qua Admin", nhưng U6 cho thấy Admin không có `is_active` | Đổi tiền điều kiện: đặt `is_active = 0` trực tiếp trong DB | A3 |
+| RV7 | Các TC còn lại | VALID | — | Giữ | — |
+
+### 6.2 Test case bổ sung
+
+<!-- TC:S5 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR09-EP-16 | API | EC-09-20 | C4, C5, A5 | test@ (id 2) đã dùng SAVE10 1/1 lần | Token của test@, body user_id = 99 | POST /api/apply-coupon | Từ chối: lượt dùng phải tính theo user trong JWT, không theo user_id client gửi |
+| FR09-EP-17 | API | EC-09-22 | C3, FR-08, A5 | Giỏ trên server của test@ = 200.000 (POST /api/cart) | SAVE10, total_amount = 400.000 (client tự khai) | POST /api/apply-coupon | Từ chối vì tổng đơn thật 200.000 < 300.000 (server không tin total client gửi) |
+| FR09-EP-19 | API | A4 | C5, A4 | Backend vừa khởi động lại | Áp SAVE10 hai lần liên tiếp, không đặt hàng | 2 × POST /api/apply-coupon | Lần 2 vẫn thành công (lượt chỉ tính khi đặt hàng) |
+| FR09-EP-20 | UI | EC-09-16 (end-to-end) | C5 | Như EP-15 | SAVE10 | Áp SAVE10 → Xác nhận thanh toán → thêm SP lại → Checkout → áp SAVE10 | Đặt hàng thành công; lần áp sau bị từ chối vì hết lượt |
+| FR09-BVA-16 | API | EC-09-24 (output) | R-final, A7 | Admin tạo FIX100K (fixed 100.000, min 0) | FIX100K, total 99.999 | POST /api/apply-coupon | final_amount không âm (giả định A7: giảm tối đa bằng tổng đơn → final 0) |
+| FR09-BVA-17 | API | EC-09-23 (output = 0) | R-final | Như BVA-16 | FIX100K, total 100.000 | POST /api/apply-coupon | discount 100.000; final 0 |
+| FR09-BVA-18 | API | EC-09-23 (output = 1) | R-final | Như BVA-16 | FIX100K, total 100.001 | POST /api/apply-coupon | discount 100.000; final 1 |
+<!-- /TC:S5 -->
+
+### 6.3 Ma trận truy vết lớp → test case
+
+| Lớp | TC | Lớp | TC |
+|---|---|---|---|
+| EC-09-01 | EP-01, EP-15 | EC-09-13 | EP-12 |
+| EC-09-02 | EP-04 | EC-09-14 | EP-13 |
+| EC-09-03 | EP-05 | EC-09-15 | EP-01, BVA-14 |
+| EC-09-04 | EP-06 | EC-09-16 | EP-14, EP-20, BVA-15 |
+| EC-09-05 | EP-07 | EC-09-17 | EP-01, EP-15, BVA-01…03 |
+| EC-09-06 | EP-08 | EC-09-18 | EP-02, EP-03, BVA-04…09 |
+| EC-09-07 | EP-09 | EC-09-19 | EP-01 (user_id = 2) |
+| EC-09-08 | EP-01, BVA-13 | EC-09-20 | EP-16 |
+| EC-09-09 | EP-10, BVA-10…12 | EC-09-21 | EP-01 |
+| EC-09-10 | EP-01, BVA-02, 03, 05, 06, 08, 09 | EC-09-22 | EP-17 |
+| EC-09-11 | EP-11, BVA-01, 04, 07 | EC-09-23 | BVA-17, BVA-18 |
+| EC-09-12 | EP-01 | EC-09-24 | BVA-16 |
+
+**Tổng kết review:** bản nháp có 31 TC (S3: 16, S4: 15).
+- VALID 28.
+- INCOMPLETE 2, đã sửa: BVA-03, EP-05.
+- INVALID 1, đã loại: EP-18.
+- Có 3 lỗ hổng độ phủ (RV1–RV3), nên bổ sung 7 TC.
+
+Bộ cuối có **37 TC** (EP 19, BVA 18).

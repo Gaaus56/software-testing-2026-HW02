@@ -358,5 +358,89 @@
     "data": "VIP100, total 400.000",
     "steps": "POST /api/apply-coupon",
     "expected": "Từ chối: đã dùng hết lượt (2/2)"
+  },
+  {
+    "id": "FR09-EP-16",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-09-20",
+    "rule": "C4, C5, A5",
+    "pre": "test@ (id 2) đã dùng SAVE10 1/1 lần",
+    "data": "Token của test@, body user_id = 99",
+    "steps": "POST /api/apply-coupon",
+    "expected": "Từ chối: lượt dùng phải tính theo user trong JWT, không theo user_id client gửi"
+  },
+  {
+    "id": "FR09-EP-17",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-09-22",
+    "rule": "C3, FR-08, A5",
+    "pre": "Giỏ trên server của test@ = 200.000 (POST /api/cart)",
+    "data": "SAVE10, total_amount = 400.000 (client tự khai)",
+    "steps": "POST /api/apply-coupon",
+    "expected": "Từ chối vì tổng đơn thật 200.000 < 300.000 (server không tin total client gửi)"
+  },
+  {
+    "id": "FR09-EP-19",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "A4",
+    "rule": "C5, A4",
+    "pre": "Backend vừa khởi động lại",
+    "data": "Áp SAVE10 hai lần liên tiếp, không đặt hàng",
+    "steps": "2 × POST /api/apply-coupon",
+    "expected": "Lần 2 vẫn thành công (lượt chỉ tính khi đặt hàng)"
+  },
+  {
+    "id": "FR09-EP-20",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-09-16 (end-to-end)",
+    "rule": "C5",
+    "pre": "Như EP-15",
+    "data": "SAVE10",
+    "steps": "Áp SAVE10 → Xác nhận thanh toán → thêm SP lại → Checkout → áp SAVE10",
+    "expected": "Đặt hàng thành công; lần áp sau bị từ chối vì hết lượt"
+  },
+  {
+    "id": "FR09-BVA-16",
+    "step": "S5",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-09-24 (output)",
+    "rule": "R-final, A7",
+    "pre": "Admin tạo FIX100K (fixed 100.000, min 0)",
+    "data": "FIX100K, total 99.999",
+    "steps": "POST /api/apply-coupon",
+    "expected": "final_amount không âm (giả định A7: giảm tối đa bằng tổng đơn → final 0)"
+  },
+  {
+    "id": "FR09-BVA-17",
+    "step": "S5",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-09-23 (output = 0)",
+    "rule": "R-final",
+    "pre": "Như BVA-16",
+    "data": "FIX100K, total 100.000",
+    "steps": "POST /api/apply-coupon",
+    "expected": "discount 100.000; final 0"
+  },
+  {
+    "id": "FR09-BVA-18",
+    "step": "S5",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-09-23 (output = 1)",
+    "rule": "R-final",
+    "pre": "Như BVA-16",
+    "data": "FIX100K, total 100.001",
+    "steps": "POST /api/apply-coupon",
+    "expected": "discount 100.000; final 1"
   }
 ]
