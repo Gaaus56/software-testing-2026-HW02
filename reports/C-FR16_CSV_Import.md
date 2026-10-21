@@ -191,3 +191,31 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 | EC-16-26 | V9 | Token user thường | I | — | 403 | R8 |
 | EC-16-27 | V10 | Xuống dòng CRLF | V | file Windows | Đọc đúng, không dính `\r` | A3 |
 | EC-16-28 | O4 | Tên chứa thẻ HTML | V | `<b>…</b>` | Hiện nguyên văn | R9 |
+
+## 4. Test case Domain Testing (S3)
+
+**Cách làm:**
+1. Mỗi TC tương ứng với **một file test riêng**, đặt trong `test-data/FR16/` và đặt tên theo mã TC. Tất cả file được tạo bằng script để kiểm soát từng byte (BOM, CRLF, nhị phân).
+2. **EP-01** phủ cùng lúc mọi lớp hợp lệ chính. Mỗi lớp không hợp lệ có một file riêng: lớp cấp dòng đặt cạnh dòng hợp lệ để đồng thời kiểm rollback (EP-07…10).
+3. **Oracle** gồm 2 phần: (a) báo cáo trên UI, và (b) **số sản phẩm thật sự được thêm vào DB**, đếm bằng `GET /api/products` trước và sau. Chỉ nhìn báo cáo trên UI thì không phát hiện được lỗi rollback.
+4. **Tầng API** (EP-12…14): kiểm phân quyền, và kiểm backend có tự validate khi gọi thẳng API, không qua giao diện (A7).
+5. Danh mục: [`testcases/FR16.json`](../testcases/FR16.json).
+
+<!-- TC:S3 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR16-EP-01 | UI | EC-16-01, 04, 11, 14, 18, 20, 22 | R1–R6 | Backend vừa khởi động lại; đăng nhập Admin → Sản phẩm | FR16-EP-01_valid_2rows.csv (2 dòng hợp lệ) | Chọn file → Import | Thêm đúng 2 SP; báo cáo 2 thành công, 0 lỗi |
+| FR16-EP-02 | UI | EC-16-02 | R1 | Như EP-01 | FR16-EP-02_valid_content.txt (nội dung CSV hợp lệ, đuôi .txt) | Chọn file → Import | Từ chối file vì đuôi không phải .csv; không thêm SP |
+| FR16-EP-03 | UI | EC-16-03 | R1 | Như EP-01 | FR16-EP-03_fake_excel.xlsx (nhị phân) | Chọn file → Import | Từ chối, báo sai định dạng file; không thêm SP |
+| FR16-EP-04 | UI | EC-16-05 | R2 | Như EP-01 | Header ten,gia,mo_ta,image,danh_muc | Chọn file → Import | Từ chối, báo header sai; không thêm SP |
+| FR16-EP-05 | UI | EC-16-06 | R2 | Như EP-01 | File không có header (2 dòng dữ liệu) | Chọn file → Import | Từ chối, báo thiếu/sai header; không thêm SP |
+| FR16-EP-06 | UI | EC-16-09 | R3 (RFC 4180) | Như EP-01 | "CSV-EP06 Laptop, Pro",25000000,"Mo ta, co dau phay",…,2 | Chọn file → Import | Thêm 1 SP tên "CSV-EP06 Laptop, Pro", giá 25.000.000 |
+| FR16-EP-07 | UI | EC-16-12, 21 | R4, R6, R7 | Như EP-01 | 3 dòng, dòng 2 name rỗng | Chọn file → Import | Rollback: không thêm SP nào; báo cáo nêu dòng lỗi và lý do (thiếu tên) |
+| FR16-EP-08 | UI | EC-16-15, 21 | R5, R6 | Như EP-01 | 1 dòng hợp lệ + 1 dòng price = 0 | Chọn file → Import | Rollback: không thêm SP nào; báo lỗi giá |
+| FR16-EP-09 | UI | EC-16-16, 21 | R5, R6 | Như EP-01 | 1 dòng hợp lệ + 1 dòng price = -5000 | Chọn file → Import | Rollback; báo lỗi giá |
+| FR16-EP-10 | UI | EC-16-17, 21 | R5, R6 | Như EP-01 | 1 dòng hợp lệ + 1 dòng price = abc | Chọn file → Import | Rollback; báo lỗi giá |
+| FR16-EP-11 | UI | EC-16-23 | R7 | Như EP-01 | Chỉ có header | Chọn file → Import | Không import; báo không có dữ liệu (hoặc không cho bấm Import) |
+| FR16-EP-12 | API | EC-16-25 | FR-12 | — | 1 SP hợp lệ, không header Authorization | POST /api/admin/import-products | 401; không thêm SP |
+| FR16-EP-13 | API | EC-16-26 | FR-12, SEC-03 | Token của test@ (role user) | 1 SP hợp lệ | POST /api/admin/import-products | 403; không thêm SP |
+| FR16-EP-14 | API | EC-16-16, 21 (tầng API) | R5, R6 | Token admin | test-data/FR16/api/FR16-EP-14_body.json: dòng giữa price = -1 | POST /api/admin/import-products (bỏ qua giao diện) | Backend tự validate: từ chối, rollback, không thêm SP |
+<!-- /TC:S3 -->
