@@ -271,3 +271,42 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | FR09-EP-14 | API | EC-09-16 | C5 | test@ đã ghi 1 lượt dùng SAVE10 (POST /api/coupon-usage) | SAVE10, total 400.000 | POST /api/apply-coupon | Từ chối: đã dùng hết lượt (1/1) |
 | FR09-EP-15 | UI | EC-09-01, 17; FR-21 | R-percent, FR-21 | Admin tạo SP giá 400.000; đăng nhập test@; thêm 1 SP vào giỏ; vào Checkout | SAVE10 | Nhập mã → Áp dụng | Hiện Tiết kiệm 40.000 ₫, Thành tiền 360.000 ₫ (có ₫ và phân cách hàng nghìn) |
 <!-- /TC:S3 -->
+
+## 5. Phân tích giá trị biên và test case BVA (S4)
+
+**Cách làm:**
+1. Các biến có thứ tự gồm: V3 (tổng đơn), V2 (ngày) và V5 (số lần dùng).
+2. Bước nhỏ nhất: V3 là 1 ₫, V2 là 1 ngày, V5 là 1 lần.
+3. Dùng **BVA 3 giá trị** cho mỗi ngưỡng. V3 có 3 ngưỡng khác nhau (SAVE10 và VIP100 cùng 300.000 nhưng khác loại, BIGBUY 500.000), nên xét đủ cả 3 mã để thấy lỗi có lặp lại theo loại hay không.
+4. **Biên kết hợp:** BVA-10 cho EXPIRED, với tổng đúng bằng ngưỡng 100.000 nhưng đã hết hạn. TC này kiểm rằng C2 vẫn chặn khi C3 vừa đúng biên.
+5. **Biên ngày:** tạo 3 coupon có hạn hôm qua / hôm nay / ngày mai qua `POST /api/admin/coupons`. Giá trị "hôm nay" tính theo ngày chạy test.
+
+| Biên | Biến | Bước | Giá trị test | Kết quả mong đợi | TC |
+|---|---|---|---|---|---|
+| SAVE10 min 300.000 (percent) | V3 | 1 ₫ | 299.999 / 300.000 / 300.001 | Từ chối / 30.000 → 270.000 / 30.000,1 → 270.000,9 | BVA-01…03 |
+| BIGBUY min 500.000 (fixed) | V3 | 1 ₫ | 499.999 / 500.000 / 500.001 | Từ chối / 450.000 / 450.001 | BVA-04…06 |
+| VIP100 min 300.000 (fixed) | V3 | 1 ₫ | 299.999 / 300.000 / 300.001 | Từ chối / 200.000 / 200.001 | BVA-07…09 |
+| EXPIRED min 100.000 + hết hạn | V2 × V3 | — | 100.000 | Từ chối (C2) | BVA-10 |
+| `expired_at` | V2 | 1 ngày | hôm qua / hôm nay / ngày mai | Từ chối / Từ chối (A1) / Hợp lệ | BVA-11…13 |
+| VIP100 max 2 lượt | V5 | 1 lần | đã dùng 1 / 2 | Hợp lệ / Từ chối | BVA-14, 15 |
+| SAVE10 max 1 lượt | V5 | 1 lần | đã dùng 0 / 1 | (đã phủ bởi EP-01 / EP-14) | — |
+
+<!-- TC:S4 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR09-BVA-01 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | SAVE10, total 299.999 | POST /api/apply-coupon | Từ chối: chưa đủ ngưỡng |
+| FR09-BVA-02 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | SAVE10, total 300.000 | POST /api/apply-coupon | Thành công; discount 30.000; final 270.000 |
+| FR09-BVA-03 | API | EC-09-10 (min + 1) | C3, R-percent | Như EP-01 | SAVE10, total 300.001 | POST /api/apply-coupon | Thành công; discount 30.000,1; final 270.000,9 (sai số làm tròn ≤ 0,5) |
+| FR09-BVA-04 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | BIGBUY, total 499.999 | POST /api/apply-coupon | Từ chối |
+| FR09-BVA-05 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | BIGBUY, total 500.000 | POST /api/apply-coupon | Thành công; discount 50.000; final 450.000 |
+| FR09-BVA-06 | API | EC-09-10 (min + 1) | C3 | Như EP-01 | BIGBUY, total 500.001 | POST /api/apply-coupon | Thành công; final 450.001 |
+| FR09-BVA-07 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | VIP100, total 299.999 | POST /api/apply-coupon | Từ chối |
+| FR09-BVA-08 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | VIP100, total 300.000 | POST /api/apply-coupon | Thành công; discount 100.000; final 200.000 |
+| FR09-BVA-09 | API | EC-09-10 (min + 1) | C3 | Như EP-01 | VIP100, total 300.001 | POST /api/apply-coupon | Thành công; final 200.001 |
+| FR09-BVA-10 | API | EC-09-09 × EC-09-10 | C2, C3 | Như EP-01 | EXPIRED, total 100.000 (= min nhưng đã hết hạn) | POST /api/apply-coupon | Từ chối (C2 không thỏa dù C3 thỏa ở biên) |
+| FR09-BVA-11 | API | EC-09-09 (hôm qua) | C2 | Admin tạo coupon DAYM1 hạn = hôm qua | DAYM1, total 100.000 | POST /api/apply-coupon | Từ chối: hết hạn |
+| FR09-BVA-12 | API | EC-09-09 (hôm nay) | C2, A1 | Admin tạo coupon DAY0 hạn = hôm nay | DAY0, total 100.000 | POST /api/apply-coupon | Từ chối (giả định A1: "trước" là so sánh nghiêm ngặt) |
+| FR09-BVA-13 | API | EC-09-08 (ngày mai) | C2 | Admin tạo coupon DAYP1 hạn = ngày mai | DAYP1, total 100.000 | POST /api/apply-coupon | Thành công; discount 10.000; final 90.000 |
+| FR09-BVA-14 | API | EC-09-15 (max − 1) | C5 | test@ đã dùng VIP100 1 lần | VIP100, total 400.000 | POST /api/apply-coupon | Thành công (1 < 2) |
+| FR09-BVA-15 | API | EC-09-16 (= max) | C5 | test@ đã dùng VIP100 2 lần | VIP100, total 400.000 | POST /api/apply-coupon | Từ chối: đã dùng hết lượt (2/2) |
+<!-- /TC:S4 -->
