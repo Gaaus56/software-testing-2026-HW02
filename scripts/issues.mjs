@@ -70,16 +70,18 @@ ${ENV}
 // Bug_Report.md tổng hợp (luôn gồm toàn bộ bug trong bugs.json)
 const rows = all.map((b) => {
   const link = issueMap[b.id] ? `[#${issueMap[b.id].split("/").pop()}](${issueMap[b.id]})` : "_(chưa tạo)_";
-  return `| [${b.id}](issues/${b.id}.md) | ${b.fr.replace("FR", "FR-")} | ${b.title} | ${b.tcs.join(", ")} | ${sev[b.severity]} | ${b.technique.join(", ")} | ${link} |`;
+  const shots = [`${b.id}.png`, `${b.id}-2.png`].filter((f) => existsSync(join(REPO, "bugs", "issue-screenshots", f)));
+  const shot = shots.map((f, i) => `[ảnh ${i + 1}](issue-screenshots/${f})`).join(", ") || "—";
+  return `| [${b.id}](issues/${b.id}.md) | ${b.fr.replace("FR", "FR-")} | ${b.title} | ${b.tcs.join(", ")} | ${sev[b.severity]} | ${b.technique.join(", ")} | ${link} | ${shot} |`;
 });
 const count = (k, v) => all.filter((b) => b[k] === v).length;
 const report = `# Bug Report — Trần Thanh An (${MSSV}) — HW02
 
 Tổng số bug: **${all.length}** (Critical ${count("severity", "critical")}, High ${count("severity", "high")}, Medium ${count("severity", "medium")}, Low ${count("severity", "low")}).
-Mỗi bug có một file chi tiết trong [\`issues/\`](issues/), đúng các ô của template Bug report trên repo nhóm. Ảnh chụp trang GitHub Issues lưu ở [\`issue-screenshots/\`](issue-screenshots/).
+Mỗi bug có một file chi tiết trong [\`issues/\`](issues/), đúng các ô của template Bug report trên repo nhóm. Ảnh chụp trang GitHub Issues lưu ở [\`issue-screenshots/\`](issue-screenshots/); danh sách issue: [issue-list.png](issue-screenshots/issue-list.png).
 
-| Bug ID | FR | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
-|---|---|---|---|---|---|---|
+| Bug ID | FR | Tiêu đề | Test case | Severity | Kỹ thuật | Issue | Ảnh issue |
+|---|---|---|---|---|---|---|---|
 ${rows.join("\n")}
 `;
 writeFileSync(join(REPO, "bugs", "Bug_Report.md"), report, "utf8");
