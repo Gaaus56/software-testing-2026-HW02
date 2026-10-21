@@ -9,6 +9,7 @@
     "fr16": "node fr16.mjs"
   },
   "dependencies": {
+    "markdown-it": "^14.1.0",
     "playwright-core": "1.48.2"
   }
 }
