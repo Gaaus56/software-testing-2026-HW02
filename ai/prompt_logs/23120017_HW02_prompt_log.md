@@ -530,3 +530,198 @@ Bạn muốn mình làm tiếp phần nào?
 ```text
 làm tiếp đến hết
 ```
+
+**Claude:**
+
+Phần còn lại trên máy đã xong. Repo có 50 commit và đã push lên `github.com/Gaaus56/software-testing-2026-HW02`. Prompt log đã xuất ra `ai/prompt_logs/` (bản trong `docs/AIgui/` cũng đã cập nhật), `git_log.txt` đã xuất, PDF đã làm mới.
+
+**Kết quả trên máy:** 118 test case. 97 ca đã chạy tự động trên Web/Admin: 55 Pass, 40 Fail, 2 ca khám phá. 21 ca Mobile chưa chạy. Tìm được 20 bug: 3 Critical, 6 High, 8 Medium, 3 Low.
+
+**Bạn phải tự làm trước khi nộp:**
+
+1. **Chạy test FR-06 trên điện thoại** (khoảng 30 phút). Làm theo mục 7 của `reports/D-FR06_Mobile_Product_Detail.md`: điền kết quả, chụp ảnh. Ca nào Fail thì báo bug giống các FR khác. Commit `[D-FR06][S6] …` và `[D-FR06][S7] Report bugs`.
+2. **Tạo 20 issue trên repo nhóm.** Mỗi bản nháp trong `bugs/issues/` đã có sẵn tiêu đề, label, nội dung từng ô và ảnh để kéo thả. Chụp màn hình từng issue, lưu vào `bugs/issue-screenshots/`. Điền dòng của bạn vào bảng phân công trong README của repo nhóm.
+3. **Tự đọc lại và xác nhận** các mục ⬜ trong `ai/AI_Audit_Report.md`. Kiểm tra severity của BUG-FR02-03: mình chọn High, nhưng theo cây quyết định của nhóm thì có thể là Critical, bạn quyết định.
+4. **Viết lại `ai/AI_Critique.md` bằng lời của bạn.** Bản hiện tại do AI viết, mà phần này là phản tư cá nhân.
+5. **Quay video demo Agent Skill.** Mở Claude Code trong repo, gọi `/domain-testing` trên một FR bất kỳ. Upload YouTube ở chế độ Unlisted, dán link vào `README.md` và `skills/README.md`.
+6. **Tự chấm điểm** vào bảng trong `README.md`.
+7. **Đóng gói và nộp:**
+   - Chạy `cd scripts && node export_pdf.mjs` để xuất lại PDF.
+   - Xuất lại `git_log.txt`.
+   - Chạy `.\scripts\make_zip.ps1 -Grade 0XX`.
+   - Nộp file zip lên Moodle.
+
+**Lưu ý:**
+- Audit Report có ghi thật là phần lớn bài do AI làm từ một prompt chung. Đề lại yêu cầu dẫn AI qua từng bước kỹ thuật, nên phần này có thể bị trừ điểm. Hãy giữ nguyên khai báo đó, đừng xóa.
+- Hãy đọc kỹ các report để vấn đáp được (30% sinh viên bị gọi).
+- Không chia sẻ prompt, log hay skill cho thành viên khác trong nhóm.
+- Backend EShop vẫn đang chạy nền ở cổng 3000. Muốn tắt thì dừng tiến trình `node server.js`.
+
+## Prompt 8 — 09:20 21/10/2026
+
+```text
+kiểm tra repo cá nhân clean chưa. Đọc lại file yêu cầu của thầy và đảm bảo có đủ tài liệu nộp:
+- bỏ qua phần nhóm
+- bỏ qua phần mobile
+- repo cá nhân phải đủ tài liệu để nộp
+- hướng dẫn hoàn thành các tài liệu cuối cùng
+- không quay video có bị 0 điểm không, tạm để vào bài là chưa quay
+```
+
+**Claude:**
+
+Giờ mình viết file hướng dẫn hoàn thiện các tài liệu cuối, rồi làm mới PDF và git log để repo luôn ở trạng thái nộp được.
+
+**Claude:**
+
+Repo cá nhân đã clean: không còn thay đổi chưa commit, đã push hết. Đối chiếu với mục 14 của đề (bỏ qua phần nhóm và mobile), repo đã có đủ các loại tài liệu, nhưng **4 chỗ còn phải do bạn làm**. Hướng dẫn chi tiết ở [14_Hoan_thien_tai_lieu_va_nop.md](docs/AIgui/14_Hoan_thien_tai_lieu_va_nop.md).
+
+| Tài liệu đề yêu cầu | Trạng thái |
+|---|---|
+| Report chính (MD + PDF), Domain + BVA | ✅ Đủ 4 file. FR-06 đã thiết kế nhưng chưa chạy test, đã ghi rõ trong bài |
+| Bug report | ✅ 20 bug. ⚠️ Còn thiếu **ảnh chụp trang GitHub Issues** |
+| AI Audit Report (MD + PDF) + prompt log | ⚠️ Còn các mục ⬜ chờ bạn xác nhận |
+| AI Critique (MD + PDF) | ⚠️ Đây là bản nháp do AI viết, bạn cần viết lại |
+| `git_log.txt` | ✅ |
+| README: bảng tự chấm + test summary + video | ⚠️ Cột tự chấm còn trống. Video đã ghi "Chưa quay video demo" |
+
+**Bạn cần làm tiếp:**
+1. Xác nhận các mục ⬜ trong `ai/AI_Audit_Report.md` (khoảng 15 phút).
+2. Viết lại `ai/AI_Critique.md` bằng lời của bạn, 200–300 từ, rồi xóa dòng "Bản nháp…".
+3. Điền điểm tự chấm vào `README.md`.
+4. Commit, rồi xuất lại PDF và `git_log.txt`. Chép bản prompt log mới nhất từ `docs/AIgui/` vào `ai/prompt_logs/`, vì bản trong repo còn thiếu 1 prompt cuối. Sau đó push và chạy `.\scripts\make_zip.ps1 -Grade 0XX` để tạo file nộp Moodle. Lệnh cụ thể có trong file hướng dẫn, mục 2.5–2.6.
+
+**Rủi ro lớn nhất khi bỏ qua phần nhóm:** đề yêu cầu "screenshots of the bugs on the GitHub Issues page", và cũng ghi "thiếu tài liệu bắt buộc thì 0 điểm". Nên ít nhất hãy tạo issue từ các bản nháp trong `bugs/issues/`, rồi chụp màn hình lưu vào `bugs/issue-screenshots/`.
+
+**Không quay video có bị 0 điểm không?** Đề chỉ *khuyến khích* làm Agent Skill, và skill có tiêu chí chấm riêng 10 điểm. Vì vậy cách hiểu hợp lý là thiếu video chỉ mất một phần hoặc toàn bộ 10 điểm đó, không làm cả bài bị 0. Tuy nhiên, mục 14 có nhắc "demo videos" trong nội dung README, nên vẫn còn chút rủi ro. Mình đã ghi rõ "Chưa quay" trong README và Audit. Bạn nên hỏi trợ giảng trên Moodle để chắc chắn.
+
+## Prompt 9 — 09:40 21/10/2026
+
+```text
+hướng dẫn chi tiết Ảnh chụp GitHub Issues
+```
+
+**Claude:**
+
+Để đỡ copy tay, mình đã tạo file [bugs/issue-urls.md](software-testing-2026-HW02/bugs/issue-urls.md) và commit lên repo cá nhân (chưa push). File có **20 link "Mở form"**, mỗi link mở form Bug report trên repo nhóm `angquoc/software-testing-2026-HW02-group` với tiêu đề và các ô chữ đã điền sẵn. Repo nhóm là private nên không chụp tự động được. Bạn tạo issue và chụp ảnh bằng tay theo các bước dưới.
+
+## 1. Chuẩn bị (2 phút)
+- Đăng nhập GitHub bằng tài khoản đã được add vào repo nhóm.
+- Mở `bugs/issue-urls.md`. Trong VS Code, bấm `Ctrl+Shift+V` để xem bản preview, link sẽ bấm được.
+- Mở thư mục `software-testing-2026-HW02/evidence/` trong File Explorer để kéo ảnh vào form.
+
+## 2. Tạo từng issue (khoảng 2 phút mỗi bug)
+1. Bấm **"Mở form"** ở dòng của bug. Form "Bug report" mở ra với tiêu đề `[23120017][FR-xx][…] …` và các ô chữ đã điền: MSSV, Feature, Test case, điều kiện, các bước, dữ liệu, mong đợi, thực tế, môi trường, ghi chú.
+2. Đọc lại nhanh nội dung cho khớp với bug.
+3. Chọn 2 dropdown theo cột tương ứng trong bảng:
+   - **Nền tảng:** Web / Web Admin.
+   - **Mức độ (Severity).**
+4. Ô **"Ảnh chụp"**: kéo thả các file ở cột cuối, ví dụ `evidence/FR09/FR09-EP-15.png`. Đợi GitHub tải ảnh lên xong, khi đó ô sẽ hiện chữ `![image](...)`.
+5. Bấm **Create**.
+6. Ở cột bên phải của issue vừa tạo:
+   - **Labels:** gắn đủ theo cột "Label cần có". Label `bug` đã tự có; thêm 1 `severity`, 1 `platform`, ít nhất 1 `technique`, 1 `pool`. Nếu link đã tự gắn label thì chỉ cần kiểm tra lại.
+   - **Assignees:** chọn chính mình.
+7. Copy URL của issue, ví dụ `https://github.com/angquoc/software-testing-2026-HW02-group/issues/12`.
+
+Trước khi tạo, tìm trong repo nhóm xem đã có issue nào trùng chưa. Nếu trùng thì ghi `Related #số` vào ô Ghi chú thay vì tạo mới.
+
+## 3. Chụp ảnh từng issue
+- Ở trang issue, bấm `Win + Shift + S` → chọn vùng gồm tiêu đề, phần nội dung có ảnh, và cột Labels/Assignees. Nếu trang dài, chụp 2 ảnh.
+- Lưu vào `software-testing-2026-HW02/bugs/issue-screenshots/`, đặt tên theo bug: `BUG-FR02-01.png` (ảnh thứ hai là `BUG-FR02-01_2.png`).
+- Sau khi tạo đủ 20 issue, chụp thêm trang danh sách issue lọc theo MSSV: trong ô tìm kiếm Issues gõ `is:issue 23120017`, rồi lưu thành `issue-list.png`.
+
+## 4. Ghi link vào repo cá nhân
+1. Tạo file `bugs/issue-links.json` với nội dung dạng:
+   ```json
+   {
+     "BUG-FR02-01": "https://github.com/angquoc/software-testing-2026-HW02-group/issues/12",
+     "BUG-FR02-02": "https://github.com/angquoc/software-testing-2026-HW02-group/issues/13"
+   }
+   ```
+   Thêm đủ 20 dòng.
+2. Cập nhật Bug_Report (cột Issue sẽ có link `#12`, …):
+   ```powershell
+   cd D:\codeStudy\test\Homeworks\HW02\software-testing-2026-HW02\scripts
+   node issues.mjs
+   ```
+3. Commit và push:
+   ```powershell
+   cd ..
+   git add bugs
+   git commit -m "[A-FR02][S7] Add GitHub issue links and screenshots"
+   git push
+   ```
+   Tag `[A-FR02][S7]` chỉ dùng tạm cho cả 20 bug. Nếu muốn đúng quy ước "mỗi commit một bước của một feature", commit riêng 3 lần cho FR-02, FR-09, FR-16, mỗi lần chỉ add file của feature đó.
+
+## 5. Kiểm tra cuối
+- [ ] 20 issue, mỗi issue có ảnh, đủ 4 nhóm label, có assignee.
+- [ ] `bugs/issue-screenshots/` có 20 ảnh + `issue-list.png`.
+- [ ] Cột Issue trong `bugs/Bug_Report.md` không còn "(chưa tạo)".
+- [ ] Xuất lại PDF và `git_log.txt` (file 14, mục 2.5) trước khi đóng zip.
+
+**Lưu ý:**
+- Nếu bấm link mà form không tự gắn label (bạn không có quyền triage trên repo nhóm), thì gắn label bằng tay ở bước 2.6. Nếu không thấy label nào, nhờ nhóm trưởng tạo, theo README nhóm mục 4.3.
+- Repo cá nhân hiện còn 3 file bạn đang sửa mà chưa commit: `README.md`, `ai/AI_Audit_Report.md`, `ai/AI_Critique.md`. Mình không động vào chúng.
+
+## Prompt 10 — 11:05 21/10/2026
+
+```text
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/90
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/91
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/92
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/93
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/94
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/95
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/96
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/97
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/98
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/99
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/100
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/10
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/10
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/10
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/10
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/10
+```
+
+## Prompt 11 — 11:21 21/10/2026
+
+```text
+Đã tạo và chụp ảnh từng issue, dưới đây là URL của lần lượt các issue. Giờ làm các bước ghi link cho tôi. Cuối cùng xuất lại pdf,.... Đảm bảo repo clean để tôi tự đóng gói và nộp:
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/90
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/91
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/92
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/93
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/94
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/95
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/96
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/97
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/98
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/99
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/100
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/101
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/102
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/103
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/104
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/105
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/106
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/107
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/108
+https://github.com/angquoc/software-testing-2026-HW02-group/issues/109
+```
+
+**Claude:**
+
+Thứ tự khớp: BUG-FR09-01 là #96, BUG-FR16-08 là #109. Mình xem nhanh 3 file bạn đã sửa để commit cho đúng nội dung.
+
+**Claude:**
+
+Phần bạn sửa ổn (điểm tự chấm 70, các mục ⬜ đã xác nhận). Mình commit phần đó trước, rồi ghi link issue và thêm cột ảnh vào Bug_Report.
+
+**Claude:**
+
+Mình gắn thêm cột Issue vào bảng bug (mục 8) của từng report. Sau đó commit theo từng feature với tag `[S7]`.
+
+**Claude:**
+
+Giờ mình cập nhật prompt log (cả bản trong `docs/AIgui` lẫn bản trong repo), xuất lại PDF và git log, rồi push.
