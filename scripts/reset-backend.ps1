@@ -1,4 +1,4 @@
-# Khởi động lại backend EShop. Backend tự xóa và seed lại DB mỗi lần khởi động,
+﻿# Khởi động lại backend EShop. Backend tự xóa và seed lại DB mỗi lần khởi động,
 # nên script này cũng là cách reset dữ liệu trước mỗi nhóm test case.
 # Giả định thư mục: HW02/eshop-sut (SUT) nằm cạnh HW02/software-testing-2026-HW02 (repo này).
 $ErrorActionPreference = "SilentlyContinue"
