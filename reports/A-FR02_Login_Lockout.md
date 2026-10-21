@@ -182,3 +182,27 @@ Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc 
 | EC-02-15 | O2 | Thông báo cho EC-02-02 so với EC-02-06 | — | — | Giống hệt nhau | R4, A6 |
 | EC-02-16 | O4 | Request cần xác thực sau đăng nhập | — | GET /api/orders/my-orders | Có `Authorization: Bearer` | R6 |
 | EC-02-17 | O5 | Thuộc tính form | — | DOM trang /login | type=email, type=password, `*`, nhãn tiếng Việt, lỗi trên nút | R7–R9 |
+
+## 4. Test case Domain Testing (S3)
+
+**Cách làm:**
+1. Mỗi lớp hợp lệ được phủ ít nhất 1 lần. Các lớp hợp lệ của nhiều biến được gộp vào cùng một TC (EP-01 phủ EC-02-01, 05, 09).
+2. Mỗi lớp không hợp lệ có **một TC riêng**, các biến khác để hợp lệ. Như vậy, nếu bị từ chối thì biết chắc là do lớp đó (tránh che lấp lỗi).
+3. Mỗi lớp output (O2, O4, O5) có TC kiểm tra trực tiếp.
+4. Chọn tầng test: các thuộc tính giao diện (R7–R9) test trên UI. Logic đếm và khóa test qua API cho chính xác, vì không phụ thuộc thao tác tay.
+5. Danh mục máy đọc được: [`testcases/FR02.json`](../testcases/FR02.json). Bảng dưới được sinh từ danh mục bằng `scripts/render.mjs`.
+
+<!-- TC:S3 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR02-EP-01 | UI | EC-02-01, EC-02-05, EC-02-09 | R1, R5, R6 | Backend vừa khởi động lại; chưa đăng nhập | test@eshop.com / Test1234! | Mở /login → nhập email, mật khẩu → bấm nút đăng nhập | Đăng nhập thành công, chuyển về trang chủ; JWT được lưu phía client |
+| FR02-EP-02 | API | EC-02-01, EC-02-06 | R2, R4 | Backend vừa khởi động lại | test@eshop.com / Wrong123! | POST /api/login | Từ chối (4xx), thông báo chung không nêu trường nào sai, không có token |
+| FR02-EP-03 | API | EC-02-02, EC-02-15 | R4 | Như EP-02 | khongtontai@eshop.com / Test1234! | POST /api/login, so với phản hồi của EP-02 | Từ chối; status và thông báo giống hệt EP-02 (không lộ email có tồn tại hay không) |
+| FR02-EP-04 | UI | EC-02-03 | R7 | Mở /login | Email: abc; Mật khẩu: Test1234! | Nhập dữ liệu → bấm đăng nhập; theo dõi Network | Trình duyệt chặn submit do ô email type="email" (không gửi POST /api/login) |
+| FR02-EP-05 | UI | EC-02-04, EC-02-07 | R1, FR-22 | Mở /login | Để trống cả hai ô | Bấm đăng nhập | Không gửi request; hiển thị yêu cầu nhập trường bắt buộc |
+| FR02-EP-06 | API | EC-02-08 | R2 | Backend vừa khởi động lại | test@eshop.com / test1234! (sai hoa/thường) | POST /api/login | Từ chối (mật khẩu phân biệt hoa/thường) |
+| FR02-EP-07 | API | EC-02-10, EC-02-11 | R3 | Backend vừa khởi động lại | 3 lần mật khẩu sai, rồi mật khẩu đúng ngay lập tức | 3 × POST /api/login sai → POST /api/login đúng | Lần đăng nhập đúng bị từ chối vì tài khoản đang bị khóa |
+| FR02-EP-08 | UI | EC-02-16 | R6 | Đã đăng nhập ở EP-01 | — | Bấm vào tên người dùng (trang Profile) → bắt request GET /api/orders/my-orders | Request mang header Authorization: Bearer <JWT> |
+| FR02-EP-09 | UI | EC-02-17 | R7, R8, R9 | Mở /login | — | Kiểm tra DOM: type của 2 ô nhập, nhãn, tiêu đề form, nhãn nút | Ô email type="email", ô mật khẩu type="password", nhãn trường bắt buộc có *, nhãn/tiêu đề tiếng Việt đúng ngữ cảnh đăng nhập |
+| FR02-EP-10 | UI | EC-02-10, EC-02-17 | R3, R8, R9 | Backend vừa khởi động lại; test@ đã sai 3 lần | test@eshop.com / Test1234! | Đăng nhập qua UI khi tài khoản đang khóa | UI hiện thông báo phù hợp cho biết tài khoản tạm khóa (tiếng Việt); thông báo lỗi nằm trên nút submit |
+<!-- /TC:S3 -->

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "FR02-EP-01",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-01, EC-02-05, EC-02-09",
+    "rule": "R1, R5, R6",
+    "pre": "Backend vừa khởi động lại; chưa đăng nhập",
+    "data": "test@eshop.com / Test1234!",
+    "steps": "Mở /login → nhập email, mật khẩu → bấm nút đăng nhập",
+    "expected": "Đăng nhập thành công, chuyển về trang chủ; JWT được lưu phía client"
+  },
+  {
+    "id": "FR02-EP-02",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-01, EC-02-06",
+    "rule": "R2, R4",
+    "pre": "Backend vừa khởi động lại",
+    "data": "test@eshop.com / Wrong123!",
+    "steps": "POST /api/login",
+    "expected": "Từ chối (4xx), thông báo chung không nêu trường nào sai, không có token"
+  },
+  {
+    "id": "FR02-EP-03",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-02, EC-02-15",
+    "rule": "R4",
+    "pre": "Như EP-02",
+    "data": "khongtontai@eshop.com / Test1234!",
+    "steps": "POST /api/login, so với phản hồi của EP-02",
+    "expected": "Từ chối; status và thông báo giống hệt EP-02 (không lộ email có tồn tại hay không)"
+  },
+  {
+    "id": "FR02-EP-04",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-03",
+    "rule": "R7",
+    "pre": "Mở /login",
+    "data": "Email: abc; Mật khẩu: Test1234!",
+    "steps": "Nhập dữ liệu → bấm đăng nhập; theo dõi Network",
+    "expected": "Trình duyệt chặn submit do ô email type=\"email\" (không gửi POST /api/login)"
+  },
+  {
+    "id": "FR02-EP-05",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-04, EC-02-07",
+    "rule": "R1, FR-22",
+    "pre": "Mở /login",
+    "data": "Để trống cả hai ô",
+    "steps": "Bấm đăng nhập",
+    "expected": "Không gửi request; hiển thị yêu cầu nhập trường bắt buộc"
+  },
+  {
+    "id": "FR02-EP-06",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-08",
+    "rule": "R2",
+    "pre": "Backend vừa khởi động lại",
+    "data": "test@eshop.com / test1234! (sai hoa/thường)",
+    "steps": "POST /api/login",
+    "expected": "Từ chối (mật khẩu phân biệt hoa/thường)"
+  },
+  {
+    "id": "FR02-EP-07",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "API",
+    "covers": "EC-02-10, EC-02-11",
+    "rule": "R3",
+    "pre": "Backend vừa khởi động lại",
+    "data": "3 lần mật khẩu sai, rồi mật khẩu đúng ngay lập tức",
+    "steps": "3 × POST /api/login sai → POST /api/login đúng",
+    "expected": "Lần đăng nhập đúng bị từ chối vì tài khoản đang bị khóa"
+  },
+  {
+    "id": "FR02-EP-08",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-16",
+    "rule": "R6",
+    "pre": "Đã đăng nhập ở EP-01",
+    "data": "—",
+    "steps": "Bấm vào tên người dùng (trang Profile) → bắt request GET /api/orders/my-orders",
+    "expected": "Request mang header Authorization: Bearer <JWT>"
+  },
+  {
+    "id": "FR02-EP-09",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-17",
+    "rule": "R7, R8, R9",
+    "pre": "Mở /login",
+    "data": "—",
+    "steps": "Kiểm tra DOM: type của 2 ô nhập, nhãn, tiêu đề form, nhãn nút",
+    "expected": "Ô email type=\"email\", ô mật khẩu type=\"password\", nhãn trường bắt buộc có *, nhãn/tiêu đề tiếng Việt đúng ngữ cảnh đăng nhập"
+  },
+  {
+    "id": "FR02-EP-10",
+    "step": "S3",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-02-10, EC-02-17",
+    "rule": "R3, R8, R9",
+    "pre": "Backend vừa khởi động lại; test@ đã sai 3 lần",
+    "data": "test@eshop.com / Test1234!",
+    "steps": "Đăng nhập qua UI khi tài khoản đang khóa",
+    "expected": "UI hiện thông báo phù hợp cho biết tài khoản tạm khóa (tiếng Việt); thông báo lỗi nằm trên nút submit"
+  }
+]
