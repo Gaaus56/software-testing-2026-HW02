@@ -293,3 +293,58 @@ Mỗi phát hiện được đánh giá theo mẫu AI-02: VALID (giữ nguyên) 
 - Có 3 lỗ hổng độ phủ (RV1–RV3) và 1 nghi vấn (RV7), nên bổ sung 6 TC: 4 EP và 2 TC khám phá.
 
 Bộ cuối có **23 TC** (EP 14, BVA 9).
+
+## 7. Kết quả thực thi (S6)
+
+**Môi trường:**
+
+| Thành phần | Giá trị |
+|---|---|
+| SUT | `ttbhanh/eshop-sut` commit `85af3ba` — backend `:3000`, Web `:5173`, Admin `:5174` |
+| OS / trình duyệt | Windows 11 Home; Microsoft Edge 155.0.4283.62 |
+| Công cụ | Node v22.23.2 (`fetch`), Playwright-core 1.48.2 điều khiển Edge (headless) |
+| Ngày chạy | 21/10/2026 |
+
+**Cách thực thi:**
+- Test case được chạy tự động bằng [`scripts/fr02.mjs`](../scripts/fr02.mjs). Ở mỗi TC, script làm đúng các bước trong bảng, so kết quả với "Kết quả mong đợi", rồi ghi vào [`scripts/results/FR02.json`](../scripts/results/FR02.json).
+- Trước mỗi nhóm TC, script khởi động lại backend để DB được seed lại từ đầu.
+- Ảnh minh chứng nằm trong `evidence/FR02/`:
+  - TC trên UI: ảnh chụp màn hình Edge.
+  - TC trên API: ảnh chụp request/response.
+- Chạy lại: `cd scripts && npm install && node fr02.mjs`. Web/Admin phải đang chạy.
+
+<!-- SUMMARY -->
+| Loại | Thiết kế | Đã chạy | Pass | Fail | Blocked / Khám phá | Chưa chạy |
+|---|---|---|---|---|---|---|
+| Domain (EP) | 14 | 14 | 10 | 4 | 0 | 0 |
+| BVA | 9 | 9 | 4 | 3 | 2 | 0 |
+| **Tổng** | 23 | 23 | 14 | 7 | 2 | 0 |
+<!-- /SUMMARY -->
+
+<!-- RESULTS -->
+| ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
+|---|---|---|---|---|---|
+| FR02-EP-01 | EP | Chuyển về http://localhost:5173/; localStorage.token có JWT | **Pass** | [ảnh](../evidence/FR02/FR02-EP-01.png) |  |
+| FR02-EP-02 | EP | 401 {"error":"Invalid email or password"} | **Pass** | [ảnh](../evidence/FR02/FR02-EP-02.png) |  |
+| FR02-EP-03 | EP | 401 {"error":"Invalid email or password"} (so với mật khẩu sai: 401 {"error":"Invalid email or password"}) | **Pass** | [ảnh](../evidence/FR02/FR02-EP-03.png) |  |
+| FR02-EP-04 | EP | Form vẫn gửi POST /api/login với email "abc" (không có validate HTML5) | **Fail** | [ảnh](../evidence/FR02/FR02-EP-04.png) |  |
+| FR02-EP-05 | EP | Không gửi request; validationMessage: "Please fill out this field." | **Pass** | [ảnh](../evidence/FR02/FR02-EP-05.png) |  |
+| FR02-EP-06 | EP | 401 {"error":"Invalid email or password"} | **Pass** |  |  |
+| FR02-EP-07 | EP | 403 {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."} | **Pass** |  |  |
+| FR02-EP-08 | EP | GET /api/orders/my-orders có header Authorization: Bearer eyJhbGciOiJIU… | **Pass** | [ảnh](../evidence/FR02/FR02-EP-08.png) |  |
+| FR02-EP-09 | EP | type ô 1="text", ô 2="text"; nhãn: Username \| Mật khẩu; tiêu đề form "Đăng Ký"; nút "Sign In" | **Fail** | [ảnh](../evidence/FR02/FR02-EP-09.png) |  |
+| FR02-EP-10 | EP | UI hiện "Đăng nhập thất bại. Vui lòng kiểm tra lại." (API trả 403 "Tài khoản đã bị khóa…"); thông báo nằm dưới nút submit | **Fail** | [ảnh](../evidence/FR02/FR02-EP-10.png) |  |
+| FR02-BVA-01 | BVA | 2 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-01.png) |  |
+| FR02-BVA-02 | BVA | 3 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-02.png) |  |
+| FR02-BVA-03 | BVA | 4 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-03.png) |  |
+| FR02-BVA-04 | BVA | 401, 401, 403 — lần 3: {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."} | **Pass** |  |  |
+| FR02-BVA-05 | BVA | Sau 29.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-05.png) |  |
+| FR02-BVA-06 | BVA | Sau 30.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-06.png) |  |
+| FR02-BVA-07 | BVA | Sau 31.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-07.png) |  |
+| FR02-EP-11 | EP | 2 sai → đúng (403) → 2 sai → đúng (403 Tài khoản đã bị khóa. Vui lòng thử lại sau.) | **Fail** |  |  |
+| FR02-EP-12 | EP | test@ bị khóa; admin@ đăng nhập: 200 Login successful | **Pass** |  |  |
+| FR02-EP-13 | EP | 401 {"error":"Invalid email or password"} | **Pass** |  |  |
+| FR02-EP-14 | EP | Sau khi mở khóa: 1 lần sai → 401; đăng nhập đúng → 200 | **Pass** |  |  |
+| FR02-BVA-08a | BVA | Khám phá: sau 175.0s → 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  |  |
+| FR02-BVA-08b | BVA | Khám phá: sau 185.0s → 200 Login successful _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  |  |
+<!-- /RESULTS -->

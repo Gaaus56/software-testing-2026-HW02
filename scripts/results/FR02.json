@@ -1,0 +1,186 @@
+[
+  {
+    "id": "FR02-EP-01",
+    "status": "Pass",
+    "actual": "Chuyển về http://localhost:5173/; localStorage.token có JWT",
+    "evidence": "evidence/FR02/FR02-EP-01.png",
+    "note": "",
+    "time": "2026-10-21T01:30:02.388Z"
+  },
+  {
+    "id": "FR02-EP-08",
+    "status": "Pass",
+    "actual": "GET /api/orders/my-orders có header Authorization: Bearer eyJhbGciOiJIU…",
+    "evidence": "evidence/FR02/FR02-EP-08.png",
+    "note": "",
+    "time": "2026-10-21T01:30:02.965Z"
+  },
+  {
+    "id": "FR02-EP-09",
+    "status": "Fail",
+    "actual": "type ô 1=\"text\", ô 2=\"text\"; nhãn: Username | Mật khẩu; tiêu đề form \"Đăng Ký\"; nút \"Sign In\"",
+    "evidence": "evidence/FR02/FR02-EP-09.png",
+    "note": "",
+    "time": "2026-10-21T01:30:03.061Z"
+  },
+  {
+    "id": "FR02-EP-04",
+    "status": "Fail",
+    "actual": "Form vẫn gửi POST /api/login với email \"abc\" (không có validate HTML5)",
+    "evidence": "evidence/FR02/FR02-EP-04.png",
+    "note": "",
+    "time": "2026-10-21T01:30:04.184Z"
+  },
+  {
+    "id": "FR02-EP-05",
+    "status": "Pass",
+    "actual": "Không gửi request; validationMessage: \"Please fill out this field.\"",
+    "evidence": "evidence/FR02/FR02-EP-05.png",
+    "note": "",
+    "time": "2026-10-21T01:30:05.118Z"
+  },
+  {
+    "id": "FR02-EP-10",
+    "status": "Fail",
+    "actual": "UI hiện \"Đăng nhập thất bại. Vui lòng kiểm tra lại.\" (API trả 403 \"Tài khoản đã bị khóa…\"); thông báo nằm dưới nút submit",
+    "evidence": "evidence/FR02/FR02-EP-10.png",
+    "note": "",
+    "time": "2026-10-21T01:30:08.309Z"
+  },
+  {
+    "id": "FR02-EP-02",
+    "status": "Pass",
+    "actual": "401 {\"error\":\"Invalid email or password\"}",
+    "evidence": "evidence/FR02/FR02-EP-02.png",
+    "note": "",
+    "time": "2026-10-21T01:30:10.240Z"
+  },
+  {
+    "id": "FR02-EP-03",
+    "status": "Pass",
+    "actual": "401 {\"error\":\"Invalid email or password\"} (so với mật khẩu sai: 401 {\"error\":\"Invalid email or password\"})",
+    "evidence": "evidence/FR02/FR02-EP-03.png",
+    "note": "",
+    "time": "2026-10-21T01:30:10.294Z"
+  },
+  {
+    "id": "FR02-EP-06",
+    "status": "Pass",
+    "actual": "401 {\"error\":\"Invalid email or password\"}",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:12.144Z"
+  },
+  {
+    "id": "FR02-BVA-04",
+    "status": "Pass",
+    "actual": "401, 401, 403 — lần 3: {\"error\":\"Tài khoản đã bị khóa. Vui lòng thử lại sau.\"}",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:13.660Z"
+  },
+  {
+    "id": "FR02-BVA-01",
+    "status": "Fail",
+    "actual": "2 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-01.png",
+    "note": "",
+    "time": "2026-10-21T01:30:15.552Z"
+  },
+  {
+    "id": "FR02-BVA-02",
+    "status": "Pass",
+    "actual": "3 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-02.png",
+    "note": "",
+    "time": "2026-10-21T01:30:17.412Z"
+  },
+  {
+    "id": "FR02-BVA-03",
+    "status": "Pass",
+    "actual": "4 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-03.png",
+    "note": "",
+    "time": "2026-10-21T01:30:19.412Z"
+  },
+  {
+    "id": "FR02-EP-07",
+    "status": "Pass",
+    "actual": "403 {\"error\":\"Tài khoản đã bị khóa. Vui lòng thử lại sau.\"}",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:21.389Z"
+  },
+  {
+    "id": "FR02-EP-11",
+    "status": "Fail",
+    "actual": "2 sai → đúng (403) → 2 sai → đúng (403 Tài khoản đã bị khóa. Vui lòng thử lại sau.)",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:23.421Z"
+  },
+  {
+    "id": "FR02-EP-12",
+    "status": "Pass",
+    "actual": "test@ bị khóa; admin@ đăng nhập: 200 Login successful",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:25.286Z"
+  },
+  {
+    "id": "FR02-EP-13",
+    "status": "Pass",
+    "actual": "401 {\"error\":\"Invalid email or password\"}",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:30:25.300Z"
+  },
+  {
+    "id": "FR02-BVA-05",
+    "status": "Pass",
+    "actual": "Sau 29.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-05.png",
+    "note": "",
+    "time": "2026-10-21T01:30:56.229Z"
+  },
+  {
+    "id": "FR02-BVA-06",
+    "status": "Fail",
+    "actual": "Sau 30.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-06.png",
+    "note": "",
+    "time": "2026-10-21T01:31:28.125Z"
+  },
+  {
+    "id": "FR02-BVA-07",
+    "status": "Fail",
+    "actual": "Sau 31.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "evidence/FR02/FR02-BVA-07.png",
+    "note": "",
+    "time": "2026-10-21T01:32:00.995Z"
+  },
+  {
+    "id": "FR02-BVA-08a",
+    "status": "Blocked",
+    "actual": "Khám phá: sau 175.0s → 403 Tài khoản đã bị khóa. Vui lòng thử lại sau.",
+    "evidence": "",
+    "note": "Đo thời gian khóa thực tế, không có kết quả mong đợi riêng",
+    "time": "2026-10-21T01:34:57.725Z"
+  },
+  {
+    "id": "FR02-BVA-08b",
+    "status": "Blocked",
+    "actual": "Khám phá: sau 185.0s → 200 Login successful",
+    "evidence": "",
+    "note": "Đo thời gian khóa thực tế, không có kết quả mong đợi riêng",
+    "time": "2026-10-21T01:38:04.199Z"
+  },
+  {
+    "id": "FR02-EP-14",
+    "status": "Pass",
+    "actual": "Sau khi mở khóa: 1 lần sai → 401; đăng nhập đúng → 200",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:41:06.061Z"
+  }
+]
