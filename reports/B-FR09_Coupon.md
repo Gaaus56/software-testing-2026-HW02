@@ -435,16 +435,16 @@ Bộ cuối có **37 TC** (EP 19, BVA 18).
 
 ## 8. Bug (S7)
 
-Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md). Issue trên repo nhóm có ảnh chụp ở [`bugs/issue-screenshots/`](../bugs/issue-screenshots/).
 
-| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
-|---|---|---|---|---|
-| [BUG-FR09-01](../bugs/issues/BUG-FR09-01.md) | Mã percent (SAVE10) tính sai: tiền giảm âm, thành tiền gấp 10 lần tổng đơn | FR09-EP-01, FR09-EP-15, FR09-BVA-03 | High | EP, BVA |
-| [BUG-FR09-02](../bugs/issues/BUG-FR09-02.md) | Mã bị từ chối khi tổng đơn đúng bằng ngưỡng tối thiểu (dùng > thay cho >=) | FR09-BVA-02, FR09-BVA-05, FR09-BVA-08 | Medium | BVA |
-| [BUG-FR09-03](../bugs/issues/BUG-FR09-03.md) | API áp mã giảm giá không yêu cầu đăng nhập (không token / token sai vẫn áp dụng được) | FR09-EP-12, FR09-EP-13 | Critical | EP |
-| [BUG-FR09-04](../bugs/issues/BUG-FR09-04.md) | Giới hạn số lần dùng mã bị vượt qua bằng cách đổi user_id trong request | FR09-EP-16 | Critical | EP |
-| [BUG-FR09-05](../bugs/issues/BUG-FR09-05.md) | Điều kiện ngưỡng đơn hàng dựa trên total_amount do client gửi, không theo giỏ hàng thật | FR09-EP-17 | High | EP |
-| [BUG-FR09-06](../bugs/issues/BUG-FR09-06.md) | Thành tiền bị âm khi mã fixed lớn hơn tổng đơn | FR09-BVA-16 | Medium | BVA |
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
+|---|---|---|---|---|---|
+| [BUG-FR09-01](../bugs/issues/BUG-FR09-01.md) | Mã percent (SAVE10) tính sai: tiền giảm âm, thành tiền gấp 10 lần tổng đơn | FR09-EP-01, FR09-EP-15, FR09-BVA-03 | High | EP, BVA | [#96](https://github.com/angquoc/software-testing-2026-HW02-group/issues/96) |
+| [BUG-FR09-02](../bugs/issues/BUG-FR09-02.md) | Mã bị từ chối khi tổng đơn đúng bằng ngưỡng tối thiểu (dùng > thay cho >=) | FR09-BVA-02, FR09-BVA-05, FR09-BVA-08 | Medium | BVA | [#97](https://github.com/angquoc/software-testing-2026-HW02-group/issues/97) |
+| [BUG-FR09-03](../bugs/issues/BUG-FR09-03.md) | API áp mã giảm giá không yêu cầu đăng nhập (không token / token sai vẫn áp dụng được) | FR09-EP-12, FR09-EP-13 | Critical | EP | [#98](https://github.com/angquoc/software-testing-2026-HW02-group/issues/98) |
+| [BUG-FR09-04](../bugs/issues/BUG-FR09-04.md) | Giới hạn số lần dùng mã bị vượt qua bằng cách đổi user_id trong request | FR09-EP-16 | Critical | EP | [#99](https://github.com/angquoc/software-testing-2026-HW02-group/issues/99) |
+| [BUG-FR09-05](../bugs/issues/BUG-FR09-05.md) | Điều kiện ngưỡng đơn hàng dựa trên total_amount do client gửi, không theo giỏ hàng thật | FR09-EP-17 | High | EP | [#100](https://github.com/angquoc/software-testing-2026-HW02-group/issues/100) |
+| [BUG-FR09-06](../bugs/issues/BUG-FR09-06.md) | Thành tiền bị âm khi mã fixed lớn hơn tổng đơn | FR09-BVA-16 | Medium | BVA | [#101](https://github.com/angquoc/software-testing-2026-HW02-group/issues/101) |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
 
