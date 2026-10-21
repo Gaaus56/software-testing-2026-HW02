@@ -135,3 +135,23 @@ Cách làm: mở `http://localhost:5173/login` bằng Edge (DevTools: Elements, 
 
 - **Trong phạm vi:** form đăng nhập Web, `POST /api/login`, bộ đếm và khóa tài khoản, lưu/gửi token, yêu cầu form FR-22 và FR-21 trên trang đăng nhập.
 - **Ngoài phạm vi:** đăng ký (FR-01, Ngọc), quên mật khẩu (FR-03, Hương), đăng nhập trên Mobile, Web Admin login (chỉ dùng tài khoản admin ở EP-12), lưu mật khẩu plaintext (SEC-01, không kiểm chứng được qua hộp đen).
+
+## 2. Biến input / output (S1)
+
+**Cách làm:** đi qua từng quy tắc R1–R9 và từng quan sát U1–U8, hỏi "giá trị nào thay đổi thì kết quả thay đổi?". Ngoài 2 ô nhập, kết quả còn phụ thuộc vào **trạng thái ẩn**: số lần sai trước đó và thời gian kể từ khi bị khóa. Đây là 2 biến quan trọng nhất cho BVA. Biến output gồm cả thông tin hiển thị (thông báo) lẫn trạng thái (token, khóa).
+
+| ID | Biến | Loại | Kiểu | Miền theo đặc tả | Chiều biến đổi | Nguồn |
+|---|---|---|---|---|---|---|
+| V1 | Email | Input trực tiếp | Chuỗi | Định dạng `user@domain.com`, đã đăng ký | định dạng, tồn tại, rỗng | R1, R7 |
+| V2 | Mật khẩu | Input trực tiếp | Chuỗi | Khớp mật khẩu tài khoản | đúng/sai, hoa/thường, rỗng | R1 |
+| V3 | Số lần sai liên tiếp trước lần thử | Gián tiếp (trạng thái) | Số nguyên ≥ 0 | 0–2: chưa khóa; ≥ 3: khóa | giá trị | R2, R3 |
+| V4 | Thời gian t kể từ lần sai thứ 3 | Gián tiếp (thời gian) | Giây | t < 30: khóa; t ≥ 30: mở | giá trị | R3 |
+| V5 | Lịch sử ngay trước (thành công / hết khóa) | Gián tiếp | Sự kiện | Reset bộ đếm (A2, A7) | có/không | R3 |
+| V6 | Tài khoản khác | Gián tiếp | — | Không bị ảnh hưởng (A3) | — | R3 |
+| O1 | Kết quả đăng nhập | Output | status + token | 200 + JWT / 4xx | — | R5 |
+| O2 | Thông báo lỗi | Output | Chuỗi | Phù hợp, tiếng Việt, không lộ nguyên nhân | nội dung, vị trí | R4, R8, R9 |
+| O3 | Trạng thái khóa / bộ đếm | Output (trạng thái) | — | Tăng đúng 1 mỗi lần sai | — | R2 |
+| O4 | Token phía client | Output | Chuỗi | Lưu và gửi qua `Authorization: Bearer` | — | R6 |
+| O5 | Thuộc tính form | Output (tĩnh) | DOM | `type`, `*`, nhãn | — | R7–R9 |
+
+Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc tả lẫn giao diện).
