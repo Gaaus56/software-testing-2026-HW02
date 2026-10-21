@@ -403,3 +403,18 @@ Tìm được **8 bug**. Mỗi bug có bản nháp issue đúng template "Bug re
 | [BUG-FR16-08](../bugs/issues/BUG-FR16-08.md) | Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255) | FR16-BVA-09 | Low | BVA |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
+
+## 9. Phân tích phần AI bỏ sót (S8)
+
+| # | AI bỏ sót / làm sai | Phát hiện ở | Dẫn tới bug? | Nguyên nhân | Giải thích |
+|---|---|---|---|---|---|
+| G1 | 7 lớp có trong bảng lớp nhưng không có TC (nháy kép escape, BOM, CRLF, tên toàn khoảng trắng, danh mục không tồn tại, đổi thứ tự header, tên chứa HTML) | S5 (RV1) | **BUG-FR16-07**; bằng chứng bổ sung cho BUG-FR16-01, 03, 05 | Prompt | Giống FR-02 và FR-09: không yêu cầu ma trận truy vết thì AI sinh TC cho các lớp "điển hình" trước |
+| G2 | Oracle của EP-03, EP-05 chỉ là "không thêm SP" → kết quả sai sẽ thành **Pass giả** | S6, lần chạy đầu ra Pass; khi review kết quả mới phát hiện báo sai lý do | Đưa EP-03 vào BUG-FR16-04, EP-05 vào BUG-FR16-05 | Giới hạn tool | AI coi "dữ liệu không đổi" là đủ để kết luận "đã từ chối đúng". Phải yêu cầu oracle có cả **lý do** từ chối |
+| G3 | Đề xuất TC "file 10 MB" | S5 (RV5) | — | Giới hạn tool | Kiểm thử hiệu năng, không có oracle trong đặc tả |
+| G4 | Dữ liệu test dùng tên **không dấu** (ASCII) | S8 (rà lại dữ liệu) | Chưa kiểm | Prompt | Khi sinh file, AI chọn ASCII cho chắc encoding, nên chưa kiểm được tên tiếng Việt có dấu (UTF-8). Đề xuất bổ sung: `Bàn phím cơ`, `Tai nghe "Pro", bản 2` |
+| G5 | Chưa có TC cho trường bọc nháy chứa **xuống dòng** (RFC 4180 cho phép) | S8 | Chưa kiểm | Độ phức tạp | RFC 4180 có nhiều trường hợp; AI chỉ xét dấu phẩy là ví dụ mà đặc tả nêu |
+
+**Số liệu:**
+- Bản nháp có 31 TC: VALID 28 (90 %), INCOMPLETE 2, INVALID 1. Bổ sung 8 TC.
+- Có 8 bug. 1 bug chỉ do TC bổ sung phát hiện (BUG-FR16-07).
+- Thêm 2 kết luận Pass giả đã được sửa thành Fail nhờ siết oracle (G2).
