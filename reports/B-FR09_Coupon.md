@@ -447,3 +447,26 @@ Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug re
 | [BUG-FR09-06](../bugs/issues/BUG-FR09-06.md) | Thành tiền bị âm khi mã fixed lớn hơn tổng đơn | FR09-BVA-16 | Medium | BVA |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
+
+## 9. Phân tích phần AI bỏ sót (S8)
+
+| # | AI bỏ sót / làm sai | Phát hiện ở | Dẫn tới bug? | Nguyên nhân | Giải thích |
+|---|---|---|---|---|---|
+| G1 | Đã **quan sát** ở S0 (U3) rằng client gửi `user_id` và `total_amount`, đã đưa vào bảng lớp (EC-09-20, 22), nhưng không sinh TC | S5 (RV1) | **BUG-FR09-04 (Critical)**, **BUG-FR09-05 (High)** | Prompt + giới hạn tool | Prompt S3 chỉ yêu cầu "phủ 5 điều kiện C1–C5", nên AI bám đúng danh sách trong đặc tả và bỏ qua các biến chỉ thấy ở tầng API. Hai bug nghiêm trọng nhất chỉ được tìm ra nhờ TC bổ sung |
+| G2 | Không có TC cho **miền output** (final âm khi fixed > total) | S5 (RV2) | **BUG-FR09-06** | Giới hạn tool | AI có xu hướng chỉ chia miền input; domain testing theo output phải được yêu cầu rõ |
+| G3 | Chưa kiểm C5 tính lượt khi nào (A4) | S5 (RV3) | Không (EP-19, EP-20 Pass) | Độ phức tạp | Quy tắc phụ thuộc thời điểm, ở 2 API khác nhau |
+| G4 | TC nháp EP-18 (khách áp mã trên UI) không thực hiện được | S5 (RV4) | — | Giới hạn tool | AI thiết kế TC khi chưa biết luồng UI thật (giỏ chặn khách); bị loại sau khi đối chiếu với khám phá |
+| G5 | Kết quả mong đợi BVA-03 bỏ phần lẻ 0,1 ₫ | S5 (RV5) | Không | Giới hạn tool | Lỗi tính toán số học nhỏ của AI |
+| G6 | EP-05 ban đầu giả định Admin tắt được mã | S5 (RV6) | — | Prompt | Khi thiết kế, AI không được đưa kết quả khám phá U6 vào ngữ cảnh |
+
+**Chưa phủ, và lý do:**
+- Hai tab cùng dùng 1 mã cùng lúc (race condition): ngoài Domain/BVA.
+- Áp nhiều mã cùng lúc: đặc tả không nói.
+- Biên ngày theo múi giờ / thời điểm nửa đêm: cần đổi giờ hệ thống, chưa làm.
+- Mã `percent` 100 % hoặc trên 100 %: thuộc FR-17 (validate khi tạo mã).
+
+**Số liệu:**
+- Bản nháp có 31 TC: VALID 28 (90 %), INCOMPLETE 2 (6 %), INVALID 1 (3 %). Bổ sung 7 TC.
+- Có 6 bug. Trong đó **3 bug chỉ do TC bổ sung ở S5 phát hiện**, gồm 2 bug nặng nhất (BUG-FR09-04, BUG-FR09-05) và BUG-FR09-06.
+
+> Bài học: tỷ lệ "VALID" cao không có nghĩa là bản nháp của AI đủ. Các TC AI sinh ra đúng, nhưng AI bỏ qua những lớp quan trọng nhất về rủi ro.
