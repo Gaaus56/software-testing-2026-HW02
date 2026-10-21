@@ -206,3 +206,33 @@ Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc 
 | FR02-EP-09 | UI | EC-02-17 | R7, R8, R9 | Mở /login | — | Kiểm tra DOM: type của 2 ô nhập, nhãn, tiêu đề form, nhãn nút | Ô email type="email", ô mật khẩu type="password", nhãn trường bắt buộc có *, nhãn/tiêu đề tiếng Việt đúng ngữ cảnh đăng nhập |
 | FR02-EP-10 | UI | EC-02-10, EC-02-17 | R3, R8, R9 | Backend vừa khởi động lại; test@ đã sai 3 lần | test@eshop.com / Test1234! | Đăng nhập qua UI khi tài khoản đang khóa | UI hiện thông báo phù hợp cho biết tài khoản tạm khóa (tiếng Việt); thông báo lỗi nằm trên nút submit |
 <!-- /TC:S3 -->
+
+## 5. Phân tích giá trị biên và test case BVA (S4)
+
+**Cách làm:**
+1. Lấy các ranh giới giữa các lớp có thứ tự ở mục 3: V3 (số lần sai, giữa EC-02-09 và EC-02-10) và V4 (thời gian khóa, giữa EC-02-11 và EC-02-12).
+2. Xác định bước nhỏ nhất: V3 là 1 lần. V4 là 1 giây; script đo thời gian thực tế bằng đồng hồ máy, sai số khoảng ±0,5 s.
+3. Dùng **BVA 3 giá trị** (biên − 1, biên, biên + 1), giống quy ước trong sheet của nhóm (7/8/9).
+4. Thêm một biên ở output: bộ đếm phải tăng đúng 1 (R2), kiểm bằng chuỗi status của từng lần sai.
+
+| Biên | Biến | Bước | Giá trị test | Lớp | Kết quả mong đợi | TC |
+|---|---|---|---|---|---|---|
+| n = 3 (khóa) | V3 | 1 lần | 2 | EC-02-09 | Chưa khóa | FR02-BVA-01 |
+| | | | 3 | EC-02-10 | Khóa | FR02-BVA-02 |
+| | | | 4 | EC-02-10 | Khóa | FR02-BVA-03 |
+| Bộ đếm +1 | O3 | 1 lần | lần 1, 2, 3 | — | 401, 401, khóa | FR02-BVA-04 |
+| t = 30 s | V4 | 1 s | 29 s | EC-02-11 | Khóa | FR02-BVA-05 |
+| | | | 30 s | EC-02-12 | Mở | FR02-BVA-06 |
+| | | | 31 s | EC-02-12 | Mở | FR02-BVA-07 |
+
+<!-- TC:S4 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR02-BVA-01 | API | EC-02-09 (biên trên: 2) | R3 | Backend vừa khởi động lại | n = 2 lần sai | 2 × đăng nhập sai → đăng nhập đúng | Đăng nhập thành công (chưa khóa) |
+| FR02-BVA-02 | API | EC-02-10 (biên dưới: 3) | R3 | Backend vừa khởi động lại | n = 3 lần sai | 3 × đăng nhập sai → đăng nhập đúng | Bị từ chối vì khóa |
+| FR02-BVA-03 | API | EC-02-10 (3 + 1) | R3 | Backend vừa khởi động lại | n = 4 lần sai | 4 × đăng nhập sai → đăng nhập đúng | Bị từ chối vì khóa |
+| FR02-BVA-04 | API | O3 bộ đếm | R2 | Backend vừa khởi động lại | 3 lần sai liên tiếp | Ghi status từng lần | Lần 1, 2: từ chối thường (401); lần 3: chuyển sang khóa — bộ đếm tăng đúng 1 mỗi lần |
+| FR02-BVA-05 | API | EC-02-11 (biên: 29 s) | R3 | Backend vừa khởi động lại; 3 lần sai | t = 29 s kể từ lần sai thứ 3 | Chờ 29 s → đăng nhập đúng (chỉ 1 lần) | Vẫn bị khóa |
+| FR02-BVA-06 | API | EC-02-12 (biên: 30 s) | R3, A4 | Như BVA-05 | t = 30 s | Chờ 30 s → đăng nhập đúng | Đăng nhập thành công (hết 30 giây khóa) |
+| FR02-BVA-07 | API | EC-02-12 (30 + 1) | R3 | Như BVA-05 | t = 31 s | Chờ 31 s → đăng nhập đúng | Đăng nhập thành công |
+<!-- /TC:S4 -->

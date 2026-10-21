@@ -118,5 +118,89 @@
     "data": "test@eshop.com / Test1234!",
     "steps": "Đăng nhập qua UI khi tài khoản đang khóa",
     "expected": "UI hiện thông báo phù hợp cho biết tài khoản tạm khóa (tiếng Việt); thông báo lỗi nằm trên nút submit"
+  },
+  {
+    "id": "FR02-BVA-01",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-09 (biên trên: 2)",
+    "rule": "R3",
+    "pre": "Backend vừa khởi động lại",
+    "data": "n = 2 lần sai",
+    "steps": "2 × đăng nhập sai → đăng nhập đúng",
+    "expected": "Đăng nhập thành công (chưa khóa)"
+  },
+  {
+    "id": "FR02-BVA-02",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-10 (biên dưới: 3)",
+    "rule": "R3",
+    "pre": "Backend vừa khởi động lại",
+    "data": "n = 3 lần sai",
+    "steps": "3 × đăng nhập sai → đăng nhập đúng",
+    "expected": "Bị từ chối vì khóa"
+  },
+  {
+    "id": "FR02-BVA-03",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-10 (3 + 1)",
+    "rule": "R3",
+    "pre": "Backend vừa khởi động lại",
+    "data": "n = 4 lần sai",
+    "steps": "4 × đăng nhập sai → đăng nhập đúng",
+    "expected": "Bị từ chối vì khóa"
+  },
+  {
+    "id": "FR02-BVA-04",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "O3 bộ đếm",
+    "rule": "R2",
+    "pre": "Backend vừa khởi động lại",
+    "data": "3 lần sai liên tiếp",
+    "steps": "Ghi status từng lần",
+    "expected": "Lần 1, 2: từ chối thường (401); lần 3: chuyển sang khóa — bộ đếm tăng đúng 1 mỗi lần"
+  },
+  {
+    "id": "FR02-BVA-05",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-11 (biên: 29 s)",
+    "rule": "R3",
+    "pre": "Backend vừa khởi động lại; 3 lần sai",
+    "data": "t = 29 s kể từ lần sai thứ 3",
+    "steps": "Chờ 29 s → đăng nhập đúng (chỉ 1 lần)",
+    "expected": "Vẫn bị khóa"
+  },
+  {
+    "id": "FR02-BVA-06",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-12 (biên: 30 s)",
+    "rule": "R3, A4",
+    "pre": "Như BVA-05",
+    "data": "t = 30 s",
+    "steps": "Chờ 30 s → đăng nhập đúng",
+    "expected": "Đăng nhập thành công (hết 30 giây khóa)"
+  },
+  {
+    "id": "FR02-BVA-07",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "API",
+    "covers": "EC-02-12 (30 + 1)",
+    "rule": "R3",
+    "pre": "Như BVA-05",
+    "data": "t = 31 s",
+    "steps": "Chờ 31 s → đăng nhập đúng",
+    "expected": "Đăng nhập thành công"
   }
 ]
