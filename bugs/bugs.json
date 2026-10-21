@@ -173,5 +173,183 @@
    "evidence/FR02/FR02-EP-09.png"
   ],
   "severityReason": "Lỗi giao diện/câu chữ → câu 4."
+ },
+ {
+  "id": "BUG-FR09-01",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "high",
+  "technique": [
+   "EP",
+   "BVA"
+  ],
+  "title": "Mã percent (SAVE10) tính sai: tiền giảm âm, thành tiền gấp 10 lần tổng đơn",
+  "tcs": [
+   "FR09-EP-01",
+   "FR09-EP-15",
+   "FR09-BVA-03"
+  ],
+  "pre": "Đăng nhập test@eshop.com; giỏ có 1 SP giá 400.000 ₫ (SP tạo bằng Admin); ở trang Checkout",
+  "steps": [
+   "Nhập mã SAVE10",
+   "Bấm Áp dụng"
+  ],
+  "data": "SAVE10 (percent 10 %), tổng 400.000 ₫ (UI) / 1.000.000 (API)",
+  "expected": "FR-09: \"`discount_amount = total × discount_value / 100`\", \"`final_amount = total - discount_amount`\" → giảm 40.000 ₫, thành tiền 360.000 ₫.",
+  "actual": "UI: \"Tiết kiệm: -3,600,000 ₫ — Thành tiền: 4,000,000 ₫\". API với total 1.000.000 → discount_amount -9.000.000, final_amount 10.000.000. Thành tiền = total × 10.",
+  "evidence": [
+   "evidence/FR09/FR09-EP-15.png",
+   "evidence/FR09/FR09-EP-01.png"
+  ],
+  "severityReason": "Tính sai số tiền phải trả, người dùng không tránh được khi dùng mã percent → câu 2."
+ },
+ {
+  "id": "BUG-FR09-02",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "medium",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Mã bị từ chối khi tổng đơn đúng bằng ngưỡng tối thiểu (dùng > thay cho >=)",
+  "tcs": [
+   "FR09-BVA-02",
+   "FR09-BVA-05",
+   "FR09-BVA-08"
+  ],
+  "pre": "Đăng nhập test@eshop.com (có token); chưa dùng mã nào",
+  "steps": [
+   "POST /api/apply-coupon {\"code\":\"SAVE10\",\"total_amount\":300000,\"user_id\":2} kèm Bearer token",
+   "Lặp lại với BIGBUY / 500000 và VIP100 / 300000"
+  ],
+  "data": "SAVE10 & 300.000; BIGBUY & 500.000; VIP100 & 300.000",
+  "expected": "FR-09 C3: \"Tổng đơn hàng **>= (lớn hơn hoặc bằng)** `min_order_amount`\" → cả 3 phải được áp dụng.",
+  "actual": "Cả 3 trả 400 \"Đơn hàng chưa đủ giá trị tối thiểu … để áp dụng mã này\". Với tổng = ngưỡng + 1 thì được áp dụng (BVA-06, BVA-09).",
+  "evidence": [
+   "evidence/FR09/FR09-BVA-02.png",
+   "evidence/FR09/FR09-BVA-05.png",
+   "evidence/FR09/FR09-BVA-08.png"
+  ],
+  "severityReason": "Sai quy tắc nghiệp vụ ở biên; có cách đi vòng (mua thêm) → câu 3."
+ },
+ {
+  "id": "BUG-FR09-03",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "critical",
+  "technique": [
+   "EP"
+  ],
+  "title": "API áp mã giảm giá không yêu cầu đăng nhập (không token / token sai vẫn áp dụng được)",
+  "tcs": [
+   "FR09-EP-12",
+   "FR09-EP-13"
+  ],
+  "pre": "Không đăng nhập",
+  "steps": [
+   "POST /api/apply-coupon {\"code\":\"SAVE10\",\"total_amount\":1000000,\"user_id\":2} **không** có header Authorization",
+   "Lặp lại với header Authorization: Bearer token.khong.hop.le"
+  ],
+  "data": "SAVE10, total 1.000.000",
+  "expected": "FR-09 C4: \"Người dùng phải có JWT Token hợp lệ\"; SEC-02. Phải trả 401.",
+  "actual": "Cả hai trả 200 {\"success\":true, …}. Mã được áp dụng cho người chưa đăng nhập, và cho bất kỳ user_id nào client tự điền.",
+  "evidence": [
+   "evidence/FR09/FR09-EP-12.png",
+   "evidence/FR09/FR09-EP-13.png"
+  ],
+  "severityReason": "Vượt quyền (bỏ qua xác thực) → câu 1."
+ },
+ {
+  "id": "BUG-FR09-04",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "critical",
+  "technique": [
+   "EP"
+  ],
+  "title": "Giới hạn số lần dùng mã bị vượt qua bằng cách đổi user_id trong request",
+  "tcs": [
+   "FR09-EP-16"
+  ],
+  "pre": "test@eshop.com (id 2) đã dùng SAVE10 1/1 lần (đặt hàng có SAVE10, hoặc POST /api/coupon-usage)",
+  "steps": [
+   "Áp SAVE10 bình thường → bị từ chối \"đã đạt giới hạn\" (FR09-EP-14)",
+   "Gửi POST /api/apply-coupon với token của test@ nhưng body \"user_id\": 99"
+  ],
+  "data": "{\"code\":\"SAVE10\",\"total_amount\":400000,\"user_id\":99} + Bearer <token test@>",
+  "expected": "FR-09 C5: \"Số lần đã dùng mã này **của user** < `max_uses_per_user`\"; user phải lấy từ JWT (C4). Phải từ chối.",
+  "actual": "200 — áp dụng thành công. Lượt dùng được tính theo user_id do client gửi, nên mỗi user dùng được mã vô hạn lần.",
+  "evidence": [
+   "evidence/FR09/FR09-EP-16.png"
+  ],
+  "severityReason": "Vượt quyền / lạm dụng khuyến mãi không giới hạn → câu 1."
+ },
+ {
+  "id": "BUG-FR09-05",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "high",
+  "technique": [
+   "EP"
+  ],
+  "title": "Điều kiện ngưỡng đơn hàng dựa trên total_amount do client gửi, không theo giỏ hàng thật",
+  "tcs": [
+   "FR09-EP-17"
+  ],
+  "pre": "Giỏ trên server của test@ chỉ có 1 SP 200.000 ₫ (POST /api/cart)",
+  "steps": [
+   "GET /api/cart → tổng 200.000",
+   "POST /api/apply-coupon {\"code\":\"SAVE10\",\"total_amount\":400000,\"user_id\":2} kèm token"
+  ],
+  "data": "Giỏ thật 200.000; total_amount khai 400.000",
+  "expected": "FR-09 C3 (\"Tổng đơn hàng\") kết hợp FR-08: \"Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên\". Phải từ chối vì 200.000 < 300.000.",
+  "actual": "200 — áp dụng thành công dựa trên 400.000 client khai. (Trên UI, ô \"Tổng tiền thanh toán\" ở Checkout còn sửa tay được — lỗi FR-08.)",
+  "evidence": [
+   "evidence/FR09/FR09-EP-17.png"
+  ],
+  "severityReason": "Hệ thống chấp nhận dữ liệu sai từ client làm sai điều kiện khuyến mãi → câu 2.",
+  "related": "Liên quan FR-08 (Hương): ô Tổng tiền ở Checkout sửa được và backend tin total_amount."
+ },
+ {
+  "id": "BUG-FR09-06",
+  "fr": "FR09",
+  "frLabel": "FR-09 – Mã giảm giá",
+  "pool": "B",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "medium",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Thành tiền bị âm khi mã fixed lớn hơn tổng đơn",
+  "tcs": [
+   "FR09-BVA-16"
+  ],
+  "pre": "Admin tạo coupon FIX100K: fixed 100.000, min_order_amount 0, hạn 2099-12-31",
+  "steps": [
+   "POST /api/apply-coupon {\"code\":\"FIX100K\",\"total_amount\":99999,\"user_id\":2} kèm token"
+  ],
+  "data": "FIX100K, total 99.999",
+  "expected": "FR-09: `final_amount = total - discount_amount` là số tiền phải trả nên không được âm (giả định A7: giảm tối đa bằng tổng đơn → 0).",
+  "actual": "200 {\"discount_amount\":100000,\"final_amount\":-1}.",
+  "evidence": [
+   "evidence/FR09/FR09-BVA-16.png"
+  ],
+  "severityReason": "Tính sai output ở biên; tình huống chỉ xảy ra khi admin tạo mã có min nhỏ hơn giá trị giảm → câu 3. Dựa trên giả định A7."
  }
 ]

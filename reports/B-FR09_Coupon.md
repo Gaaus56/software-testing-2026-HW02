@@ -394,7 +394,7 @@ Bộ cuối có **37 TC** (EP 19, BVA 18).
 <!-- RESULTS -->
 | ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
 |---|---|---|---|---|---|
-| FR09-EP-01 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-01.png) |  |
+| FR09-EP-01 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-01.png) | BUG-FR09-01 |
 | FR09-EP-02 | EP | 200 — giảm 50000, thành tiền 550000 | **Pass** |  |  |
 | FR09-EP-03 | EP | 200 — giảm 100000, thành tiền 300000 | **Pass** |  |  |
 | FR09-EP-04 | EP | 404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa | **Pass** |  |  |
@@ -405,18 +405,18 @@ Bộ cuối có **37 TC** (EP 19, BVA 18).
 | FR09-EP-09 | EP | 404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa | **Pass** |  |  |
 | FR09-EP-10 | EP | 400 — Mã giảm giá đã hết hạn | **Pass** |  |  |
 | FR09-EP-11 | EP | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
-| FR09-EP-12 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-12.png) |  |
-| FR09-EP-13 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-13.png) |  |
+| FR09-EP-12 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-12.png) | BUG-FR09-03 |
+| FR09-EP-13 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-13.png) | BUG-FR09-03 |
 | FR09-EP-14 | EP | 400 — Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn) | **Pass** |  |  |
-| FR09-EP-15 | EP | Giỏ 400.000 ₫, áp SAVE10 → "Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫" | **Fail** | [ảnh](../evidence/FR09/FR09-EP-15.png) |  |
+| FR09-EP-15 | EP | Giỏ 400.000 ₫, áp SAVE10 → "Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫" | **Fail** | [ảnh](../evidence/FR09/FR09-EP-15.png) | BUG-FR09-01 |
 | FR09-BVA-01 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
-| FR09-BVA-02 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-02.png) |  |
-| FR09-BVA-03 | BVA | 200 — giảm -2700009, thành tiền 3000010 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-03.png) |  |
+| FR09-BVA-02 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-02.png) | BUG-FR09-02 |
+| FR09-BVA-03 | BVA | 200 — giảm -2700009, thành tiền 3000010 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-03.png) | BUG-FR09-01 |
 | FR09-BVA-04 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này | **Pass** |  |  |
-| FR09-BVA-05 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-05.png) |  |
+| FR09-BVA-05 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-05.png) | BUG-FR09-02 |
 | FR09-BVA-06 | BVA | 200 — giảm 50000, thành tiền 450001 | **Pass** |  |  |
 | FR09-BVA-07 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
-| FR09-BVA-08 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-08.png) |  |
+| FR09-BVA-08 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-08.png) | BUG-FR09-02 |
 | FR09-BVA-09 | BVA | 200 — giảm 100000, thành tiền 200001 | **Pass** |  |  |
 | FR09-BVA-10 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 100,000 ₫ để áp dụng mã này | **Pass** |  |  |
 | FR09-BVA-11 | BVA | 400 — Mã giảm giá đã hết hạn | **Pass** |  |  |
@@ -424,11 +424,26 @@ Bộ cuối có **37 TC** (EP 19, BVA 18).
 | FR09-BVA-13 | BVA | 200 — giảm 10000, thành tiền 90000 | **Pass** |  |  |
 | FR09-BVA-14 | BVA | 200 — giảm 100000, thành tiền 300000 | **Pass** |  |  |
 | FR09-BVA-15 | BVA | 400 — Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn) | **Pass** |  |  |
-| FR09-EP-16 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-16.png) |  |
-| FR09-EP-17 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-17.png) |  |
+| FR09-EP-16 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-16.png) | BUG-FR09-04 |
+| FR09-EP-17 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-17.png) | BUG-FR09-05 |
 | FR09-EP-19 | EP | Áp SAVE10 lần 2 (chưa đặt hàng): 200 Áp dụng thành công! Giảm 10% | **Pass** |  |  |
 | FR09-EP-20 | EP | Đặt hàng với SAVE10: thành công; áp lại SAVE10 → "Mã Giảm Giá Áp dụng Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)" | **Pass** | [ảnh](../evidence/FR09/FR09-EP-20.png) |  |
-| FR09-BVA-16 | BVA | 200 — giảm 100000, thành tiền -1 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-16.png) |  |
+| FR09-BVA-16 | BVA | 200 — giảm 100000, thành tiền -1 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-16.png) | BUG-FR09-06 |
 | FR09-BVA-17 | BVA | 200 — giảm 100000, thành tiền 0 | **Pass** |  |  |
 | FR09-BVA-18 | BVA | 200 — giảm 100000, thành tiền 1 | **Pass** |  |  |
 <!-- /RESULTS -->
+
+## 8. Bug (S7)
+
+Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
+|---|---|---|---|---|
+| [BUG-FR09-01](../bugs/issues/BUG-FR09-01.md) | Mã percent (SAVE10) tính sai: tiền giảm âm, thành tiền gấp 10 lần tổng đơn | FR09-EP-01, FR09-EP-15, FR09-BVA-03 | High | EP, BVA |
+| [BUG-FR09-02](../bugs/issues/BUG-FR09-02.md) | Mã bị từ chối khi tổng đơn đúng bằng ngưỡng tối thiểu (dùng > thay cho >=) | FR09-BVA-02, FR09-BVA-05, FR09-BVA-08 | Medium | BVA |
+| [BUG-FR09-03](../bugs/issues/BUG-FR09-03.md) | API áp mã giảm giá không yêu cầu đăng nhập (không token / token sai vẫn áp dụng được) | FR09-EP-12, FR09-EP-13 | Critical | EP |
+| [BUG-FR09-04](../bugs/issues/BUG-FR09-04.md) | Giới hạn số lần dùng mã bị vượt qua bằng cách đổi user_id trong request | FR09-EP-16 | Critical | EP |
+| [BUG-FR09-05](../bugs/issues/BUG-FR09-05.md) | Điều kiện ngưỡng đơn hàng dựa trên total_amount do client gửi, không theo giỏ hàng thật | FR09-EP-17 | High | EP |
+| [BUG-FR09-06](../bugs/issues/BUG-FR09-06.md) | Thành tiền bị âm khi mã fixed lớn hơn tổng đơn | FR09-BVA-16 | Medium | BVA |
+
+Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
