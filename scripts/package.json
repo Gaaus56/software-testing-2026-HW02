@@ -1,0 +1,14 @@
+{
+  "name": "hw02-eshop-tests",
+  "private": true,
+  "type": "module",
+  "description": "Script thực thi test case HW02 (FR-02, FR-09, FR-16) trên EShop",
+  "scripts": {
+    "fr02": "node fr02.mjs",
+    "fr09": "node fr09.mjs",
+    "fr16": "node fr16.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.48.2"
+  }
+}
