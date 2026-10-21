@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "name": "API-EP14 Dong 1",
+      "price": 100000,
+      "description": "API",
+      "imageUrl": "",
+      "category_id": 3
+    },
+    {
+      "name": "API-EP14 Gia am",
+      "price": -1,
+      "description": "API",
+      "imageUrl": "",
+      "category_id": 3
+    },
+    {
+      "name": "API-EP14 Dong 3",
+      "price": 100000,
+      "description": "API",
+      "imageUrl": "",
+      "category_id": 3
+    }
+  ]
+}

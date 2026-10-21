@@ -1,0 +1,298 @@
+[
+  {
+    "id": "FR16-EP-01",
+    "status": "Pass",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-EP01 Ban phim\" / giá 350000 / dm 3; \"CSV-EP01 Chuot\" / giá 150000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-01.png",
+    "note": "Thuộc tính accept của ô chọn file: không có",
+    "time": "2026-10-21T01:41:17.687Z"
+  },
+  {
+    "id": "FR16-EP-02",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP02 Txt\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-02.png",
+    "note": "",
+    "time": "2026-10-21T01:41:18.598Z"
+  },
+  {
+    "id": "FR16-EP-03",
+    "status": "Fail",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 0/2 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm Hàng 3: Thiếu tên sản phẩm\"; DB thêm 0 SP",
+    "evidence": "evidence/FR16/FR16-EP-03.png",
+    "note": "",
+    "time": "2026-10-21T01:41:19.483Z"
+  },
+  {
+    "id": "FR16-EP-04",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP04 Sai header\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-04.png",
+    "note": "",
+    "time": "2026-10-21T01:41:20.386Z"
+  },
+  {
+    "id": "FR16-EP-05",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 0/1 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm\"; DB thêm 0 SP",
+    "evidence": "evidence/FR16/FR16-EP-05.png",
+    "note": "",
+    "time": "2026-10-21T01:41:21.284Z"
+  },
+  {
+    "id": "FR16-EP-06",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"\\\"CSV-EP06 Laptop\" / giá Pro\" / dm 1]",
+    "evidence": "evidence/FR16/FR16-EP-06.png",
+    "note": "",
+    "time": "2026-10-21T01:41:22.194Z"
+  },
+  {
+    "id": "FR16-EP-07",
+    "status": "Fail",
+    "actual": "Import 3 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm\"; DB thêm 2 SP [\"CSV-EP07 Dong 1\" / giá 100000 / dm 3; \"CSV-EP07 Dong 3\" / giá 300000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-07.png",
+    "note": "",
+    "time": "2026-10-21T01:41:23.109Z"
+  },
+  {
+    "id": "FR16-EP-08",
+    "status": "Fail",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-EP08 Hop le\" / giá 100000 / dm 3; \"CSV-EP08 Gia 0\" / giá 0 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-08.png",
+    "note": "",
+    "time": "2026-10-21T01:41:24.041Z"
+  },
+  {
+    "id": "FR16-EP-09",
+    "status": "Fail",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-EP09 Hop le\" / giá 100000 / dm 3; \"CSV-EP09 Gia am\" / giá -5000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-09.png",
+    "note": "",
+    "time": "2026-10-21T01:41:24.987Z"
+  },
+  {
+    "id": "FR16-EP-10",
+    "status": "Fail",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-EP10 Hop le\" / giá 100000 / dm 3; \"CSV-EP10 Gia chu\" / giá abc / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-10.png",
+    "note": "",
+    "time": "2026-10-21T01:41:25.911Z"
+  },
+  {
+    "id": "FR16-EP-11",
+    "status": "Pass",
+    "actual": "Import 0 sản phẩm; báo cáo: \"(nút \"Import 0 sản phẩm\" bị vô hiệu, không gửi được)\"; DB thêm 0 SP",
+    "evidence": "evidence/FR16/FR16-EP-11.png",
+    "note": "",
+    "time": "2026-10-21T01:41:26.767Z"
+  },
+  {
+    "id": "FR16-EP-15",
+    "status": "Fail",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/2 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm\"; DB thêm 1 SP [\"CSV-EP15 Hop le\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-15.png",
+    "note": "",
+    "time": "2026-10-21T01:41:27.703Z"
+  },
+  {
+    "id": "FR16-EP-16",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"\\\"CSV-EP16 Tai nghe \\\"\\\"Pro\\\"\\\"\\\"\" / giá 500000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-16.png",
+    "note": "",
+    "time": "2026-10-21T01:41:28.644Z"
+  },
+  {
+    "id": "FR16-EP-17",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP17 Co BOM\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-17.png",
+    "note": "",
+    "time": "2026-10-21T01:41:29.593Z"
+  },
+  {
+    "id": "FR16-EP-18",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP18 Danh muc 99\" / giá 100000 / dm 99]",
+    "evidence": "evidence/FR16/FR16-EP-18.png",
+    "note": "",
+    "time": "2026-10-21T01:41:30.526Z"
+  },
+  {
+    "id": "FR16-EP-19",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP19 Dao cot\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-19.png",
+    "note": "",
+    "time": "2026-10-21T01:41:31.484Z"
+  },
+  {
+    "id": "FR16-EP-20",
+    "status": "Pass",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-EP20 CRLF 1\" / giá 100000 / dm 3; \"CSV-EP20 CRLF 2\" / giá 200000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-20.png",
+    "note": "",
+    "time": "2026-10-21T01:41:32.449Z"
+  },
+  {
+    "id": "FR16-EP-22",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-EP22 Duoi hoa\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-EP-22.png",
+    "note": "",
+    "time": "2026-10-21T01:41:33.390Z"
+  },
+  {
+    "id": "FR16-BVA-01",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA01 Gia -0.01\" / giá -0.01 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-01.png",
+    "note": "",
+    "time": "2026-10-21T01:41:34.333Z"
+  },
+  {
+    "id": "FR16-BVA-02",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA02 Gia 0\" / giá 0 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-02.png",
+    "note": "",
+    "time": "2026-10-21T01:41:35.281Z"
+  },
+  {
+    "id": "FR16-BVA-03",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA03 Gia 0.01\" / giá 0.01 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-03.png",
+    "note": "",
+    "time": "2026-10-21T01:41:36.238Z"
+  },
+  {
+    "id": "FR16-BVA-04",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 0/1 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm\"; DB thêm 0 SP",
+    "evidence": "evidence/FR16/FR16-BVA-04.png",
+    "note": "",
+    "time": "2026-10-21T01:41:37.200Z"
+  },
+  {
+    "id": "FR16-BVA-05",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"A\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-05.png",
+    "note": "",
+    "time": "2026-10-21T01:41:38.156Z"
+  },
+  {
+    "id": "FR16-BVA-06",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"AB\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-06.png",
+    "note": "",
+    "time": "2026-10-21T01:41:39.116Z"
+  },
+  {
+    "id": "FR16-BVA-07",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-07.png",
+    "note": "",
+    "time": "2026-10-21T01:41:40.089Z"
+  },
+  {
+    "id": "FR16-BVA-08",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-08.png",
+    "note": "",
+    "time": "2026-10-21T01:41:41.062Z"
+  },
+  {
+    "id": "FR16-BVA-09",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-09.png",
+    "note": "",
+    "time": "2026-10-21T01:41:42.053Z"
+  },
+  {
+    "id": "FR16-BVA-11",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA11 Mot dong\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-11.png",
+    "note": "",
+    "time": "2026-10-21T01:41:43.031Z"
+  },
+  {
+    "id": "FR16-BVA-12",
+    "status": "Pass",
+    "actual": "Import 2 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/2 sản phẩm được thêm\"; DB thêm 2 SP [\"CSV-BVA12 Dong 1\" / giá 100000 / dm 3; \"CSV-BVA12 Dong 2\" / giá 200000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-12.png",
+    "note": "",
+    "time": "2026-10-21T01:41:44.005Z"
+  },
+  {
+    "id": "FR16-BVA-13",
+    "status": "Fail",
+    "actual": "Import 3 sản phẩm; báo cáo: \"✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm\"; DB thêm 2 SP [\"CSV-BVA13 Dong 2\" / giá 200000 / dm 3; \"CSV-BVA13 Dong 3\" / giá 300000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-13.png",
+    "note": "",
+    "time": "2026-10-21T01:41:45.005Z"
+  },
+  {
+    "id": "FR16-BVA-14",
+    "status": "Fail",
+    "actual": "Import 3 sản phẩm; báo cáo: \"✅ Import hoàn tất: 3/3 sản phẩm được thêm\"; DB thêm 3 SP [\"CSV-BVA14 Dong 1\" / giá 100000 / dm 3; \"CSV-BVA14 Dong 2\" / giá 200000 / dm 3; \"CSV-BVA14 Gia 0\" / giá 0 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-14.png",
+    "note": "",
+    "time": "2026-10-21T01:41:46.024Z"
+  },
+  {
+    "id": "FR16-BVA-15",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA15 Bon cot\" / giá 100000 / dm 1]",
+    "evidence": "evidence/FR16/FR16-BVA-15.png",
+    "note": "",
+    "time": "2026-10-21T01:41:47.029Z"
+  },
+  {
+    "id": "FR16-BVA-16",
+    "status": "Fail",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"CSV-BVA16 Sau cot\" / giá 100000 / dm 3]",
+    "evidence": "evidence/FR16/FR16-BVA-16.png",
+    "note": "",
+    "time": "2026-10-21T01:41:48.047Z"
+  },
+  {
+    "id": "FR16-EP-21",
+    "status": "Pass",
+    "actual": "Import 1 sản phẩm; báo cáo: \"✅ Import hoàn tất: 1/1 sản phẩm được thêm\"; DB thêm 1 SP [\"<b>CSV-EP21 Bold</b>\" / giá 100000 / dm 3]; trang chủ Web: hiện nguyên văn <b>…</b>",
+    "evidence": "evidence/FR16/FR16-EP-21.png",
+    "note": "",
+    "time": "2026-10-21T01:41:50.907Z"
+  },
+  {
+    "id": "FR16-EP-12",
+    "status": "Pass",
+    "actual": "401 {\"error\":\"Unauthorized\"}; DB thêm 0",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:41:52.440Z"
+  },
+  {
+    "id": "FR16-EP-13",
+    "status": "Fail",
+    "actual": "200 {\"message\":\"Import hoàn tất: 1/1 sản phẩm được thêm\",\"inserted\":1,\"errors\":[]}; DB thêm 1",
+    "evidence": "evidence/FR16/FR16-EP-13.png",
+    "note": "",
+    "time": "2026-10-21T01:41:52.561Z"
+  },
+  {
+    "id": "FR16-EP-14",
+    "status": "Fail",
+    "actual": "200 {\"message\":\"Import hoàn tất: 3/3 sản phẩm được thêm\",\"inserted\":3,\"errors\":[]}; DB thêm 3",
+    "evidence": "evidence/FR16/FR16-EP-14.png",
+    "note": "",
+    "time": "2026-10-21T01:41:52.648Z"
+  }
+]
