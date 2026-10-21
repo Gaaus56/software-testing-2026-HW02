@@ -351,16 +351,16 @@ Bộ cuối có **23 TC** (EP 14, BVA 9).
 
 ## 8. Bug (S7)
 
-Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md). Issue trên repo nhóm có ảnh chụp ở [`bugs/issue-screenshots/`](../bugs/issue-screenshots/).
 
-| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
-|---|---|---|---|---|
-| [BUG-FR02-01](../bugs/issues/BUG-FR02-01.md) | Sai 2 lần thì lần thứ 3 nhập đúng mật khẩu vẫn bị khóa (ngưỡng khóa lệch 1) | FR02-BVA-01, FR02-EP-11 | High | BVA |
-| [BUG-FR02-02](../bugs/issues/BUG-FR02-02.md) | Tài khoản bị khóa khoảng 180 giây thay vì 30 giây | FR02-BVA-06, FR02-BVA-07, FR02-BVA-08a, FR02-BVA-08b | Medium | BVA |
-| [BUG-FR02-03](../bugs/issues/BUG-FR02-03.md) | Ô Mật khẩu ở trang Đăng nhập là type="text", mật khẩu hiện rõ khi gõ | FR02-EP-09 | High | EP |
-| [BUG-FR02-04](../bugs/issues/BUG-FR02-04.md) | Ô Email ở trang Đăng nhập là type="text", không validate định dạng email (HTML5) | FR02-EP-04, FR02-EP-09 | Medium | EP |
-| [BUG-FR02-05](../bugs/issues/BUG-FR02-05.md) | Khi tài khoản bị khóa, trang Đăng nhập chỉ báo chung "Đăng nhập thất bại" và thông báo nằm dưới nút | FR02-EP-10 | Low | EP |
-| [BUG-FR02-06](../bugs/issues/BUG-FR02-06.md) | Trang Đăng nhập có tiêu đề "Đăng Ký", nhãn "Username", nút "Sign In", thiếu dấu * ở trường bắt buộc | FR02-EP-09 | Low | EP |
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
+|---|---|---|---|---|---|
+| [BUG-FR02-01](../bugs/issues/BUG-FR02-01.md) | Sai 2 lần thì lần thứ 3 nhập đúng mật khẩu vẫn bị khóa (ngưỡng khóa lệch 1) | FR02-BVA-01, FR02-EP-11 | High | BVA | [#90](https://github.com/angquoc/software-testing-2026-HW02-group/issues/90) |
+| [BUG-FR02-02](../bugs/issues/BUG-FR02-02.md) | Tài khoản bị khóa khoảng 180 giây thay vì 30 giây | FR02-BVA-06, FR02-BVA-07, FR02-BVA-08a, FR02-BVA-08b | Medium | BVA | [#91](https://github.com/angquoc/software-testing-2026-HW02-group/issues/91) |
+| [BUG-FR02-03](../bugs/issues/BUG-FR02-03.md) | Ô Mật khẩu ở trang Đăng nhập là type="text", mật khẩu hiện rõ khi gõ | FR02-EP-09 | High | EP | [#92](https://github.com/angquoc/software-testing-2026-HW02-group/issues/92) |
+| [BUG-FR02-04](../bugs/issues/BUG-FR02-04.md) | Ô Email ở trang Đăng nhập là type="text", không validate định dạng email (HTML5) | FR02-EP-04, FR02-EP-09 | Medium | EP | [#93](https://github.com/angquoc/software-testing-2026-HW02-group/issues/93) |
+| [BUG-FR02-05](../bugs/issues/BUG-FR02-05.md) | Khi tài khoản bị khóa, trang Đăng nhập chỉ báo chung "Đăng nhập thất bại" và thông báo nằm dưới nút | FR02-EP-10 | Low | EP | [#94](https://github.com/angquoc/software-testing-2026-HW02-group/issues/94) |
+| [BUG-FR02-06](../bugs/issues/BUG-FR02-06.md) | Trang Đăng nhập có tiêu đề "Đăng Ký", nhãn "Username", nút "Sign In", thiếu dấu * ở trường bắt buộc | FR02-EP-09 | Low | EP | [#95](https://github.com/angquoc/software-testing-2026-HW02-group/issues/95) |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
 
