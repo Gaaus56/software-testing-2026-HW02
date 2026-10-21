@@ -1,3 +1,6 @@
+4f48e37 | 2026-10-21 09:21:13 +0700 | Tran Thanh An | [report] Refresh PDF exports
+1c8ba3c | 2026-10-21 09:20:38 +0700 | Tran Thanh An | [report] Mark demo video and mobile execution as not done
+9dd9ea7 | 2026-10-21 08:57:48 +0700 | Tran Thanh An | [report] Export git commit log
 ade9980 | 2026-10-21 08:57:40 +0700 | Tran Thanh An | [report] Add AI prompt log
 fa3e367 | 2026-10-21 08:50:23 +0700 | Tran Thanh An | [setup] Add submission packaging script
 7e93f57 | 2026-10-21 08:49:00 +0700 | Tran Thanh An | [report] Export PDF versions of reports and appendices
