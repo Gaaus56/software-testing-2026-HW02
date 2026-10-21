@@ -154,3 +154,40 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 | O2 | Báo cáo | Output (UI) | Số thành công, số lỗi, lý do | R7 |
 | O3 | Dữ liệu SP sau import | Output (DB) | Đúng giá trị từng trường (kể cả có dấu phẩy) | R3 |
 | O4 | Hiển thị SP ở Web | Output (UI) | Không render HTML | R9 |
+
+## 3. Lớp tương đương (S2)
+
+**Cách làm:**
+- Mỗi biến được chia thành lớp V/I. Với các biến cấp dòng (V4, V5), lớp không hợp lệ được đặt **cạnh một dòng hợp lệ** trong cùng file. Như vậy cùng một TC kiểm được cả validation (R4, R5) lẫn rollback (R6).
+- Lớp V7 ("có ≥ 1 dòng lỗi") là lớp quyết định rollback.
+
+| Mã | Biến | Lớp | V/I | Đại diện | Kết quả mong đợi | Căn cứ |
+|---|---|---|---|---|---|---|
+| EC-16-01 | V1 | `.csv` | V | valid_2rows.csv | Đọc file | R1 |
+| EC-16-02 | V1 | Đuôi khác, nội dung là CSV | I | .txt | Từ chối file | R1 |
+| EC-16-03 | V1 | File nhị phân | I | .xlsx giả | Từ chối, sai định dạng | R1 |
+| EC-16-04 | V2 | Đúng header | V | name,price,… | Đọc dữ liệu | R2 |
+| EC-16-05 | V2 | Sai tên cột | I | ten,gia,… | Từ chối, header sai | R2 |
+| EC-16-06 | V2 | Không có header | I | dòng 1 là dữ liệu | Từ chối, header sai | R2 |
+| EC-16-07 | V2 | Đúng tên nhưng sai thứ tự | I | price,name,… | Từ chối | A4 |
+| EC-16-08 | V2/V10 | Header có BOM UTF-8 | V | ﻿name,… | Đọc bình thường | A3 |
+| EC-16-09 | V3 | Trường có `,` bọc nháy | V | "Laptop, Pro" | Giữ nguyên dấu phẩy | R3 |
+| EC-16-10 | V3 | Nháy kép escape `""` | V | "Tai nghe ""Pro""" | Tai nghe "Pro" | R3 |
+| EC-16-11 | V4 | Có giá trị | V | CSV-EP01 Ban phim | Hợp lệ | R4 |
+| EC-16-12 | V4 | Rỗng | I | "" | Lỗi dòng | R4 |
+| EC-16-13 | V4 | Chỉ khoảng trắng | I | "   " | Lỗi dòng | R4 |
+| EC-16-14 | V5 | Số > 0 | V | 350000 | Hợp lệ | R5 |
+| EC-16-15 | V5 | = 0 | I | 0 | Lỗi dòng | R5 |
+| EC-16-16 | V5 | Âm | I | -5000 | Lỗi dòng | R5 |
+| EC-16-17 | V5 | Không phải số | I | abc | Lỗi dòng | R5 |
+| EC-16-18 | V6 | Danh mục tồn tại | V | 3 | Hợp lệ | A6 |
+| EC-16-19 | V6 | Danh mục không tồn tại | I | 99 | Lỗi dòng | A6 |
+| EC-16-20 | V7 | 0 dòng lỗi | V | — | Thêm tất cả | R6 |
+| EC-16-21 | V7 | ≥ 1 dòng lỗi | I | — | Rollback, thêm 0 | R6 |
+| EC-16-22 | V8 | ≥ 1 dòng dữ liệu | V | 1, 2 | Import | R7 |
+| EC-16-23 | V8 | 0 dòng dữ liệu | I | chỉ header | Báo không có dữ liệu | R7 |
+| EC-16-24 | V9 | Token admin | V | — | Import | R8 |
+| EC-16-25 | V9 | Không token | I | — | 401 | R8 |
+| EC-16-26 | V9 | Token user thường | I | — | 403 | R8 |
+| EC-16-27 | V10 | Xuống dòng CRLF | V | file Windows | Đọc đúng, không dính `\r` | A3 |
+| EC-16-28 | O4 | Tên chứa thẻ HTML | V | `<b>…</b>` | Hiện nguyên văn | R9 |
