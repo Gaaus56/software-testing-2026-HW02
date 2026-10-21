@@ -261,3 +261,58 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 | FR16-BVA-15 | UI | Số cột 5 − 1 | R2, A4 | Như EP-01 | Header 4 cột (thiếu category_id) | Import | Từ chối, báo header sai |
 | FR16-BVA-16 | UI | Số cột 5 + 1 | R2, A4 | Như EP-01 | Header 6 cột (thêm stock) | Import | Từ chối, báo header sai |
 <!-- /TC:S4 -->
+
+## 6. Review và bổ sung (S5)
+
+### 6.1 Bảng review
+
+| # | Đối tượng | Đánh giá | Vấn đề | Xử lý | Căn cứ |
+|---|---|---|---|---|---|
+| RV1 | Bộ TC S3 | INCOMPLETE | 7 lớp chưa có TC: EC-16-07, 08, 10, 13, 19, 27, 28 | Thêm EP-15…21 | Ma trận 6.3 |
+| RV2 | Giả định A2 | INCOMPLETE | Chưa có TC cho đuôi `.CSV` viết hoa | Thêm EP-22 | A2 |
+| RV3 | FR16-EP-03, EP-05 (oracle) | INCOMPLETE | Oracle ban đầu chỉ đếm "0 SP được thêm". Hệ thống có thể từ chối **vì lý do khác** (ví dụ báo "Thiếu tên"), và như vậy vẫn "Pass" | Bổ sung điều kiện: báo cáo phải nêu đúng lý do (sai định dạng file / sai header) | R1, R2, R7 |
+| RV4 | FR16-EP-07 | VALID | Kết quả mong đợi đã gồm cả số SP trong DB lẫn lý do lỗi | Giữ | R6, R7 |
+| RV5 | TC nháp "file 10 MB" | INVALID | Đặc tả không nêu giới hạn kích thước, không có oracle; là kiểm thử hiệu năng, ngoài kỹ thuật Domain/BVA | Loại | — |
+| RV6 | Các TC còn lại | VALID | — | Giữ | — |
+
+### 6.2 Test case bổ sung
+
+<!-- TC:S5 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR16-EP-15 | UI | EC-16-13, 21 | R4, R6 | Như EP-01 | 1 dòng hợp lệ + 1 dòng name = "   " | Import | Rollback: 0 SP; báo thiếu tên |
+| FR16-EP-16 | UI | EC-16-10 | R3 (RFC 4180) | Như EP-01 | "CSV-EP16 Tai nghe ""Pro"""",500000,… | Import | Thêm 1 SP tên CSV-EP16 Tai nghe "Pro" |
+| FR16-EP-17 | UI | EC-16-08 | R2, A3 | Như EP-01 | File UTF-8 có BOM (Excel hay tạo) | Import | Nhận header đúng, thêm 1 SP |
+| FR16-EP-18 | UI | EC-16-19 | FR-15, A6 | Như EP-01 | category_id = 99 (không tồn tại) | Import | Từ chối (giả định A6: danh mục phải tồn tại như FR-15) |
+| FR16-EP-19 | UI | EC-16-07 | R2, A4 | Như EP-01 | Header price,name,description,imageUrl,category_id | Import | Từ chối (giả định A4: header phải đúng như đặc tả) |
+| FR16-EP-20 | UI | EC-16-27 | R3 | Như EP-01 | File xuống dòng CRLF (Windows) | Import | Thêm 2 SP, tên không dính ký tự \r |
+| FR16-EP-21 | UI | EC-16-28 | SEC-04 | Như EP-01 | name = <b>CSV-EP21 Bold</b> | Import → mở trang chủ Web | Tên hiện nguyên văn dạng chữ, không render HTML |
+| FR16-EP-22 | UI | EC-16-01 (biến thể) | R1, A2 | Như EP-01 | Đuôi .CSV (viết hoa) | Import | Chấp nhận (giả định A2: đuôi không phân biệt hoa/thường) |
+<!-- /TC:S5 -->
+
+### 6.3 Ma trận truy vết lớp → test case
+
+| Lớp | TC | Lớp | TC |
+|---|---|---|---|
+| EC-16-01 | EP-01, EP-22 | EC-16-15 | EP-08, BVA-02, BVA-14 |
+| EC-16-02 | EP-02 | EC-16-16 | EP-09, EP-14, BVA-01 |
+| EC-16-03 | EP-03 | EC-16-17 | EP-10 |
+| EC-16-04 | EP-01 | EC-16-18 | EP-01 |
+| EC-16-05 | EP-04, BVA-15, BVA-16 | EC-16-19 | EP-18 |
+| EC-16-06 | EP-05 | EC-16-20 | EP-01, BVA-11, BVA-12 |
+| EC-16-07 | EP-19 | EC-16-21 | EP-07…10, EP-14, EP-15, BVA-13, BVA-14 |
+| EC-16-08 | EP-17 | EC-16-22 | BVA-11, BVA-12 |
+| EC-16-09 | EP-06 | EC-16-23 | EP-11 (= BVA-10) |
+| EC-16-10 | EP-16 | EC-16-24 | EP-14 |
+| EC-16-11 | EP-01, BVA-05…08 | EC-16-25 | EP-12 |
+| EC-16-12 | EP-07, BVA-04, BVA-13 | EC-16-26 | EP-13 |
+| EC-16-13 | EP-15 | EC-16-27 | EP-20 |
+| EC-16-14 | EP-01, BVA-03 | EC-16-28 | EP-21 |
+
+**Tổng kết review:** bản nháp có 31 TC (S3: 15, S4: 16).
+- VALID 28.
+- INCOMPLETE 2, đã siết oracle: EP-03, EP-05.
+- INVALID 1, đã loại: TC file 10 MB.
+- Bổ sung 8 TC (EP-15…22).
+
+Bộ cuối có **38 TC** (EP 22, BVA 16). Trong đó BVA-10 dùng chung với EP-11, nên số TC cần chạy là 37.

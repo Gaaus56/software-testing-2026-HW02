@@ -358,5 +358,101 @@
     "data": "Header 6 cột (thêm stock)",
     "steps": "Import",
     "expected": "Từ chối, báo header sai"
+  },
+  {
+    "id": "FR16-EP-15",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-13, 21",
+    "rule": "R4, R6",
+    "pre": "Như EP-01",
+    "data": "1 dòng hợp lệ + 1 dòng name = \"   \"",
+    "steps": "Import",
+    "expected": "Rollback: 0 SP; báo thiếu tên"
+  },
+  {
+    "id": "FR16-EP-16",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-10",
+    "rule": "R3 (RFC 4180)",
+    "pre": "Như EP-01",
+    "data": "\"CSV-EP16 Tai nghe \"\"Pro\"\"\"\",500000,…",
+    "steps": "Import",
+    "expected": "Thêm 1 SP tên CSV-EP16 Tai nghe \"Pro\""
+  },
+  {
+    "id": "FR16-EP-17",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-08",
+    "rule": "R2, A3",
+    "pre": "Như EP-01",
+    "data": "File UTF-8 có BOM (Excel hay tạo)",
+    "steps": "Import",
+    "expected": "Nhận header đúng, thêm 1 SP"
+  },
+  {
+    "id": "FR16-EP-18",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-19",
+    "rule": "FR-15, A6",
+    "pre": "Như EP-01",
+    "data": "category_id = 99 (không tồn tại)",
+    "steps": "Import",
+    "expected": "Từ chối (giả định A6: danh mục phải tồn tại như FR-15)"
+  },
+  {
+    "id": "FR16-EP-19",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-07",
+    "rule": "R2, A4",
+    "pre": "Như EP-01",
+    "data": "Header price,name,description,imageUrl,category_id",
+    "steps": "Import",
+    "expected": "Từ chối (giả định A4: header phải đúng như đặc tả)"
+  },
+  {
+    "id": "FR16-EP-20",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-27",
+    "rule": "R3",
+    "pre": "Như EP-01",
+    "data": "File xuống dòng CRLF (Windows)",
+    "steps": "Import",
+    "expected": "Thêm 2 SP, tên không dính ký tự \\r"
+  },
+  {
+    "id": "FR16-EP-21",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-28",
+    "rule": "SEC-04",
+    "pre": "Như EP-01",
+    "data": "name = <b>CSV-EP21 Bold</b>",
+    "steps": "Import → mở trang chủ Web",
+    "expected": "Tên hiện nguyên văn dạng chữ, không render HTML"
+  },
+  {
+    "id": "FR16-EP-22",
+    "step": "S5",
+    "tech": "EP",
+    "layer": "UI",
+    "covers": "EC-16-01 (biến thể)",
+    "rule": "R1, A2",
+    "pre": "Như EP-01",
+    "data": "Đuôi .CSV (viết hoa)",
+    "steps": "Import",
+    "expected": "Chấp nhận (giả định A2: đuôi không phân biệt hoa/thường)"
   }
 ]
