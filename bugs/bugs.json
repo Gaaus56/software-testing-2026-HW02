@@ -351,5 +351,255 @@
    "evidence/FR09/FR09-BVA-16.png"
   ],
   "severityReason": "Tính sai output ở biên; tình huống chỉ xảy ra khi admin tạo mã có min nhỏ hơn giá trị giảm → câu 3. Dựa trên giả định A7."
+ },
+ {
+  "id": "BUG-FR16-01",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "high",
+  "technique": [
+   "EP",
+   "BVA"
+  ],
+  "title": "Import CSV không rollback: dòng lỗi bị bỏ qua, các dòng còn lại vẫn được thêm",
+  "tcs": [
+   "FR16-EP-07",
+   "FR16-EP-15",
+   "FR16-BVA-13"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV; đếm số SP trước khi import",
+  "steps": [
+   "Chọn file test-data/FR16/FR16-EP-07_empty_name_middle.csv (3 dòng, dòng 2 name rỗng)",
+   "Bấm \"Import 3 sản phẩm\"",
+   "Kiểm tra danh sách sản phẩm"
+  ],
+  "data": "FR16-EP-07_empty_name_middle.csv; FR16-BVA-13_error_first_row.csv",
+  "expected": "FR-16: \"Nếu có lỗi ở bất kỳ dòng nào, toàn bộ import phải được **rollback** (giao dịch nguyên tử — all-or-nothing)\" → 0 SP được thêm.",
+  "actual": "Báo \"✅ Import hoàn tất: 2/3 sản phẩm được thêm — Hàng 3: Thiếu tên sản phẩm\"; DB thêm 2 SP. Lặp lại khi dòng lỗi ở đầu file (BVA-13) và khi tên chỉ có khoảng trắng (EP-15).",
+  "evidence": [
+   "evidence/FR16/FR16-EP-07.png",
+   "evidence/FR16/FR16-BVA-13.png"
+  ],
+  "severityReason": "Dữ liệu import dở dang lọt vào DB, admin không tránh được → câu 2."
+ },
+ {
+  "id": "BUG-FR16-02",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "high",
+  "technique": [
+   "EP",
+   "BVA"
+  ],
+  "title": "Import CSV chấp nhận giá bằng 0, giá âm và giá không phải số",
+  "tcs": [
+   "FR16-EP-08",
+   "FR16-EP-09",
+   "FR16-EP-10",
+   "FR16-EP-14",
+   "FR16-BVA-01",
+   "FR16-BVA-02",
+   "FR16-BVA-14"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV",
+  "steps": [
+   "Import FR16-BVA-02_price_0.csv (price = 0)",
+   "Import FR16-EP-09_price_negative.csv (price = -5000) và FR16-EP-10_price_text.csv (price = abc)",
+   "Gọi thẳng POST /api/admin/import-products với 1 dòng price = -1 (test-data/FR16/api/FR16-EP-14_body.json)"
+  ],
+  "data": "price = 0, -0.01, -5000, \"abc\", -1",
+  "expected": "FR-16: \"`price` phải là số dương\". Dòng lỗi phải bị từ chối (và cả file rollback).",
+  "actual": "Tất cả đều báo thành công và được lưu: SP giá 0, -0.01, -5000, \"abc\". Gọi thẳng API cũng không validate (3/3 được thêm).",
+  "evidence": [
+   "evidence/FR16/FR16-BVA-02.png",
+   "evidence/FR16/FR16-EP-10.png",
+   "evidence/FR16/FR16-EP-14.png"
+  ],
+  "severityReason": "Dữ liệu sai lọt vào DB (sản phẩm giá 0/âm/chữ), không có cách chặn → câu 2."
+ },
+ {
+  "id": "BUG-FR16-03",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "medium",
+  "technique": [
+   "EP"
+  ],
+  "title": "Import CSV không hỗ trợ trường có dấu phẩy bọc nháy kép (RFC 4180), dữ liệu bị lệch cột",
+  "tcs": [
+   "FR16-EP-06",
+   "FR16-EP-16"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV",
+  "steps": [
+   "Import FR16-EP-06_quoted_comma.csv có dòng: \"CSV-EP06 Laptop, Pro\",25000000,\"Mo ta, co dau phay\",…,2",
+   "Kiểm tra sản phẩm được tạo"
+  ],
+  "data": "FR16-EP-06_quoted_comma.csv; FR16-EP-16_escaped_quote.csv",
+  "expected": "FR-16: \"Hỗ trợ các trường có chứa dấu phẩy nếu được bọc trong dấu nháy kép (RFC 4180)\" → tên \"CSV-EP06 Laptop, Pro\", giá 25.000.000, danh mục 2.",
+  "actual": "Báo thành công nhưng lưu sai: name = \"\\\"CSV-EP06 Laptop\", price = \" Pro\\\"\", category_id = 1. Với nháy kép escape (EP-16) tên bị giữ nguyên các dấu \".",
+  "evidence": [
+   "evidence/FR16/FR16-EP-06.png",
+   "evidence/FR16/FR16-EP-16.png"
+  ],
+  "severityReason": "Sai nghiệp vụ; đi vòng được bằng cách không dùng dấu phẩy → câu 3."
+ },
+ {
+  "id": "BUG-FR16-04",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "medium",
+  "technique": [
+   "EP"
+  ],
+  "title": "Import CSV không kiểm tra đuôi/loại file (.txt được import, file nhị phân bị đọc như CSV)",
+  "tcs": [
+   "FR16-EP-02",
+   "FR16-EP-03"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV",
+  "steps": [
+   "Chọn FR16-EP-02_valid_content.txt → Import",
+   "Chọn FR16-EP-03_fake_excel.xlsx → Import"
+  ],
+  "data": ".txt có nội dung CSV; .xlsx nhị phân",
+  "expected": "FR-16: \"Đuôi file phải là `.csv`\" → từ chối file, báo sai định dạng.",
+  "actual": ".txt: \"Import hoàn tất: 1/1\", SP được thêm. .xlsx: hệ thống đọc nội dung nhị phân như CSV và báo \"0/2 … Hàng 2: Thiếu tên sản phẩm\" (không báo sai định dạng). Ô chọn file không có thuộc tính accept.",
+  "evidence": [
+   "evidence/FR16/FR16-EP-02.png",
+   "evidence/FR16/FR16-EP-03.png"
+  ],
+  "severityReason": "Sai validation, có cách đi vòng → câu 3."
+ },
+ {
+  "id": "BUG-FR16-05",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "medium",
+  "technique": [
+   "EP",
+   "BVA"
+  ],
+  "title": "Import CSV không kiểm tra header (sai tên cột, thiếu/thừa cột, không có header vẫn xử lý)",
+  "tcs": [
+   "FR16-EP-04",
+   "FR16-EP-05",
+   "FR16-EP-19",
+   "FR16-BVA-15",
+   "FR16-BVA-16"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV",
+  "steps": [
+   "Import FR16-EP-04_wrong_header.csv (header ten,gia,mo_ta,image,danh_muc)",
+   "Import FR16-BVA-15_4_columns.csv (thiếu category_id) và FR16-BVA-16_6_columns.csv (thừa cột stock)",
+   "Import FR16-EP-05_no_header.csv (không có header)"
+  ],
+  "data": "Các file trên",
+  "expected": "FR-16: \"Dòng đầu tiên là header: `name,price,description,imageUrl,category_id`\" → header sai phải bị từ chối với thông báo rõ ràng.",
+  "actual": "Header tiếng Việt, đổi thứ tự, 4 cột, 6 cột đều được import thành công (thiếu category_id thì tự gán danh mục 1). File không có header: dòng dữ liệu đầu bị coi là header, báo \"Thiếu tên sản phẩm\" thay vì báo lỗi header.",
+  "evidence": [
+   "evidence/FR16/FR16-EP-04.png",
+   "evidence/FR16/FR16-BVA-15.png",
+   "evidence/FR16/FR16-EP-05.png"
+  ],
+  "severityReason": "Sai validation, có cách đi vòng (dùng đúng file mẫu) → câu 3."
+ },
+ {
+  "id": "BUG-FR16-06",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "critical",
+  "technique": [
+   "EP"
+  ],
+  "title": "Tài khoản user thường gọi được API import sản phẩm (không kiểm tra role admin)",
+  "tcs": [
+   "FR16-EP-13"
+  ],
+  "pre": "Đăng nhập API bằng test@eshop.com (role = user) lấy token",
+  "steps": [
+   "POST /api/admin/import-products {\"products\":[{\"name\":\"API-EP13 user\",\"price\":100000,…}]} kèm Bearer <token user>",
+   "GET /api/products"
+  ],
+  "data": "Token của test@eshop.com",
+  "expected": "FR-12: API Admin phải yêu cầu \"`role = 'admin'` trong Token\"; SEC-03. Phải trả 403.",
+  "actual": "200 \"Import hoàn tất: 1/1 sản phẩm được thêm\"; sản phẩm xuất hiện trên cửa hàng.",
+  "evidence": [
+   "evidence/FR16/FR16-EP-13.png"
+  ],
+  "severityReason": "Vượt quyền: user thường thêm được sản phẩm → câu 1.",
+  "related": "Cùng nhóm lỗi phân quyền FR-12 (chưa ai nhận FR-12)."
+ },
+ {
+  "id": "BUG-FR16-07",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "medium",
+  "technique": [
+   "EP"
+  ],
+  "title": "Import CSV chấp nhận category_id không tồn tại",
+  "tcs": [
+   "FR16-EP-18"
+  ],
+  "pre": "Danh mục hiện có: 1, 2, 3",
+  "steps": [
+   "Import FR16-EP-18_category_not_exist.csv (category_id = 99)"
+  ],
+  "data": "category_id = 99",
+  "expected": "Giả định A6 dựa trên FR-15 (\"Danh mục: bắt buộc, phải chọn từ danh sách có sẵn\"): dòng có danh mục không tồn tại phải bị từ chối.",
+  "actual": "Import thành công, SP lưu với category_id = 99 (danh mục không tồn tại).",
+  "evidence": [
+   "evidence/FR16/FR16-EP-18.png"
+  ],
+  "severityReason": "Dữ liệu tham chiếu sai, có cách đi vòng → câu 3. Dựa trên giả định A6."
+ },
+ {
+  "id": "BUG-FR16-08",
+  "fr": "FR16",
+  "frLabel": "FR-16 – Import sản phẩm từ CSV",
+  "pool": "C",
+  "platform": "admin",
+  "platformLabel": "Web Admin",
+  "severity": "low",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255)",
+  "tcs": [
+   "FR16-BVA-09"
+  ],
+  "pre": "Đăng nhập Web Admin → Sản phẩm → Import CSV",
+  "steps": [
+   "Import FR16-BVA-09_name_len256.csv (name 256 ký tự)"
+  ],
+  "data": "name = 256 × \"L\"",
+  "expected": "Giả định A5 dựa trên FR-15 (\"Tên sản phẩm: bắt buộc, tối đa 255 ký tự\"): 256 ký tự phải bị từ chối.",
+  "actual": "Import thành công, tên 256 ký tự được lưu.",
+  "evidence": [
+   "evidence/FR16/FR16-BVA-09.png"
+  ],
+  "severityReason": "Ảnh hưởng nhỏ, dựa trên giả định → câu 4."
  }
 ]

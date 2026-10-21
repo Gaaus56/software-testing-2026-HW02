@@ -348,41 +348,58 @@ Bộ cuối có **38 TC** (EP 22, BVA 16). Trong đó BVA-10 dùng chung với E
 | ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
 |---|---|---|---|---|---|
 | FR16-EP-01 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP01 Ban phim" / giá 350000 / dm 3; "CSV-EP01 Chuot" / giá 150000 / dm 3] _(Thuộc tính accept của ô chọn file: không có)_ | **Pass** | [ảnh](../evidence/FR16/FR16-EP-01.png) |  |
-| FR16-EP-02 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP02 Txt" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-02.png) |  |
-| FR16-EP-03 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 0/2 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm Hàng 3: Thiếu tên sản phẩm"; DB thêm 0 SP | **Fail** | [ảnh](../evidence/FR16/FR16-EP-03.png) |  |
-| FR16-EP-04 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP04 Sai header" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-04.png) |  |
-| FR16-EP-05 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 0/1 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm"; DB thêm 0 SP | **Fail** | [ảnh](../evidence/FR16/FR16-EP-05.png) |  |
-| FR16-EP-06 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["\"CSV-EP06 Laptop" / giá Pro" / dm 1] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-06.png) |  |
-| FR16-EP-07 | EP | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm"; DB thêm 2 SP ["CSV-EP07 Dong 1" / giá 100000 / dm 3; "CSV-EP07 Dong 3" / giá 300000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-07.png) |  |
-| FR16-EP-08 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP08 Hop le" / giá 100000 / dm 3; "CSV-EP08 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-08.png) |  |
-| FR16-EP-09 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP09 Hop le" / giá 100000 / dm 3; "CSV-EP09 Gia am" / giá -5000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-09.png) |  |
-| FR16-EP-10 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP10 Hop le" / giá 100000 / dm 3; "CSV-EP10 Gia chu" / giá abc / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-10.png) |  |
+| FR16-EP-02 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP02 Txt" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-02.png) | BUG-FR16-04 |
+| FR16-EP-03 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 0/2 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm Hàng 3: Thiếu tên sản phẩm"; DB thêm 0 SP | **Fail** | [ảnh](../evidence/FR16/FR16-EP-03.png) | BUG-FR16-04 |
+| FR16-EP-04 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP04 Sai header" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-04.png) | BUG-FR16-05 |
+| FR16-EP-05 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 0/1 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm"; DB thêm 0 SP | **Fail** | [ảnh](../evidence/FR16/FR16-EP-05.png) | BUG-FR16-05 |
+| FR16-EP-06 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["\"CSV-EP06 Laptop" / giá Pro" / dm 1] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-06.png) | BUG-FR16-03 |
+| FR16-EP-07 | EP | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm"; DB thêm 2 SP ["CSV-EP07 Dong 1" / giá 100000 / dm 3; "CSV-EP07 Dong 3" / giá 300000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-07.png) | BUG-FR16-01 |
+| FR16-EP-08 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP08 Hop le" / giá 100000 / dm 3; "CSV-EP08 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-08.png) | BUG-FR16-02 |
+| FR16-EP-09 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP09 Hop le" / giá 100000 / dm 3; "CSV-EP09 Gia am" / giá -5000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-09.png) | BUG-FR16-02 |
+| FR16-EP-10 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP10 Hop le" / giá 100000 / dm 3; "CSV-EP10 Gia chu" / giá abc / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-10.png) | BUG-FR16-02 |
 | FR16-EP-11 | EP | Import 0 sản phẩm; báo cáo: "(nút "Import 0 sản phẩm" bị vô hiệu, không gửi được)"; DB thêm 0 SP | **Pass** | [ảnh](../evidence/FR16/FR16-EP-11.png) |  |
 | FR16-EP-12 | EP | 401 {"error":"Unauthorized"}; DB thêm 0 | **Pass** |  |  |
-| FR16-EP-13 | EP | 200 {"message":"Import hoàn tất: 1/1 sản phẩm được thêm","inserted":1,"errors":[]}; DB thêm 1 | **Fail** | [ảnh](../evidence/FR16/FR16-EP-13.png) |  |
-| FR16-EP-14 | EP | 200 {"message":"Import hoàn tất: 3/3 sản phẩm được thêm","inserted":3,"errors":[]}; DB thêm 3 | **Fail** | [ảnh](../evidence/FR16/FR16-EP-14.png) |  |
-| FR16-BVA-01 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA01 Gia -0.01" / giá -0.01 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-01.png) |  |
-| FR16-BVA-02 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA02 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-02.png) |  |
+| FR16-EP-13 | EP | 200 {"message":"Import hoàn tất: 1/1 sản phẩm được thêm","inserted":1,"errors":[]}; DB thêm 1 | **Fail** | [ảnh](../evidence/FR16/FR16-EP-13.png) | BUG-FR16-06 |
+| FR16-EP-14 | EP | 200 {"message":"Import hoàn tất: 3/3 sản phẩm được thêm","inserted":3,"errors":[]}; DB thêm 3 | **Fail** | [ảnh](../evidence/FR16/FR16-EP-14.png) | BUG-FR16-02 |
+| FR16-BVA-01 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA01 Gia -0.01" / giá -0.01 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-01.png) | BUG-FR16-02 |
+| FR16-BVA-02 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA02 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-02.png) | BUG-FR16-02 |
 | FR16-BVA-03 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA03 Gia 0.01" / giá 0.01 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-03.png) |  |
 | FR16-BVA-04 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 0/1 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm"; DB thêm 0 SP | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-04.png) |  |
 | FR16-BVA-05 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["A" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-05.png) |  |
 | FR16-BVA-06 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["AB" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-06.png) |  |
 | FR16-BVA-07 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-07.png) |  |
 | FR16-BVA-08 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-08.png) |  |
-| FR16-BVA-09 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-09.png) |  |
+| FR16-BVA-09 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-09.png) | BUG-FR16-08 |
 | FR16-BVA-10 | BVA | = FR16-EP-11 (dùng chung, không chạy lại) | — | — | |
 | FR16-BVA-11 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA11 Mot dong" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-11.png) |  |
 | FR16-BVA-12 | BVA | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-BVA12 Dong 1" / giá 100000 / dm 3; "CSV-BVA12 Dong 2" / giá 200000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-BVA-12.png) |  |
-| FR16-BVA-13 | BVA | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm"; DB thêm 2 SP ["CSV-BVA13 Dong 2" / giá 200000 / dm 3; "CSV-BVA13 Dong 3" / giá 300000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-13.png) |  |
-| FR16-BVA-14 | BVA | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 3/3 sản phẩm được thêm"; DB thêm 3 SP ["CSV-BVA14 Dong 1" / giá 100000 / dm 3; "CSV-BVA14 Dong 2" / giá 200000 / dm 3; "CSV-BVA14 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-14.png) |  |
-| FR16-BVA-15 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA15 Bon cot" / giá 100000 / dm 1] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-15.png) |  |
-| FR16-BVA-16 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA16 Sau cot" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-16.png) |  |
-| FR16-EP-15 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/2 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm"; DB thêm 1 SP ["CSV-EP15 Hop le" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-15.png) |  |
-| FR16-EP-16 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["\"CSV-EP16 Tai nghe \"\"Pro\"\"\"" / giá 500000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-16.png) |  |
+| FR16-BVA-13 | BVA | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/3 sản phẩm được thêm Hàng 2: Thiếu tên sản phẩm"; DB thêm 2 SP ["CSV-BVA13 Dong 2" / giá 200000 / dm 3; "CSV-BVA13 Dong 3" / giá 300000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-13.png) | BUG-FR16-01 |
+| FR16-BVA-14 | BVA | Import 3 sản phẩm; báo cáo: "✅ Import hoàn tất: 3/3 sản phẩm được thêm"; DB thêm 3 SP ["CSV-BVA14 Dong 1" / giá 100000 / dm 3; "CSV-BVA14 Dong 2" / giá 200000 / dm 3; "CSV-BVA14 Gia 0" / giá 0 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-14.png) | BUG-FR16-02 |
+| FR16-BVA-15 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA15 Bon cot" / giá 100000 / dm 1] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-15.png) | BUG-FR16-05 |
+| FR16-BVA-16 | BVA | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-BVA16 Sau cot" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-BVA-16.png) | BUG-FR16-05 |
+| FR16-EP-15 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/2 sản phẩm được thêm Hàng 3: Thiếu tên sản phẩm"; DB thêm 1 SP ["CSV-EP15 Hop le" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-15.png) | BUG-FR16-01 |
+| FR16-EP-16 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["\"CSV-EP16 Tai nghe \"\"Pro\"\"\"" / giá 500000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-16.png) | BUG-FR16-03 |
 | FR16-EP-17 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP17 Co BOM" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-EP-17.png) |  |
-| FR16-EP-18 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP18 Danh muc 99" / giá 100000 / dm 99] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-18.png) |  |
-| FR16-EP-19 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP19 Dao cot" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-19.png) |  |
+| FR16-EP-18 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP18 Danh muc 99" / giá 100000 / dm 99] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-18.png) | BUG-FR16-07 |
+| FR16-EP-19 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP19 Dao cot" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-19.png) | BUG-FR16-05 |
 | FR16-EP-20 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP20 CRLF 1" / giá 100000 / dm 3; "CSV-EP20 CRLF 2" / giá 200000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-EP-20.png) |  |
 | FR16-EP-21 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["<b>CSV-EP21 Bold</b>" / giá 100000 / dm 3]; trang chủ Web: hiện nguyên văn <b>…</b> | **Pass** | [ảnh](../evidence/FR16/FR16-EP-21.png) |  |
 | FR16-EP-22 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP22 Duoi hoa" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-EP-22.png) |  |
 <!-- /RESULTS -->
+
+## 8. Bug (S7)
+
+Tìm được **8 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
+|---|---|---|---|---|
+| [BUG-FR16-01](../bugs/issues/BUG-FR16-01.md) | Import CSV không rollback: dòng lỗi bị bỏ qua, các dòng còn lại vẫn được thêm | FR16-EP-07, FR16-EP-15, FR16-BVA-13 | High | EP, BVA |
+| [BUG-FR16-02](../bugs/issues/BUG-FR16-02.md) | Import CSV chấp nhận giá bằng 0, giá âm và giá không phải số | FR16-EP-08, FR16-EP-09, FR16-EP-10, FR16-EP-14, FR16-BVA-01, FR16-BVA-02, FR16-BVA-14 | High | EP, BVA |
+| [BUG-FR16-03](../bugs/issues/BUG-FR16-03.md) | Import CSV không hỗ trợ trường có dấu phẩy bọc nháy kép (RFC 4180), dữ liệu bị lệch cột | FR16-EP-06, FR16-EP-16 | Medium | EP |
+| [BUG-FR16-04](../bugs/issues/BUG-FR16-04.md) | Import CSV không kiểm tra đuôi/loại file (.txt được import, file nhị phân bị đọc như CSV) | FR16-EP-02, FR16-EP-03 | Medium | EP |
+| [BUG-FR16-05](../bugs/issues/BUG-FR16-05.md) | Import CSV không kiểm tra header (sai tên cột, thiếu/thừa cột, không có header vẫn xử lý) | FR16-EP-04, FR16-EP-05, FR16-EP-19, FR16-BVA-15, FR16-BVA-16 | Medium | EP, BVA |
+| [BUG-FR16-06](../bugs/issues/BUG-FR16-06.md) | Tài khoản user thường gọi được API import sản phẩm (không kiểm tra role admin) | FR16-EP-13 | Critical | EP |
+| [BUG-FR16-07](../bugs/issues/BUG-FR16-07.md) | Import CSV chấp nhận category_id không tồn tại | FR16-EP-18 | Medium | EP |
+| [BUG-FR16-08](../bugs/issues/BUG-FR16-08.md) | Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255) | FR16-BVA-09 | Low | BVA |
+
+Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
