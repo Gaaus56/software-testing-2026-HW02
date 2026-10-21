@@ -219,3 +219,45 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 | FR16-EP-13 | API | EC-16-26 | FR-12, SEC-03 | Token của test@ (role user) | 1 SP hợp lệ | POST /api/admin/import-products | 403; không thêm SP |
 | FR16-EP-14 | API | EC-16-16, 21 (tầng API) | R5, R6 | Token admin | test-data/FR16/api/FR16-EP-14_body.json: dòng giữa price = -1 | POST /api/admin/import-products (bỏ qua giao diện) | Backend tự validate: từ chối, rollback, không thêm SP |
 <!-- /TC:S3 -->
+
+## 5. Phân tích giá trị biên và test case BVA (S4)
+
+**Cách làm:**
+1. Biến có thứ tự:
+   - `price` (V5): biên 0.
+   - Độ dài `name` (V4): biên 1, và biên 255 theo A5.
+   - Số dòng dữ liệu (V8): biên 1.
+   - Số cột của header: biên 5.
+   - Vị trí dòng lỗi trong file: đầu / cuối, là biên của tập hợp.
+2. Bước nhỏ nhất: `price` là 0,01 (giá có thể lẻ, xem FR-15 "số dương"); độ dài là 1 ký tự; số dòng là 1; số cột là 1.
+3. Dùng BVA 3 giá trị. BVA-10 (0 dòng) trùng với EP-11 nên dùng chung, không chạy lại.
+
+| Biên | Biến | Bước | Giá trị test | Kết quả mong đợi | TC |
+|---|---|---|---|---|---|
+| price > 0 | V5 | 0,01 | -0,01 / 0 / 0,01 | Từ chối / Từ chối / Thêm | BVA-01…03 |
+| Độ dài name ≥ 1 | V4 | 1 ký tự | 0 / 1 / 2 | Từ chối / Thêm / Thêm | BVA-04…06 |
+| Độ dài name ≤ 255 (A5) | V4 | 1 ký tự | 254 / 255 / 256 | Thêm / Thêm / Từ chối | BVA-07…09 |
+| Số dòng ≥ 1 | V8 | 1 dòng | 0 / 1 / 2 | Không import / 1 / 2 | BVA-10…12 |
+| Vị trí dòng lỗi | V7 | — | dòng đầu / dòng cuối (trong 3 dòng) | Rollback | BVA-13, 14 |
+| Số cột = 5 | V2 | 1 cột | 4 / 6 (5 = EP-01) | Từ chối | BVA-15, 16 |
+
+<!-- TC:S4 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR16-BVA-01 | UI | EC-16-16 (0 − 0,01) | R5 | Như EP-01 | price = -0.01 | Import file 1 dòng | Từ chối; không thêm SP |
+| FR16-BVA-02 | UI | EC-16-15 (= 0) | R5 | Như EP-01 | price = 0 | Import file 1 dòng | Từ chối; không thêm SP |
+| FR16-BVA-03 | UI | EC-16-14 (0 + 0,01) | R5 | Như EP-01 | price = 0.01 | Import file 1 dòng | Thêm 1 SP |
+| FR16-BVA-04 | UI | EC-16-12 (độ dài 0) | R4 | Như EP-01 | name = "" | Import file 1 dòng | Từ chối; báo thiếu tên |
+| FR16-BVA-05 | UI | EC-16-11 (độ dài 1) | R4 | Như EP-01 | name = "A" | Import file 1 dòng | Thêm 1 SP tên "A" |
+| FR16-BVA-06 | UI | EC-16-11 (độ dài 2) | R4 | Như EP-01 | name = "AB" | Import file 1 dòng | Thêm 1 SP |
+| FR16-BVA-07 | UI | A5 (255 − 1) | FR-15, A5 | Như EP-01 | name 254 ký tự | Import file 1 dòng | Thêm 1 SP |
+| FR16-BVA-08 | UI | A5 (= 255) | FR-15, A5 | Như EP-01 | name 255 ký tự | Import file 1 dòng | Thêm 1 SP |
+| FR16-BVA-09 | UI | A5 (255 + 1) | FR-15, A5 | Như EP-01 | name 256 ký tự | Import file 1 dòng | Từ chối (giả định A5: áp dụng giới hạn 255 của FR-15) |
+| FR16-BVA-10 | UI | EC-16-23 (0 dòng) | R7 | — | 0 dòng dữ liệu | = FR16-EP-11 (dùng chung, không chạy lại) | Như FR16-EP-11 |
+| FR16-BVA-11 | UI | EC-16-22 (1 dòng) | R7 | Như EP-01 | 1 dòng hợp lệ | Import | Thêm 1 SP |
+| FR16-BVA-12 | UI | EC-16-22 (2 dòng) | R7 | Như EP-01 | 2 dòng hợp lệ | Import | Thêm 2 SP |
+| FR16-BVA-13 | UI | EC-16-21 (lỗi ở dòng đầu) | R6 | Như EP-01 | 3 dòng, dòng 1 name rỗng | Import | Rollback: 0 SP |
+| FR16-BVA-14 | UI | EC-16-21 (lỗi ở dòng cuối) | R6 | Như EP-01 | 3 dòng, dòng 3 price = 0 | Import | Rollback: 0 SP |
+| FR16-BVA-15 | UI | Số cột 5 − 1 | R2, A4 | Như EP-01 | Header 4 cột (thiếu category_id) | Import | Từ chối, báo header sai |
+| FR16-BVA-16 | UI | Số cột 5 + 1 | R2, A4 | Như EP-01 | Header 6 cột (thêm stock) | Import | Từ chối, báo header sai |
+<!-- /TC:S4 -->
