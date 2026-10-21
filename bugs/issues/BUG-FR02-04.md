@@ -28,7 +28,7 @@ Email: abc
 FR-02: "Trường email phải dùng `type=\"email\"` (có validate HTML5 format)". Trình duyệt phải chặn submit.
 
 ### Kết quả thực tế
-Ô email là <input type="text"> (nhãn "Username"); form vẫn gửi POST /api/login với email "abc".
+Ô email là &lt;input type="text"&gt; (nhãn "Username"); form vẫn gửi POST /api/login với email "abc".
 
 ### Ảnh chụp
 Kéo thả các file sau vào ô "Ảnh chụp":

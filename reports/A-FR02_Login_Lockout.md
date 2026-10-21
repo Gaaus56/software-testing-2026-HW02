@@ -202,7 +202,7 @@ Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc 
 | FR02-EP-05 | UI | EC-02-04, EC-02-07 | R1, FR-22 | Mở /login | Để trống cả hai ô | Bấm đăng nhập | Không gửi request; hiển thị yêu cầu nhập trường bắt buộc |
 | FR02-EP-06 | API | EC-02-08 | R2 | Backend vừa khởi động lại | test@eshop.com / test1234! (sai hoa/thường) | POST /api/login | Từ chối (mật khẩu phân biệt hoa/thường) |
 | FR02-EP-07 | API | EC-02-10, EC-02-11 | R3 | Backend vừa khởi động lại | 3 lần mật khẩu sai, rồi mật khẩu đúng ngay lập tức | 3 × POST /api/login sai → POST /api/login đúng | Lần đăng nhập đúng bị từ chối vì tài khoản đang bị khóa |
-| FR02-EP-08 | UI | EC-02-16 | R6 | Đã đăng nhập ở EP-01 | — | Bấm vào tên người dùng (trang Profile) → bắt request GET /api/orders/my-orders | Request mang header Authorization: Bearer <JWT> |
+| FR02-EP-08 | UI | EC-02-16 | R6 | Đã đăng nhập ở EP-01 | — | Bấm vào tên người dùng (trang Profile) → bắt request GET /api/orders/my-orders | Request mang header Authorization: Bearer &lt;JWT&gt; |
 | FR02-EP-09 | UI | EC-02-17 | R7, R8, R9 | Mở /login | — | Kiểm tra DOM: type của 2 ô nhập, nhãn, tiêu đề form, nhãn nút | Ô email type="email", ô mật khẩu type="password", nhãn trường bắt buộc có *, nhãn/tiêu đề tiếng Việt đúng ngữ cảnh đăng nhập |
 | FR02-EP-10 | UI | EC-02-10, EC-02-17 | R3, R8, R9 | Backend vừa khởi động lại; test@ đã sai 3 lần | test@eshop.com / Test1234! | Đăng nhập qua UI khi tài khoản đang khóa | UI hiện thông báo phù hợp cho biết tài khoản tạm khóa (tiếng Việt); thông báo lỗi nằm trên nút submit |
 <!-- /TC:S3 -->

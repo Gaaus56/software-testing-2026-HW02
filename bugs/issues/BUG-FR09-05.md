@@ -25,7 +25,7 @@ Giỏ trên server của test@ chỉ có 1 SP 200.000 ₫ (POST /api/cart)
 Giỏ thật 200.000; total_amount khai 400.000
 
 ### Kết quả mong đợi (theo đặc tả)
-FR-09 C3 ("Tổng đơn hàng") kết hợp FR-08: "Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên". Phải từ chối vì 200.000 < 300.000.
+FR-09 C3 ("Tổng đơn hàng") kết hợp FR-08: "Backend phải tự tính lại tổng tiền; không chấp nhận giá trị `total_amount` do client gửi lên". Phải từ chối vì 200.000 &lt; 300.000.
 
 ### Kết quả thực tế
 200 — áp dụng thành công dựa trên 400.000 client khai. (Trên UI, ô "Tổng tiền thanh toán" ở Checkout còn sửa tay được — lỗi FR-08.)

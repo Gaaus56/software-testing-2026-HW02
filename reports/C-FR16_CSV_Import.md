@@ -286,7 +286,7 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 | FR16-EP-18 | UI | EC-16-19 | FR-15, A6 | Như EP-01 | category_id = 99 (không tồn tại) | Import | Từ chối (giả định A6: danh mục phải tồn tại như FR-15) |
 | FR16-EP-19 | UI | EC-16-07 | R2, A4 | Như EP-01 | Header price,name,description,imageUrl,category_id | Import | Từ chối (giả định A4: header phải đúng như đặc tả) |
 | FR16-EP-20 | UI | EC-16-27 | R3 | Như EP-01 | File xuống dòng CRLF (Windows) | Import | Thêm 2 SP, tên không dính ký tự \r |
-| FR16-EP-21 | UI | EC-16-28 | SEC-04 | Như EP-01 | name = <b>CSV-EP21 Bold</b> | Import → mở trang chủ Web | Tên hiện nguyên văn dạng chữ, không render HTML |
+| FR16-EP-21 | UI | EC-16-28 | SEC-04 | Như EP-01 | name = &lt;b&gt;CSV-EP21 Bold&lt;/b&gt; | Import → mở trang chủ Web | Tên hiện nguyên văn dạng chữ, không render HTML |
 | FR16-EP-22 | UI | EC-16-01 (biến thể) | R1, A2 | Như EP-01 | Đuôi .CSV (viết hoa) | Import | Chấp nhận (giả định A2: đuôi không phân biệt hoa/thường) |
 <!-- /TC:S5 -->
 
@@ -383,7 +383,7 @@ Bộ cuối có **38 TC** (EP 22, BVA 16). Trong đó BVA-10 dùng chung với E
 | FR16-EP-18 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP18 Danh muc 99" / giá 100000 / dm 99] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-18.png) | BUG-FR16-07 |
 | FR16-EP-19 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP19 Dao cot" / giá 100000 / dm 3] | **Fail** | [ảnh](../evidence/FR16/FR16-EP-19.png) | BUG-FR16-05 |
 | FR16-EP-20 | EP | Import 2 sản phẩm; báo cáo: "✅ Import hoàn tất: 2/2 sản phẩm được thêm"; DB thêm 2 SP ["CSV-EP20 CRLF 1" / giá 100000 / dm 3; "CSV-EP20 CRLF 2" / giá 200000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-EP-20.png) |  |
-| FR16-EP-21 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["<b>CSV-EP21 Bold</b>" / giá 100000 / dm 3]; trang chủ Web: hiện nguyên văn <b>…</b> | **Pass** | [ảnh](../evidence/FR16/FR16-EP-21.png) |  |
+| FR16-EP-21 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["&lt;b&gt;CSV-EP21 Bold&lt;/b&gt;" / giá 100000 / dm 3]; trang chủ Web: hiện nguyên văn &lt;b&gt;…&lt;/b&gt; | **Pass** | [ảnh](../evidence/FR16/FR16-EP-21.png) |  |
 | FR16-EP-22 | EP | Import 1 sản phẩm; báo cáo: "✅ Import hoàn tất: 1/1 sản phẩm được thêm"; DB thêm 1 SP ["CSV-EP22 Duoi hoa" / giá 100000 / dm 3] | **Pass** | [ảnh](../evidence/FR16/FR16-EP-22.png) |  |
 <!-- /RESULTS -->
 

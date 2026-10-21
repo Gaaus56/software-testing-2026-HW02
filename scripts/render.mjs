@@ -39,7 +39,8 @@ const resFile = join(REPO, "scripts", "results", `${fr}.json`);
 const results = upto >= 3 && existsSync(resFile) ? JSON.parse(readFileSync(resFile, "utf8")) : [];
 const resOf = (id) => results.find((r) => r.id === id);
 
-const cell = (s) => String(s ?? "").replace(/\|/g, "\\|").replace(/\n/g, " ");
+// Escape < > để GitHub không hiểu "<token>" là thẻ HTML
+const cell = (s) => String(s ?? "").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\|/g, "\\|").replace(/\n/g, " ");
 
 function tcTable(list) {
   if (!list.length) return "_(không có)_";

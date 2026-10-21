@@ -28,7 +28,7 @@ Test1234!
 FR-22: "Trường Mật khẩu phải dùng `type=\"password\"` (không hiển thị rõ)".
 
 ### Kết quả thực tế
-Ô mật khẩu là <input type="text">, ký tự hiện rõ trên màn hình.
+Ô mật khẩu là &lt;input type="text"&gt;, ký tự hiện rõ trên màn hình.
 
 ### Ảnh chụp
 Kéo thả các file sau vào ô "Ảnh chụp":

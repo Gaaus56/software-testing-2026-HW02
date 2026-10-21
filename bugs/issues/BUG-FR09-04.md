@@ -22,10 +22,10 @@ test@eshop.com (id 2) đã dùng SAVE10 1/1 lần (đặt hàng có SAVE10, ho�
 2. Gửi POST /api/apply-coupon với token của test@ nhưng body "user_id": 99
 
 ### Dữ liệu test
-{"code":"SAVE10","total_amount":400000,"user_id":99} + Bearer <token test@>
+{"code":"SAVE10","total_amount":400000,"user_id":99} + Bearer &lt;token test@&gt;
 
 ### Kết quả mong đợi (theo đặc tả)
-FR-09 C5: "Số lần đã dùng mã này **của user** < `max_uses_per_user`"; user phải lấy từ JWT (C4). Phải từ chối.
+FR-09 C5: "Số lần đã dùng mã này **của user** &lt; `max_uses_per_user`"; user phải lấy từ JWT (C4). Phải từ chối.
 
 ### Kết quả thực tế
 200 — áp dụng thành công. Lượt dùng được tính theo user_id do client gửi, nên mỗi user dùng được mã vô hạn lần.

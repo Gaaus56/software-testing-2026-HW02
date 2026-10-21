@@ -25,7 +25,7 @@
 SAVE10 & 300.000; BIGBUY & 500.000; VIP100 & 300.000
 
 ### Kết quả mong đợi (theo đặc tả)
-FR-09 C3: "Tổng đơn hàng **>= (lớn hơn hoặc bằng)** `min_order_amount`" → cả 3 phải được áp dụng.
+FR-09 C3: "Tổng đơn hàng **&gt;= (lớn hơn hoặc bằng)** `min_order_amount`" → cả 3 phải được áp dụng.
 
 ### Kết quả thực tế
 Cả 3 trả 400 "Đơn hàng chưa đủ giá trị tối thiểu … để áp dụng mã này". Với tổng = ngưỡng + 1 thì được áp dụng (BVA-06, BVA-09).

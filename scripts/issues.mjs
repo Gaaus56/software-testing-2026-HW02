@@ -15,7 +15,10 @@ const issueMap = existsSync(join(REPO, "bugs", "issue-links.json"))
   ? JSON.parse(readFileSync(join(REPO, "bugs", "issue-links.json"), "utf8")) : {};
 
 mkdirSync(join(REPO, "bugs", "issues"), { recursive: true });
-for (const b of bugs) {
+// Escape < > để GitHub không hiểu "<token>" là thẻ HTML
+const esc = (t) => String(t).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+for (const b0 of bugs) {
+  const b = { ...b0, pre: esc(b0.pre), data: esc(b0.data), expected: esc(b0.expected), actual: esc(b0.actual), steps: b0.steps.map(esc) };
   const fr = b.fr.replace("FR", "FR-");
   const title = `[${MSSV}][${fr}][${plat[b.platform]}] ${b.title}`;
   const labels = ["bug", `severity: ${b.severity}`, `platform: ${b.platform}`, ...b.technique.map((t) => `technique: ${t}`), `pool: ${b.pool}`];

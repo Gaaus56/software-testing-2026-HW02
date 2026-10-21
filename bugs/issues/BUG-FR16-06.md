@@ -18,7 +18,7 @@
 Đăng nhập API bằng test@eshop.com (role = user) lấy token
 
 ### Các bước tái hiện
-1. POST /api/admin/import-products {"products":[{"name":"API-EP13 user","price":100000,…}]} kèm Bearer <token user>
+1. POST /api/admin/import-products {"products":[{"name":"API-EP13 user","price":100000,…}]} kèm Bearer &lt;token user&gt;
 2. GET /api/products
 
 ### Dữ liệu test

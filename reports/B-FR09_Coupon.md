@@ -295,19 +295,19 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
 |---|---|---|---|---|---|---|---|
 | FR09-BVA-01 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | SAVE10, total 299.999 | POST /api/apply-coupon | Từ chối: chưa đủ ngưỡng |
-| FR09-BVA-02 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | SAVE10, total 300.000 | POST /api/apply-coupon | Thành công; discount 30.000; final 270.000 |
+| FR09-BVA-02 | API | EC-09-10 (= min) | C3 (&gt;=) | Như EP-01 | SAVE10, total 300.000 | POST /api/apply-coupon | Thành công; discount 30.000; final 270.000 |
 | FR09-BVA-03 | API | EC-09-10 (min + 1) | C3, R-percent | Như EP-01 | SAVE10, total 300.001 | POST /api/apply-coupon | Thành công; discount 30.000,1; final 270.000,9 (sai số làm tròn ≤ 0,5) |
 | FR09-BVA-04 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | BIGBUY, total 499.999 | POST /api/apply-coupon | Từ chối |
-| FR09-BVA-05 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | BIGBUY, total 500.000 | POST /api/apply-coupon | Thành công; discount 50.000; final 450.000 |
+| FR09-BVA-05 | API | EC-09-10 (= min) | C3 (&gt;=) | Như EP-01 | BIGBUY, total 500.000 | POST /api/apply-coupon | Thành công; discount 50.000; final 450.000 |
 | FR09-BVA-06 | API | EC-09-10 (min + 1) | C3 | Như EP-01 | BIGBUY, total 500.001 | POST /api/apply-coupon | Thành công; final 450.001 |
 | FR09-BVA-07 | API | EC-09-11 (min − 1) | C3 | Như EP-01 | VIP100, total 299.999 | POST /api/apply-coupon | Từ chối |
-| FR09-BVA-08 | API | EC-09-10 (= min) | C3 (>=) | Như EP-01 | VIP100, total 300.000 | POST /api/apply-coupon | Thành công; discount 100.000; final 200.000 |
+| FR09-BVA-08 | API | EC-09-10 (= min) | C3 (&gt;=) | Như EP-01 | VIP100, total 300.000 | POST /api/apply-coupon | Thành công; discount 100.000; final 200.000 |
 | FR09-BVA-09 | API | EC-09-10 (min + 1) | C3 | Như EP-01 | VIP100, total 300.001 | POST /api/apply-coupon | Thành công; final 200.001 |
 | FR09-BVA-10 | API | EC-09-09 × EC-09-10 | C2, C3 | Như EP-01 | EXPIRED, total 100.000 (= min nhưng đã hết hạn) | POST /api/apply-coupon | Từ chối (C2 không thỏa dù C3 thỏa ở biên) |
 | FR09-BVA-11 | API | EC-09-09 (hôm qua) | C2 | Admin tạo coupon DAYM1 hạn = hôm qua | DAYM1, total 100.000 | POST /api/apply-coupon | Từ chối: hết hạn |
 | FR09-BVA-12 | API | EC-09-09 (hôm nay) | C2, A1 | Admin tạo coupon DAY0 hạn = hôm nay | DAY0, total 100.000 | POST /api/apply-coupon | Từ chối (giả định A1: "trước" là so sánh nghiêm ngặt) |
 | FR09-BVA-13 | API | EC-09-08 (ngày mai) | C2 | Admin tạo coupon DAYP1 hạn = ngày mai | DAYP1, total 100.000 | POST /api/apply-coupon | Thành công; discount 10.000; final 90.000 |
-| FR09-BVA-14 | API | EC-09-15 (max − 1) | C5 | test@ đã dùng VIP100 1 lần | VIP100, total 400.000 | POST /api/apply-coupon | Thành công (1 < 2) |
+| FR09-BVA-14 | API | EC-09-15 (max − 1) | C5 | test@ đã dùng VIP100 1 lần | VIP100, total 400.000 | POST /api/apply-coupon | Thành công (1 &lt; 2) |
 | FR09-BVA-15 | API | EC-09-16 (= max) | C5 | test@ đã dùng VIP100 2 lần | VIP100, total 400.000 | POST /api/apply-coupon | Từ chối: đã dùng hết lượt (2/2) |
 <!-- /TC:S4 -->
 
@@ -331,7 +331,7 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
 |---|---|---|---|---|---|---|---|
 | FR09-EP-16 | API | EC-09-20 | C4, C5, A5 | test@ (id 2) đã dùng SAVE10 1/1 lần | Token của test@, body user_id = 99 | POST /api/apply-coupon | Từ chối: lượt dùng phải tính theo user trong JWT, không theo user_id client gửi |
-| FR09-EP-17 | API | EC-09-22 | C3, FR-08, A5 | Giỏ trên server của test@ = 200.000 (POST /api/cart) | SAVE10, total_amount = 400.000 (client tự khai) | POST /api/apply-coupon | Từ chối vì tổng đơn thật 200.000 < 300.000 (server không tin total client gửi) |
+| FR09-EP-17 | API | EC-09-22 | C3, FR-08, A5 | Giỏ trên server của test@ = 200.000 (POST /api/cart) | SAVE10, total_amount = 400.000 (client tự khai) | POST /api/apply-coupon | Từ chối vì tổng đơn thật 200.000 &lt; 300.000 (server không tin total client gửi) |
 | FR09-EP-19 | API | A4 | C5, A4 | Backend vừa khởi động lại | Áp SAVE10 hai lần liên tiếp, không đặt hàng | 2 × POST /api/apply-coupon | Lần 2 vẫn thành công (lượt chỉ tính khi đặt hàng) |
 | FR09-EP-20 | UI | EC-09-16 (end-to-end) | C5 | Như EP-15 | SAVE10 | Áp SAVE10 → Xác nhận thanh toán → thêm SP lại → Checkout → áp SAVE10 | Đặt hàng thành công; lần áp sau bị từ chối vì hết lượt |
 | FR09-BVA-16 | API | EC-09-24 (output) | R-final, A7 | Admin tạo FIX100K (fixed 100.000, min 0) | FIX100K, total 99.999 | POST /api/apply-coupon | final_amount không âm (giả định A7: giảm tối đa bằng tổng đơn → final 0) |
