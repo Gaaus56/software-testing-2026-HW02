@@ -327,24 +327,39 @@ Bộ cuối có **23 TC** (EP 14, BVA 9).
 | FR02-EP-01 | EP | Chuyển về http://localhost:5173/; localStorage.token có JWT | **Pass** | [ảnh](../evidence/FR02/FR02-EP-01.png) |  |
 | FR02-EP-02 | EP | 401 {"error":"Invalid email or password"} | **Pass** | [ảnh](../evidence/FR02/FR02-EP-02.png) |  |
 | FR02-EP-03 | EP | 401 {"error":"Invalid email or password"} (so với mật khẩu sai: 401 {"error":"Invalid email or password"}) | **Pass** | [ảnh](../evidence/FR02/FR02-EP-03.png) |  |
-| FR02-EP-04 | EP | Form vẫn gửi POST /api/login với email "abc" (không có validate HTML5) | **Fail** | [ảnh](../evidence/FR02/FR02-EP-04.png) |  |
+| FR02-EP-04 | EP | Form vẫn gửi POST /api/login với email "abc" (không có validate HTML5) | **Fail** | [ảnh](../evidence/FR02/FR02-EP-04.png) | BUG-FR02-04 |
 | FR02-EP-05 | EP | Không gửi request; validationMessage: "Please fill out this field." | **Pass** | [ảnh](../evidence/FR02/FR02-EP-05.png) |  |
 | FR02-EP-06 | EP | 401 {"error":"Invalid email or password"} | **Pass** |  |  |
 | FR02-EP-07 | EP | 403 {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."} | **Pass** |  |  |
 | FR02-EP-08 | EP | GET /api/orders/my-orders có header Authorization: Bearer eyJhbGciOiJIU… | **Pass** | [ảnh](../evidence/FR02/FR02-EP-08.png) |  |
-| FR02-EP-09 | EP | type ô 1="text", ô 2="text"; nhãn: Username \| Mật khẩu; tiêu đề form "Đăng Ký"; nút "Sign In" | **Fail** | [ảnh](../evidence/FR02/FR02-EP-09.png) |  |
-| FR02-EP-10 | EP | UI hiện "Đăng nhập thất bại. Vui lòng kiểm tra lại." (API trả 403 "Tài khoản đã bị khóa…"); thông báo nằm dưới nút submit | **Fail** | [ảnh](../evidence/FR02/FR02-EP-10.png) |  |
-| FR02-BVA-01 | BVA | 2 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-01.png) |  |
+| FR02-EP-09 | EP | type ô 1="text", ô 2="text"; nhãn: Username \| Mật khẩu; tiêu đề form "Đăng Ký"; nút "Sign In" | **Fail** | [ảnh](../evidence/FR02/FR02-EP-09.png) | BUG-FR02-03, BUG-FR02-04, BUG-FR02-06 |
+| FR02-EP-10 | EP | UI hiện "Đăng nhập thất bại. Vui lòng kiểm tra lại." (API trả 403 "Tài khoản đã bị khóa…"); thông báo nằm dưới nút submit | **Fail** | [ảnh](../evidence/FR02/FR02-EP-10.png) | BUG-FR02-05 |
+| FR02-BVA-01 | BVA | 2 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-01.png) | BUG-FR02-01 |
 | FR02-BVA-02 | BVA | 3 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-02.png) |  |
 | FR02-BVA-03 | BVA | 4 lần sai → đăng nhập đúng: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-03.png) |  |
 | FR02-BVA-04 | BVA | 401, 401, 403 — lần 3: {"error":"Tài khoản đã bị khóa. Vui lòng thử lại sau."} | **Pass** |  |  |
 | FR02-BVA-05 | BVA | Sau 29.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Pass** | [ảnh](../evidence/FR02/FR02-BVA-05.png) |  |
-| FR02-BVA-06 | BVA | Sau 30.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-06.png) |  |
-| FR02-BVA-07 | BVA | Sau 31.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-07.png) |  |
-| FR02-EP-11 | EP | 2 sai → đúng (403) → 2 sai → đúng (403 Tài khoản đã bị khóa. Vui lòng thử lại sau.) | **Fail** |  |  |
+| FR02-BVA-06 | BVA | Sau 30.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-06.png) | BUG-FR02-02 |
+| FR02-BVA-07 | BVA | Sau 31.0s kể từ lần sai thứ 3: 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. | **Fail** | [ảnh](../evidence/FR02/FR02-BVA-07.png) | BUG-FR02-02 |
+| FR02-EP-11 | EP | 2 sai → đúng (403) → 2 sai → đúng (403 Tài khoản đã bị khóa. Vui lòng thử lại sau.) | **Fail** |  | BUG-FR02-01 |
 | FR02-EP-12 | EP | test@ bị khóa; admin@ đăng nhập: 200 Login successful | **Pass** |  |  |
 | FR02-EP-13 | EP | 401 {"error":"Invalid email or password"} | **Pass** |  |  |
 | FR02-EP-14 | EP | Sau khi mở khóa: 1 lần sai → 401; đăng nhập đúng → 200 | **Pass** |  |  |
-| FR02-BVA-08a | BVA | Khám phá: sau 175.0s → 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  |  |
-| FR02-BVA-08b | BVA | Khám phá: sau 185.0s → 200 Login successful _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  |  |
+| FR02-BVA-08a | BVA | Khám phá: sau 175.0s → 403 Tài khoản đã bị khóa. Vui lòng thử lại sau. _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  | BUG-FR02-02 |
+| FR02-BVA-08b | BVA | Khám phá: sau 185.0s → 200 Login successful _(Đo thời gian khóa thực tế, không có kết quả mong đợi riêng)_ | **Blocked** |  | BUG-FR02-02 |
 <!-- /RESULTS -->
+
+## 8. Bug (S7)
+
+Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
+|---|---|---|---|---|
+| [BUG-FR02-01](../bugs/issues/BUG-FR02-01.md) | Sai 2 lần thì lần thứ 3 nhập đúng mật khẩu vẫn bị khóa (ngưỡng khóa lệch 1) | FR02-BVA-01, FR02-EP-11 | High | BVA |
+| [BUG-FR02-02](../bugs/issues/BUG-FR02-02.md) | Tài khoản bị khóa khoảng 180 giây thay vì 30 giây | FR02-BVA-06, FR02-BVA-07, FR02-BVA-08a, FR02-BVA-08b | Medium | BVA |
+| [BUG-FR02-03](../bugs/issues/BUG-FR02-03.md) | Ô Mật khẩu ở trang Đăng nhập là type="text", mật khẩu hiện rõ khi gõ | FR02-EP-09 | High | EP |
+| [BUG-FR02-04](../bugs/issues/BUG-FR02-04.md) | Ô Email ở trang Đăng nhập là type="text", không validate định dạng email (HTML5) | FR02-EP-04, FR02-EP-09 | Medium | EP |
+| [BUG-FR02-05](../bugs/issues/BUG-FR02-05.md) | Khi tài khoản bị khóa, trang Đăng nhập chỉ báo chung "Đăng nhập thất bại" và thông báo nằm dưới nút | FR02-EP-10 | Low | EP |
+| [BUG-FR02-06](../bugs/issues/BUG-FR02-06.md) | Trang Đăng nhập có tiêu đề "Đăng Ký", nhãn "Username", nút "Sign In", thiếu dấu * ở trường bắt buộc | FR02-EP-09 | Low | EP |
+
+Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.

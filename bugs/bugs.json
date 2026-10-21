@@ -1,0 +1,177 @@
+[
+ {
+  "id": "BUG-FR02-01",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "high",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Sai 2 lần thì lần thứ 3 nhập đúng mật khẩu vẫn bị khóa (ngưỡng khóa lệch 1)",
+  "tcs": [
+   "FR02-BVA-01",
+   "FR02-EP-11"
+  ],
+  "pre": "Backend vừa khởi động lại (DB seed mới); tài khoản test@eshop.com chưa đăng nhập sai lần nào",
+  "steps": [
+   "Gửi 2 lần POST /api/login với {\"email\":\"test@eshop.com\",\"password\":\"Wrong123!\"} (cả 2 trả 401)",
+   "Ngay sau đó gửi POST /api/login với mật khẩu đúng Test1234!"
+  ],
+  "data": "test@eshop.com / Wrong123! (×2), rồi Test1234!",
+  "expected": "FR-02: \"Nếu đăng nhập sai từ **3 lần trở lên** liên tiếp, tài khoản bị tạm khóa\". Mới sai 2 lần nên lần thứ 3 đúng mật khẩu phải đăng nhập thành công (200 + token).",
+  "actual": "403 {\"error\":\"Tài khoản đã bị khóa. Vui lòng thử lại sau.\"}. Tài khoản bị khóa ngay ở lần thử thứ 3 dù mật khẩu đúng. Lặp lại ở FR02-EP-11: 2 lần sai → đúng cũng bị 403.",
+  "evidence": [
+   "evidence/FR02/FR02-BVA-01.png"
+  ],
+  "severityReason": "Người dùng gõ nhầm 2 lần thì không thể đăng nhập dù nhập đúng, và bị khóa ~3 phút (xem BUG-FR02-02); không có cách nào tránh → câu 2 của cây quyết định."
+ },
+ {
+  "id": "BUG-FR02-02",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "medium",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Tài khoản bị khóa khoảng 180 giây thay vì 30 giây",
+  "tcs": [
+   "FR02-BVA-06",
+   "FR02-BVA-07",
+   "FR02-BVA-08a",
+   "FR02-BVA-08b"
+  ],
+  "pre": "Backend vừa khởi động lại; test@eshop.com vừa đăng nhập sai 3 lần liên tiếp (bị khóa)",
+  "steps": [
+   "Gửi 3 lần POST /api/login với mật khẩu sai",
+   "Chờ đúng 30 s (hoặc 31 s) kể từ lần sai thứ 3, không gửi request nào trong lúc chờ",
+   "Gửi POST /api/login với mật khẩu đúng Test1234!"
+  ],
+  "data": "t = 30 s, 31 s; khám phá thêm t = 175 s, 185 s (mỗi giá trị một lần khóa mới, chỉ thử 1 lần)",
+  "expected": "FR-02: \"tài khoản bị tạm khóa **30 giây** (môi trường demo)\". Từ t ≥ 30 s phải đăng nhập được.",
+  "actual": "t = 30 s → 403, t = 31 s → 403 (vẫn khóa). Đo khám phá: t = 175 s → 403, t = 185 s → 200. Thời gian khóa thực tế ≈ 180 s, gấp 6 lần đặc tả.",
+  "evidence": [
+   "evidence/FR02/FR02-BVA-06.png",
+   "evidence/FR02/FR02-BVA-07.png"
+  ],
+  "severityReason": "Sai quy tắc nghiệp vụ; có cách đi vòng (đợi lâu hơn) → câu 3."
+ },
+ {
+  "id": "BUG-FR02-03",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "high",
+  "technique": [
+   "EP"
+  ],
+  "title": "Ô Mật khẩu ở trang Đăng nhập là type=\"text\", mật khẩu hiện rõ khi gõ",
+  "tcs": [
+   "FR02-EP-09"
+  ],
+  "pre": "Mở http://localhost:5173/login",
+  "steps": [
+   "Gõ mật khẩu vào ô \"Mật khẩu\"",
+   "Mở DevTools → Elements, xem thuộc tính type của ô"
+  ],
+  "data": "Test1234!",
+  "expected": "FR-22: \"Trường Mật khẩu phải dùng `type=\\\"password\\\"` (không hiển thị rõ)\".",
+  "actual": "Ô mật khẩu là <input type=\"text\">, ký tự hiện rõ trên màn hình.",
+  "evidence": [
+   "evidence/FR02/FR02-EP-09.png"
+  ],
+  "severityReason": "Lộ mật khẩu cho người nhìn màn hình / quay màn hình; người dùng không thể tự tránh. Không chọn critical vì không lộ qua mạng hay DB."
+ },
+ {
+  "id": "BUG-FR02-04",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "medium",
+  "technique": [
+   "EP"
+  ],
+  "title": "Ô Email ở trang Đăng nhập là type=\"text\", không validate định dạng email (HTML5)",
+  "tcs": [
+   "FR02-EP-04",
+   "FR02-EP-09"
+  ],
+  "pre": "Mở http://localhost:5173/login, DevTools → Network",
+  "steps": [
+   "Nhập \"abc\" vào ô email, \"Test1234!\" vào ô mật khẩu",
+   "Bấm nút đăng nhập"
+  ],
+  "data": "Email: abc",
+  "expected": "FR-02: \"Trường email phải dùng `type=\\\"email\\\"` (có validate HTML5 format)\". Trình duyệt phải chặn submit.",
+  "actual": "Ô email là <input type=\"text\"> (nhãn \"Username\"); form vẫn gửi POST /api/login với email \"abc\".",
+  "evidence": [
+   "evidence/FR02/FR02-EP-04.png"
+  ],
+  "severityReason": "Sai validation; có cách đi vòng (backend vẫn từ chối) → câu 3."
+ },
+ {
+  "id": "BUG-FR02-05",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "low",
+  "technique": [
+   "EP"
+  ],
+  "title": "Khi tài khoản bị khóa, trang Đăng nhập chỉ báo chung \"Đăng nhập thất bại\" và thông báo nằm dưới nút",
+  "tcs": [
+   "FR02-EP-10"
+  ],
+  "pre": "test@eshop.com đã đăng nhập sai 3 lần (API trả 403 \"Tài khoản đã bị khóa…\")",
+  "steps": [
+   "Mở /login, nhập test@eshop.com / Test1234!",
+   "Bấm nút đăng nhập",
+   "Quan sát thông báo và vị trí"
+  ],
+  "data": "test@eshop.com / Test1234!",
+  "expected": "FR-02: \"Hệ thống trả về thông báo lỗi phù hợp\". Người dùng cần biết tài khoản đang tạm khóa. FR-22: \"Thông báo lỗi phải xuất hiện **trên** nút submit\".",
+  "actual": "UI luôn hiện \"Đăng nhập thất bại. Vui lòng kiểm tra lại.\" (bỏ qua thông báo khóa của API) và thông báo nằm **dưới** nút submit.",
+  "evidence": [
+   "evidence/FR02/FR02-EP-10.png"
+  ],
+  "severityReason": "Chỉ sai thông báo/giao diện → câu 4."
+ },
+ {
+  "id": "BUG-FR02-06",
+  "fr": "FR02",
+  "frLabel": "FR-02 – Đăng nhập & khóa tài khoản",
+  "pool": "A",
+  "platform": "web",
+  "platformLabel": "Web",
+  "severity": "low",
+  "technique": [
+   "EP"
+  ],
+  "title": "Trang Đăng nhập có tiêu đề \"Đăng Ký\", nhãn \"Username\", nút \"Sign In\", thiếu dấu * ở trường bắt buộc",
+  "tcs": [
+   "FR02-EP-09"
+  ],
+  "pre": "Mở http://localhost:5173/login",
+  "steps": [
+   "Quan sát tiêu đề form, nhãn các trường và nút submit"
+  ],
+  "data": "—",
+  "expected": "FR-21: \"Toàn bộ giao diện dùng tiếng Việt\"; FR-22: \"Tất cả trường bắt buộc phải có ký hiệu `*` bên cạnh nhãn\". Tiêu đề phải mô tả đúng trang (Đăng nhập).",
+  "actual": "Tiêu đề form \"Đăng Ký\" (sai trang), nhãn \"Username\" và nút \"Sign In\" (tiếng Anh), không có * ở hai trường bắt buộc.",
+  "evidence": [
+   "evidence/FR02/FR02-EP-09.png"
+  ],
+  "severityReason": "Lỗi giao diện/câu chữ → câu 4."
+ }
+]
