@@ -118,3 +118,24 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 | O2 | Phản hồi sau khi bấm | Output | Có toast / badge | — | R3 |
 | O3 | Thông tin hiển thị | Output | Ảnh, tên, giá, mô tả, danh mục | — | R1 |
 | O4 | Định dạng giá | Output | `₫`, phân cách hàng nghìn | — | R4 |
+
+## 3. Lớp tương đương (S2)
+
+**Cách làm:** chia V1 theo từng **kiểu sai** của chuỗi, vì mỗi kiểu có thể được xử lý theo cách khác nhau: parse ra số âm, cắt phần thập phân, dừng ở ký tự chữ… Chia theo kiểu sai như vậy là cách bắt được lỗi "nhận một phần" (ví dụ "2abc" bị hiểu thành 2).
+
+| Mã | Biến | Lớp | V/I | Đại diện | Kết quả mong đợi | Căn cứ |
+|---|---|---|---|---|---|---|
+| EC-06-01 | V1 | Số nguyên ≥ 1 | V | 1, 2, 3 | Thêm đúng số lượng | R2 |
+| EC-06-02 | V1 | 0 | I | 0 | Không nhận | R2, A2 |
+| EC-06-03 | V1 | Số âm | I | -2, -1 | Không nhận | R2 |
+| EC-06-04 | V1 | Số thập phân | I | 1.5 | Không nhận | R2 |
+| EC-06-05 | V1 | Chữ | I | abc | Không nhận | R2 |
+| EC-06-06 | V1 | Rỗng | I | "" | Không nhận | R2 |
+| EC-06-07 | V1 | Khoảng trắng | I | " " | Không nhận | R2 |
+| EC-06-08 | V1 | Số lẫn chữ | I | 2abc | Không nhận | R2 |
+| EC-06-09 | V1 | Có số 0 đầu | V | 05 | = 5 | A3 |
+| EC-06-10 | V1 | Rất lớn (không có cận trên) | — | 2147483647, 2147483648, 20 chữ số | Không crash, không tràn số | A4 |
+| EC-06-11 | V2 | SP chưa có trong giỏ | V | — | Tạo dòng mới | R2 |
+| EC-06-12 | V2 | SP đã có trong giỏ | V | đã có 2 | Cộng dồn | A5 |
+| EC-06-13 | O3 | Thông tin hiển thị | — | — | Đủ 5 trường | R1 |
+| EC-06-14 | O2 | Phản hồi | — | — | Có toast / badge | R3 |
