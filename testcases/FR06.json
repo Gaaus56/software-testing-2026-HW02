@@ -142,5 +142,89 @@
     "data": "Số lượng mặc định",
     "steps": "Bấm Thêm vào giỏ hàng",
     "expected": "Có phản hồi trực quan ngay (toast/thông báo/badge)"
+  },
+  {
+    "id": "FR06-BVA-01",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-02 (min − 1)",
+    "rule": "R2",
+    "pre": "Như EP-01",
+    "data": "0",
+    "steps": "= FR06-EP-02 (dùng chung)",
+    "expected": "Như FR06-EP-02"
+  },
+  {
+    "id": "FR06-BVA-02",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-01 (= min)",
+    "rule": "R2",
+    "pre": "Như EP-01",
+    "data": "1",
+    "steps": "Nhập 1 → Thêm → Giỏ hàng",
+    "expected": "Giỏ có số lượng 1"
+  },
+  {
+    "id": "FR06-BVA-03",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-01 (min + 1)",
+    "rule": "R2",
+    "pre": "Như EP-01",
+    "data": "2",
+    "steps": "Nhập 2 → Thêm → Giỏ hàng",
+    "expected": "Giỏ có số lượng 2"
+  },
+  {
+    "id": "FR06-BVA-04",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-03 (−1)",
+    "rule": "R2",
+    "pre": "Như EP-01",
+    "data": "-1",
+    "steps": "Như EP-02",
+    "expected": "Không nhận"
+  },
+  {
+    "id": "FR06-BVA-05",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-10 (biên khám phá 2^31 − 1)",
+    "rule": "A4",
+    "pre": "Như EP-01",
+    "data": "2147483647",
+    "steps": "Nhập → Thêm → Giỏ hàng (xem số lượng, thành tiền)",
+    "expected": "(Khám phá) Không crash; số lượng và thành tiền hiển thị đúng hoặc bị chặn có thông báo"
+  },
+  {
+    "id": "FR06-BVA-06",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-10 (2^31)",
+    "rule": "A4",
+    "pre": "Như EP-01",
+    "data": "2147483648",
+    "steps": "Như BVA-05",
+    "expected": "(Khám phá) Không crash, không tràn số"
+  },
+  {
+    "id": "FR06-BVA-07",
+    "step": "S4",
+    "tech": "BVA",
+    "layer": "Mobile",
+    "covers": "EC-06-10 (rất dài)",
+    "rule": "A4",
+    "pre": "Như EP-01",
+    "data": "99999999999999999999 (20 chữ số)",
+    "steps": "Như BVA-05",
+    "expected": "(Khám phá) Không crash; không hiển thị số mũ/NaN"
   }
 ]

@@ -164,3 +164,32 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 | FR06-EP-11 | Mobile | EC-06-13 | R1 | Mở chi tiết SP bất kỳ | — | Quan sát màn hình | Có đủ: ảnh lớn, tên, giá, mô tả, danh mục |
 | FR06-EP-12 | Mobile | EC-06-14 | R3, FR-24 | Như EP-01 | Số lượng mặc định | Bấm Thêm vào giỏ hàng | Có phản hồi trực quan ngay (toast/thông báo/badge) |
 <!-- /TC:S3 -->
+
+## 5. Phân tích giá trị biên và test case BVA (S4)
+
+**Cách làm:**
+- **Biên dưới** là 1 (bước 1) → test 0 / 1 / 2, thêm −1.
+- Đặc tả **không có biên trên** (A4). Vì vậy chọn các biên kỹ thuật làm biên khám phá:
+  - 2^31 − 1 = 2147483647 (giới hạn số nguyên 32-bit).
+  - 2^31 = 2147483648.
+  - Chuỗi 20 chữ số, vượt `Number.MAX_SAFE_INTEGER`.
+
+  Ở các biên khám phá, kết quả mong đợi là "không crash, không tràn số". Kết quả thực tế sẽ được ghi lại để đề xuất bổ sung đặc tả.
+
+| Biên | Giá trị | Kết quả mong đợi | TC |
+|---|---|---|---|
+| min = 1 | 0 / 1 / 2 | Không nhận / 1 / 2 | BVA-01 (= EP-02), BVA-02, BVA-03 |
+| Số âm sát 0 | −1 | Không nhận | BVA-04 |
+| Biên khám phá | 2147483647 / 2147483648 / 20 chữ số | Không crash, không tràn số | BVA-05…07 |
+
+<!-- TC:S4 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR06-BVA-01 | Mobile | EC-06-02 (min − 1) | R2 | Như EP-01 | 0 | = FR06-EP-02 (dùng chung) | Như FR06-EP-02 |
+| FR06-BVA-02 | Mobile | EC-06-01 (= min) | R2 | Như EP-01 | 1 | Nhập 1 → Thêm → Giỏ hàng | Giỏ có số lượng 1 |
+| FR06-BVA-03 | Mobile | EC-06-01 (min + 1) | R2 | Như EP-01 | 2 | Nhập 2 → Thêm → Giỏ hàng | Giỏ có số lượng 2 |
+| FR06-BVA-04 | Mobile | EC-06-03 (−1) | R2 | Như EP-01 | -1 | Như EP-02 | Không nhận |
+| FR06-BVA-05 | Mobile | EC-06-10 (biên khám phá 2^31 − 1) | A4 | Như EP-01 | 2147483647 | Nhập → Thêm → Giỏ hàng (xem số lượng, thành tiền) | (Khám phá) Không crash; số lượng và thành tiền hiển thị đúng hoặc bị chặn có thông báo |
+| FR06-BVA-06 | Mobile | EC-06-10 (2^31) | A4 | Như EP-01 | 2147483648 | Như BVA-05 | (Khám phá) Không crash, không tràn số |
+| FR06-BVA-07 | Mobile | EC-06-10 (rất dài) | A4 | Như EP-01 | 99999999999999999999 (20 chữ số) | Như BVA-05 | (Khám phá) Không crash; không hiển thị số mũ/NaN |
+<!-- /TC:S4 -->
