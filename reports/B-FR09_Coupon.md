@@ -240,3 +240,34 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | EC-09-22 | V8 | `total_amount` > tổng giỏ thật | I | gửi 400.000, giỏ 200.000 | Xét theo tổng thật | R-total, A5 |
 | EC-09-23 | O3 | final ≥ 0 | V | FIX100K & 100.000 | final = 0 | R-final |
 | EC-09-24 | O3 | discount > total | I | FIX100K & 99.999 | final không âm | A7 |
+
+## 4. Test case Domain Testing (S3)
+
+**Cách làm:**
+1. **Baseline:** EP-01 cho cả 5 điều kiện đúng cùng lúc, đồng thời kiểm công thức percent.
+2. **Mỗi lần sai một điều kiện:** một TC cho mỗi lớp không hợp lệ của C1–C5 (EP-04, 05, 09, 10, 11, 12, 13, 14). Các điều kiện còn lại giữ hợp lệ, để thông báo từ chối chỉ ra đúng điều kiện bị vi phạm.
+3. **Domain theo output:** EP-01 (percent), EP-02 và EP-03 (fixed) kiểm số tiền cụ thể.
+4. **Tầng test:**
+   - Logic 5 điều kiện test qua API, vì tổng đơn của dữ liệu seed không ghép được các giá trị cần thiết (U1).
+   - Hành vi của ô mã (rỗng, hoa/thường, khoảng trắng) và phần hiển thị (FR-21) test trên UI: EP-06, 07, 08, 15.
+5. Danh mục: [`testcases/FR09.json`](../testcases/FR09.json).
+
+<!-- TC:S3 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR09-EP-01 | API | EC-09-01, 08, 10, 12, 15, 17 | C1–C5, R-percent | Backend vừa khởi động lại; token test@ | SAVE10, total 1.000.000 | POST /api/apply-coupon kèm Bearer token | Thành công; discount = 1.000.000 × 10 / 100 = 100.000; final = 900.000 |
+| FR09-EP-02 | API | EC-09-18 | R-fixed | Như EP-01 | BIGBUY, total 600.000 | POST /api/apply-coupon | discount = 50.000; final = 550.000 |
+| FR09-EP-03 | API | EC-09-18 | R-fixed | Như EP-01 | VIP100, total 400.000 | POST /api/apply-coupon | discount = 100.000; final = 300.000 |
+| FR09-EP-04 | API | EC-09-02 | C1 | Như EP-01 | ABC123, total 400.000 | POST /api/apply-coupon | Từ chối: mã không tồn tại |
+| FR09-EP-05 | API | EC-09-03 | C1 | Tạo coupon OFF10 (fixed 10.000, min 0) rồi đặt is_active = 0 trực tiếp trong DB (không có UI/API) | OFF10, total 100.000 | POST /api/apply-coupon | Từ chối: mã không hoạt động |
+| FR09-EP-06 | UI | EC-09-04 | C1 | Đã đăng nhập; giỏ 400.000 ₫; ở trang Checkout | Ô mã để trống | Quan sát nút Áp dụng | Không áp dụng được (nút vô hiệu hoặc báo nhập mã) |
+| FR09-EP-07 | UI | EC-09-05 | A6 | Như EP-06 | save10 | Nhập mã → Áp dụng | Được xử lý như SAVE10 (giả định A6: mã không phân biệt hoa/thường) |
+| FR09-EP-08 | UI | EC-09-06 | A6 | Như EP-06 | "  SAVE10  " | Nhập mã → Áp dụng | Khoảng trắng đầu/cuối bị bỏ, áp dụng như SAVE10 |
+| FR09-EP-09 | API | EC-09-07 | C1, SEC-05 | Như EP-01 | x' OR 1=1 -- | POST /api/apply-coupon | Từ chối như mã không tồn tại; không lỗi server, không áp được mã nào |
+| FR09-EP-10 | API | EC-09-09 | C2 | Như EP-01 | EXPIRED (hạn 2020-01-01), total 200.000 | POST /api/apply-coupon | Từ chối: mã hết hạn |
+| FR09-EP-11 | API | EC-09-11 | C3 | Như EP-01 | SAVE10, total 200.000 | POST /api/apply-coupon | Từ chối: chưa đủ ngưỡng 300.000 |
+| FR09-EP-12 | API | EC-09-13 | C4, SEC-02 | Không đăng nhập | SAVE10, total 1.000.000, không header Authorization | POST /api/apply-coupon | Từ chối 401: chưa đăng nhập |
+| FR09-EP-13 | API | EC-09-14 | C4 | — | Authorization: Bearer token.khong.hop.le | POST /api/apply-coupon | Từ chối 401: token không hợp lệ |
+| FR09-EP-14 | API | EC-09-16 | C5 | test@ đã ghi 1 lượt dùng SAVE10 (POST /api/coupon-usage) | SAVE10, total 400.000 | POST /api/apply-coupon | Từ chối: đã dùng hết lượt (1/1) |
+| FR09-EP-15 | UI | EC-09-01, 17; FR-21 | R-percent, FR-21 | Admin tạo SP giá 400.000; đăng nhập test@; thêm 1 SP vào giỏ; vào Checkout | SAVE10 | Nhập mã → Áp dụng | Hiện Tiết kiệm 40.000 ₫, Thành tiền 360.000 ₫ (có ₫ và phân cách hàng nghìn) |
+<!-- /TC:S3 -->
