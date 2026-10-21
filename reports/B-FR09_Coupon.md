@@ -205,3 +205,38 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 | O3 | `final_amount` | Output | Số tiền | total − discount, ≥ 0 (A7) | R-final |
 | O4 | Hiển thị trên UI | Output | Chuỗi | `₫`, phân cách hàng nghìn | R-money |
 | O5 | Lượt dùng sau đặt hàng | Output (DB) | Số nguyên | +1 khi đặt hàng thành công (A4) | C5 |
+
+## 3. Lớp tương đương (S2)
+
+**Cách làm:**
+- Mỗi điều kiện C1–C5 có ít nhất 1 lớp V và 1 lớp I.
+- V3 chia theo **từng mã**, vì mỗi mã có ngưỡng khác nhau, nhưng về bản chất chỉ có 2 lớp: ≥ ngưỡng và < ngưỡng.
+- V6 chia theo loại, vì hai loại dùng công thức khác nhau (domain theo output).
+- V7, V8 là các lớp ở tầng API, rút ra từ quan sát U3.
+
+| Mã | Biến | Lớp | V/I | Đại diện | Kết quả mong đợi | Căn cứ |
+|---|---|---|---|---|---|---|
+| EC-09-01 | V1 | Tồn tại, active | V | SAVE10 | Xét tiếp C2–C5 | C1 |
+| EC-09-02 | V1 | Không tồn tại | I | ABC123 | Từ chối | C1 |
+| EC-09-03 | V1 | Tồn tại nhưng `is_active = 0` | I | OFF10 | Từ chối | C1 |
+| EC-09-04 | V1 | Rỗng | I | "" | Không áp dụng | C1 |
+| EC-09-05 | V1 | Chữ thường | V | save10 | Như SAVE10 | A6 |
+| EC-09-06 | V1 | Có khoảng trắng đầu/cuối | V | "  SAVE10  " | Như SAVE10 | A6 |
+| EC-09-07 | V1 | Ký tự đặc biệt / SQL | I | `x' OR 1=1 --` | Từ chối an toàn | C1, SEC-05 |
+| EC-09-08 | V2 | Trước `expired_at` | V | SAVE10 (2099-12-31) | Hợp lệ | C2 |
+| EC-09-09 | V2 | Bằng hoặc sau `expired_at` | I | EXPIRED (2020-01-01) | Từ chối | C2, A1 |
+| EC-09-10 | V3 | total ≥ min | V | SAVE10 & 1.000.000 | Hợp lệ | C3 |
+| EC-09-11 | V3 | total < min | I | SAVE10 & 200.000 | Từ chối | C3 |
+| EC-09-12 | V4 | Token hợp lệ | V | JWT test@ | Hợp lệ | C4 |
+| EC-09-13 | V4 | Không có token | I | — | Từ chối 401 | C4 |
+| EC-09-14 | V4 | Token sai | I | token.khong.hop.le | Từ chối 401 | C4 |
+| EC-09-15 | V5 | Đã dùng < max | V | SAVE10 dùng 0/1 | Hợp lệ | C5 |
+| EC-09-16 | V5 | Đã dùng = max | I | SAVE10 dùng 1/1 | Từ chối | C5 |
+| EC-09-17 | V6 | percent | V | SAVE10 | discount = total × 10 % | R-percent |
+| EC-09-18 | V6 | fixed | V | BIGBUY, VIP100 | discount = giá trị cố định | R-fixed |
+| EC-09-19 | V7 | `user_id` = user trong JWT | V | 2 | Hợp lệ | A5 |
+| EC-09-20 | V7 | `user_id` ≠ user trong JWT | I | 99 | Lượt dùng tính theo JWT | A5 |
+| EC-09-21 | V8 | `total_amount` = tổng giỏ thật | V | — | Hợp lệ | R-total |
+| EC-09-22 | V8 | `total_amount` > tổng giỏ thật | I | gửi 400.000, giỏ 200.000 | Xét theo tổng thật | R-total, A5 |
+| EC-09-23 | O3 | final ≥ 0 | V | FIX100K & 100.000 | final = 0 | R-final |
+| EC-09-24 | O3 | discount > total | I | FIX100K & 99.999 | final không âm | A7 |
