@@ -130,3 +130,27 @@ Cách làm: đăng nhập Web Admin, vào tab "Sản phẩm", phần "📂 Impor
 - **Ngoài phạm vi:**
   - CRUD sản phẩm thủ công (FR-15, Hương). Chỉ mượn ràng buộc của FR-15 làm giả định A5, A6.
   - Phân quyền các API Admin khác (FR-12, không ai trong nhóm nhận).
+
+## 2. Biến input / output (S1)
+
+**Cách làm:**
+- Input của FR-16 là một **file có cấu trúc**, nên các biến được chia theo 3 cấp: cấp file (đuôi, header, cách xuống dòng), cấp trường (cách bọc nháy), và cấp dòng (`name`, `price`, `category_id`).
+- Thêm các biến tập hợp: số dòng, số dòng lỗi và vị trí dòng lỗi. Rollback (R6) phụ thuộc vào các biến này.
+- Quan sát U2 cho thấy hệ thống có 2 tầng, nên token khi gọi API cũng là một biến.
+
+| ID | Biến | Loại | Miền theo đặc tả | Nguồn |
+|---|---|---|---|---|
+| V1 | Đuôi / loại file | Input (file) | `.csv` | R1 |
+| V2 | Header | Input (file) | Đúng `name,price,description,imageUrl,category_id` | R2 |
+| V3 | Cách bọc trường | Input (trường) | Trường có `,` bọc `"…"`; `""` là dấu nháy | R3 |
+| V4 | `name` | Input (dòng) | Không rỗng (≤ 255, A5) | R4 |
+| V5 | `price` | Input (dòng) | Số > 0 | R5 |
+| V6 | `category_id` | Input (dòng) | Danh mục tồn tại (A6) | A6 |
+| V7 | Số dòng lỗi và vị trí | Gián tiếp (tập hợp) | 0 lỗi → import hết; ≥ 1 → rollback | R6 |
+| V8 | Số dòng dữ liệu | Gián tiếp (tập hợp) | ≥ 1 | R7 |
+| V9 | Token khi gọi API | Gián tiếp | Admin | R8 |
+| V10 | Encoding / xuống dòng | Input (file) | UTF-8 (± BOM), LF/CRLF | A3 |
+| O1 | Số SP thêm vào DB | Output (DB) | Đúng bằng số dòng nếu không lỗi, 0 nếu có lỗi | R6 |
+| O2 | Báo cáo | Output (UI) | Số thành công, số lỗi, lý do | R7 |
+| O3 | Dữ liệu SP sau import | Output (DB) | Đúng giá trị từng trường (kể cả có dấu phẩy) | R3 |
+| O4 | Hiển thị SP ở Web | Output (UI) | Không render HTML | R9 |
