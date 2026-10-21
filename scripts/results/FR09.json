@@ -1,0 +1,298 @@
+[
+  {
+    "id": "FR09-EP-01",
+    "status": "Fail",
+    "actual": "200 — giảm -9000000, thành tiền 10000000",
+    "evidence": "evidence/FR09/FR09-EP-01.png",
+    "note": "",
+    "time": "2026-10-21T01:29:36.862Z"
+  },
+  {
+    "id": "FR09-EP-02",
+    "status": "Pass",
+    "actual": "200 — giảm 50000, thành tiền 550000",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.882Z"
+  },
+  {
+    "id": "FR09-EP-03",
+    "status": "Pass",
+    "actual": "200 — giảm 100000, thành tiền 300000",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.888Z"
+  },
+  {
+    "id": "FR09-EP-04",
+    "status": "Pass",
+    "actual": "404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.889Z"
+  },
+  {
+    "id": "FR09-EP-09",
+    "status": "Pass",
+    "actual": "404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.903Z"
+  },
+  {
+    "id": "FR09-EP-10",
+    "status": "Pass",
+    "actual": "400 — Mã giảm giá đã hết hạn",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.919Z"
+  },
+  {
+    "id": "FR09-EP-11",
+    "status": "Pass",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:36.935Z"
+  },
+  {
+    "id": "FR09-EP-12",
+    "status": "Fail",
+    "actual": "200 — giảm -9000000, thành tiền 10000000",
+    "evidence": "evidence/FR09/FR09-EP-12.png",
+    "note": "",
+    "time": "2026-10-21T01:29:36.978Z"
+  },
+  {
+    "id": "FR09-EP-13",
+    "status": "Fail",
+    "actual": "200 — giảm -9000000, thành tiền 10000000",
+    "evidence": "evidence/FR09/FR09-EP-13.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.031Z"
+  },
+  {
+    "id": "FR09-EP-05",
+    "status": "Pass",
+    "actual": "404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.102Z"
+  },
+  {
+    "id": "FR09-BVA-01",
+    "status": "Pass",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.119Z"
+  },
+  {
+    "id": "FR09-BVA-02",
+    "status": "Fail",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này",
+    "evidence": "evidence/FR09/FR09-BVA-02.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.169Z"
+  },
+  {
+    "id": "FR09-BVA-03",
+    "status": "Fail",
+    "actual": "200 — giảm -2700009, thành tiền 3000010",
+    "evidence": "evidence/FR09/FR09-BVA-03.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.212Z"
+  },
+  {
+    "id": "FR09-BVA-04",
+    "status": "Pass",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.225Z"
+  },
+  {
+    "id": "FR09-BVA-05",
+    "status": "Fail",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này",
+    "evidence": "evidence/FR09/FR09-BVA-05.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.274Z"
+  },
+  {
+    "id": "FR09-BVA-06",
+    "status": "Pass",
+    "actual": "200 — giảm 50000, thành tiền 450001",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.286Z"
+  },
+  {
+    "id": "FR09-BVA-07",
+    "status": "Pass",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.302Z"
+  },
+  {
+    "id": "FR09-BVA-08",
+    "status": "Fail",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này",
+    "evidence": "evidence/FR09/FR09-BVA-08.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.351Z"
+  },
+  {
+    "id": "FR09-BVA-09",
+    "status": "Pass",
+    "actual": "200 — giảm 100000, thành tiền 200001",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.365Z"
+  },
+  {
+    "id": "FR09-BVA-10",
+    "status": "Pass",
+    "actual": "400 — Đơn hàng chưa đủ giá trị tối thiểu 100,000 ₫ để áp dụng mã này",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.381Z"
+  },
+  {
+    "id": "FR09-BVA-11",
+    "status": "Pass",
+    "actual": "400 — Mã giảm giá đã hết hạn",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.413Z"
+  },
+  {
+    "id": "FR09-BVA-12",
+    "status": "Pass",
+    "actual": "400 — Mã giảm giá đã hết hạn",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.445Z"
+  },
+  {
+    "id": "FR09-BVA-13",
+    "status": "Pass",
+    "actual": "200 — giảm 10000, thành tiền 90000",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.476Z"
+  },
+  {
+    "id": "FR09-BVA-16",
+    "status": "Fail",
+    "actual": "200 — giảm 100000, thành tiền -1",
+    "evidence": "evidence/FR09/FR09-BVA-16.png",
+    "note": "",
+    "time": "2026-10-21T01:29:37.548Z"
+  },
+  {
+    "id": "FR09-BVA-17",
+    "status": "Pass",
+    "actual": "200 — giảm 100000, thành tiền 0",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.552Z"
+  },
+  {
+    "id": "FR09-BVA-18",
+    "status": "Pass",
+    "actual": "200 — giảm 100000, thành tiền 1",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:37.568Z"
+  },
+  {
+    "id": "FR09-EP-19",
+    "status": "Pass",
+    "actual": "Áp SAVE10 lần 2 (chưa đặt hàng): 200 Áp dụng thành công! Giảm 10%",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:39.394Z"
+  },
+  {
+    "id": "FR09-EP-14",
+    "status": "Pass",
+    "actual": "400 — Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:39.425Z"
+  },
+  {
+    "id": "FR09-EP-16",
+    "status": "Fail",
+    "actual": "200 — giảm -3600000, thành tiền 4000000",
+    "evidence": "evidence/FR09/FR09-EP-16.png",
+    "note": "",
+    "time": "2026-10-21T01:29:39.479Z"
+  },
+  {
+    "id": "FR09-BVA-14",
+    "status": "Pass",
+    "actual": "200 — giảm 100000, thành tiền 300000",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:39.515Z"
+  },
+  {
+    "id": "FR09-BVA-15",
+    "status": "Pass",
+    "actual": "400 — Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn)",
+    "evidence": "",
+    "note": "",
+    "time": "2026-10-21T01:29:39.534Z"
+  },
+  {
+    "id": "FR09-EP-17",
+    "status": "Fail",
+    "actual": "200 — giảm -3600000, thành tiền 4000000",
+    "evidence": "evidence/FR09/FR09-EP-17.png",
+    "note": "",
+    "time": "2026-10-21T01:29:41.390Z"
+  },
+  {
+    "id": "FR09-EP-15",
+    "status": "Fail",
+    "actual": "Giỏ 400.000 ₫, áp SAVE10 → \"Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫\"",
+    "evidence": "evidence/FR09/FR09-EP-15.png",
+    "note": "",
+    "time": "2026-10-21T01:29:44.605Z"
+  },
+  {
+    "id": "FR09-EP-06",
+    "status": "Pass",
+    "actual": "Nút Áp dụng bị vô hiệu khi ô mã trống",
+    "evidence": "evidence/FR09/FR09-EP-06.png",
+    "note": "",
+    "time": "2026-10-21T01:29:44.782Z"
+  },
+  {
+    "id": "FR09-EP-07",
+    "status": "Pass",
+    "actual": "Nhập \"save10\" → \"Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫\"",
+    "evidence": "evidence/FR09/FR09-EP-07.png",
+    "note": "",
+    "time": "2026-10-21T01:29:45.852Z"
+  },
+  {
+    "id": "FR09-EP-08",
+    "status": "Pass",
+    "actual": "Nhập \"  SAVE10  \" → \"Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫\"",
+    "evidence": "evidence/FR09/FR09-EP-08.png",
+    "note": "",
+    "time": "2026-10-21T01:29:46.924Z"
+  },
+  {
+    "id": "FR09-EP-20",
+    "status": "Pass",
+    "actual": "Đặt hàng với SAVE10: thành công; áp lại SAVE10 → \"Mã Giảm Giá Áp dụng Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)\"",
+    "evidence": "evidence/FR09/FR09-EP-20.png",
+    "note": "",
+    "time": "2026-10-21T01:29:50.724Z"
+  }
+]

@@ -363,3 +363,72 @@ Cách làm: đăng nhập `test@eshop.com`, thêm sản phẩm vào giỏ, vào 
 - Có 3 lỗ hổng độ phủ (RV1–RV3), nên bổ sung 7 TC.
 
 Bộ cuối có **37 TC** (EP 19, BVA 18).
+
+## 7. Kết quả thực thi (S6)
+
+**Môi trường:**
+
+| Thành phần | Giá trị |
+|---|---|
+| SUT | `ttbhanh/eshop-sut` commit `85af3ba` — backend `:3000`, Web `:5173`, Admin `:5174` |
+| OS / trình duyệt | Windows 11 Home; Microsoft Edge 155.0.4283.62 |
+| Công cụ | Node v22.23.2 (`fetch`), Playwright-core 1.48.2 điều khiển Edge (headless) |
+| Ngày chạy | 21/10/2026 |
+
+**Cách thực thi:**
+- Test case được chạy tự động bằng [`scripts/fr09.mjs`](../scripts/fr09.mjs). Ở mỗi TC, script làm đúng các bước trong bảng, so kết quả với "Kết quả mong đợi", rồi ghi vào [`scripts/results/FR09.json`](../scripts/results/FR09.json).
+- Trước mỗi nhóm TC, script khởi động lại backend để DB được seed lại từ đầu.
+- Ảnh minh chứng nằm trong `evidence/FR09/`:
+  - TC trên UI: ảnh chụp màn hình Edge.
+  - TC trên API: ảnh chụp request/response.
+- Chạy lại: `cd scripts && npm install && node fr09.mjs`. Web/Admin phải đang chạy.
+
+<!-- SUMMARY -->
+| Loại | Thiết kế | Đã chạy | Pass | Fail | Blocked / Khám phá | Chưa chạy |
+|---|---|---|---|---|---|---|
+| Domain (EP) | 19 | 19 | 13 | 6 | 0 | 0 |
+| BVA | 18 | 18 | 13 | 5 | 0 | 0 |
+| **Tổng** | 37 | 37 | 26 | 11 | 0 | 0 |
+<!-- /SUMMARY -->
+
+<!-- RESULTS -->
+| ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
+|---|---|---|---|---|---|
+| FR09-EP-01 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-01.png) |  |
+| FR09-EP-02 | EP | 200 — giảm 50000, thành tiền 550000 | **Pass** |  |  |
+| FR09-EP-03 | EP | 200 — giảm 100000, thành tiền 300000 | **Pass** |  |  |
+| FR09-EP-04 | EP | 404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa | **Pass** |  |  |
+| FR09-EP-05 | EP | 404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa | **Pass** |  |  |
+| FR09-EP-06 | EP | Nút Áp dụng bị vô hiệu khi ô mã trống | **Pass** | [ảnh](../evidence/FR09/FR09-EP-06.png) |  |
+| FR09-EP-07 | EP | Nhập "save10" → "Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫" | **Pass** | [ảnh](../evidence/FR09/FR09-EP-07.png) |  |
+| FR09-EP-08 | EP | Nhập "  SAVE10  " → "Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫" | **Pass** | [ảnh](../evidence/FR09/FR09-EP-08.png) |  |
+| FR09-EP-09 | EP | 404 — Mã giảm giá không tồn tại hoặc đã bị vô hiệu hóa | **Pass** |  |  |
+| FR09-EP-10 | EP | 400 — Mã giảm giá đã hết hạn | **Pass** |  |  |
+| FR09-EP-11 | EP | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
+| FR09-EP-12 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-12.png) |  |
+| FR09-EP-13 | EP | 200 — giảm -9000000, thành tiền 10000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-13.png) |  |
+| FR09-EP-14 | EP | 400 — Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn) | **Pass** |  |  |
+| FR09-EP-15 | EP | Giỏ 400.000 ₫, áp SAVE10 → "Mã Giảm Giá Áp dụng ✅ Áp dụng thành công! Giảm 10% Tiết kiệm: -3,600,000 ₫ Thành tiền: 4,000,000 ₫" | **Fail** | [ảnh](../evidence/FR09/FR09-EP-15.png) |  |
+| FR09-BVA-01 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
+| FR09-BVA-02 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-02.png) |  |
+| FR09-BVA-03 | BVA | 200 — giảm -2700009, thành tiền 3000010 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-03.png) |  |
+| FR09-BVA-04 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này | **Pass** |  |  |
+| FR09-BVA-05 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 500,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-05.png) |  |
+| FR09-BVA-06 | BVA | 200 — giảm 50000, thành tiền 450001 | **Pass** |  |  |
+| FR09-BVA-07 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Pass** |  |  |
+| FR09-BVA-08 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-08.png) |  |
+| FR09-BVA-09 | BVA | 200 — giảm 100000, thành tiền 200001 | **Pass** |  |  |
+| FR09-BVA-10 | BVA | 400 — Đơn hàng chưa đủ giá trị tối thiểu 100,000 ₫ để áp dụng mã này | **Pass** |  |  |
+| FR09-BVA-11 | BVA | 400 — Mã giảm giá đã hết hạn | **Pass** |  |  |
+| FR09-BVA-12 | BVA | 400 — Mã giảm giá đã hết hạn | **Pass** |  |  |
+| FR09-BVA-13 | BVA | 200 — giảm 10000, thành tiền 90000 | **Pass** |  |  |
+| FR09-BVA-14 | BVA | 200 — giảm 100000, thành tiền 300000 | **Pass** |  |  |
+| FR09-BVA-15 | BVA | 400 — Bạn đã sử dụng mã này 2 lần (đã đạt giới hạn) | **Pass** |  |  |
+| FR09-EP-16 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-16.png) |  |
+| FR09-EP-17 | EP | 200 — giảm -3600000, thành tiền 4000000 | **Fail** | [ảnh](../evidence/FR09/FR09-EP-17.png) |  |
+| FR09-EP-19 | EP | Áp SAVE10 lần 2 (chưa đặt hàng): 200 Áp dụng thành công! Giảm 10% | **Pass** |  |  |
+| FR09-EP-20 | EP | Đặt hàng với SAVE10: thành công; áp lại SAVE10 → "Mã Giảm Giá Áp dụng Bạn đã sử dụng mã này 1 lần (đã đạt giới hạn)" | **Pass** | [ảnh](../evidence/FR09/FR09-EP-20.png) |  |
+| FR09-BVA-16 | BVA | 200 — giảm 100000, thành tiền -1 | **Fail** | [ảnh](../evidence/FR09/FR09-BVA-16.png) |  |
+| FR09-BVA-17 | BVA | 200 — giảm 100000, thành tiền 0 | **Pass** |  |  |
+| FR09-BVA-18 | BVA | 200 — giảm 100000, thành tiền 1 | **Pass** |  |  |
+<!-- /RESULTS -->
