@@ -40,7 +40,7 @@ Bài cá nhân HW02 (Domain Testing + Boundary Value Analysis) trên EShop (http
 
 ## Demo videos
 
-- Agent Skill demo (end-to-end trên một feature): _(link YouTube — sinh viên bổ sung)_
+- **Chưa quay video demo.** Đã có 3 Agent Skill trong `.claude/skills/` (xem `skills/README.md`), nhưng chưa có video YouTube chạy end-to-end.
 
 ## Môi trường
 
@@ -53,7 +53,7 @@ Bài cá nhân HW02 (Domain Testing + Boundary Value Analysis) trên EShop (http
 | Vite (Web, Admin) | 8.0.12 |
 | Expo CLI / SDK | 54.0.24 / ~54.0.33 |
 | Trình duyệt | Microsoft Edge 155.0.4283.62 (điều khiển bằng Playwright-core 1.48.2) |
-| Điện thoại / Expo Go | _(điền)_ |
+| Điện thoại / Expo Go | Không thực hiện (FR-06 chưa chạy trên thiết bị) |
 | Thay đổi trên SUT | Chỉ đổi `API_URL` trong `frontend-mobile/App.js` sang IP LAN |
 
 ## Cấu trúc thư mục

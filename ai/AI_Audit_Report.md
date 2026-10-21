@@ -55,11 +55,11 @@
 | 11 | Như trên | FR-16 bản nháp 31 TC | INCOMPLETE | 7 lớp không có TC; TC "file 10 MB" ngoài kỹ thuật | Thêm 8 TC, loại 1 |
 | 12 | Như trên | Oracle FR16-EP-03, EP-05 ("0 SP được thêm" là Pass) | INVALID | Oracle không đủ: lý do từ chối sai vẫn ra Pass (§1.4 test oracle) | Siết oracle; chạy lại → Fail |
 | 13 | Như trên | 35 file CSV test (`test-data/FR16/`) | INCOMPLETE | Chỉ dùng tên ASCII, chưa kiểm tiếng Việt có dấu, xuống dòng trong trường bọc nháy | ⬜ SV bổ sung 2 file (FR-16 G4, G5) |
-| 14 | Như trên | FR-06 S0–S5: 22 TC Mobile | INCOMPLETE | AI không chạy được app trên thiết bị; khám phá U4–U6 còn trống | ⬜ SV chạy trên điện thoại |
+| 14 | Như trên | FR-06 S0–S5: 22 TC Mobile | INCOMPLETE | AI không chạy được app trên thiết bị; khám phá U4–U6 còn trống | Chưa thực thi trên thiết bị (21 TC Not run) |
 | 15 | Như trên | Script thực thi `scripts/*.mjs` | INCOMPLETE | Lần đầu treo khi reset backend, lỗi ECONNRESET, selector trùng | AI tự sửa 3 lỗi rồi chạy lại |
 | 16 | Như trên | Kết quả thực thi 97 TC (`scripts/results/*.json`) | VALID | Kết quả máy ghi lại, có ảnh minh chứng | ⬜ SV xem lại ảnh của các TC Fail |
 | 17 | Như trên | 20 bug + bản nháp issue (`bugs/`) | VALID | Đủ trường theo §5.5 và template nhóm; severity theo cây quyết định | ⬜ SV xác nhận severity BUG-FR02-03 (High hay Critical) |
-| 18 | Như trên | Agent Skills (`.claude/skills/`) | VALID | Quy tắc lấy từ bài học S8 | ⬜ SV quay video demo |
+| 18 | Như trên | Agent Skills (`.claude/skills/`) | VALID | Quy tắc lấy từ bài học S8 | Chưa quay video demo |
 | 19 | Như trên | Bản nháp AI Critique, form AI-03 | INCOMPLETE | Văn phong của AI; phản tư phải là của sinh viên | ⬜ SV viết lại bằng lời của mình |
 
 ## 4. Summary of AI Accuracy

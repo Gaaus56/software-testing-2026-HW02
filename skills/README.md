@@ -29,4 +29,4 @@ Các quy tắc trong skill lấy từ những lỗ hổng mà phân tích S8 c�
 
 ## Video demo
 
-Link YouTube: _(sinh viên bổ sung sau khi quay; xem `README.md`)_
+Chưa quay video demo.
