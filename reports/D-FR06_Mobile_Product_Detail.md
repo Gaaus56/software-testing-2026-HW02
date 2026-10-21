@@ -139,3 +139,28 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 | EC-06-12 | V2 | SP đã có trong giỏ | V | đã có 2 | Cộng dồn | A5 |
 | EC-06-13 | O3 | Thông tin hiển thị | — | — | Đủ 5 trường | R1 |
 | EC-06-14 | O2 | Phản hồi | — | — | Có toast / badge | R3 |
+
+## 4. Test case Domain Testing (S3)
+
+**Cách làm:**
+- Mỗi lớp không hợp lệ của V1 có một TC riêng, đều bắt đầu từ trạng thái giỏ trống.
+- Oracle của các TC không hợp lệ là **giỏ hàng không thay đổi**, kèm theo có thông báo. Không chỉ dựa vào việc có thông báo hay không.
+- Các TC hiển thị (EP-11, EP-12) kiểm output O2 và O3.
+- Danh mục: [`testcases/FR06.json`](../testcases/FR06.json).
+
+<!-- TC:S3 -->
+| ID | Tầng | Lớp / biên phủ | Căn cứ | Tiền điều kiện | Dữ liệu test | Các bước | Kết quả mong đợi |
+|---|---|---|---|---|---|---|---|
+| FR06-EP-01 | Mobile | EC-06-01, EC-06-11 | R2, R3 | Mở app, đăng nhập (tuỳ chọn), giỏ trống; mở chi tiết SP "Tai nghe AirPods Pro 2" | Số lượng = 3 | Xóa ô số lượng → nhập 3 → Thêm vào giỏ hàng → mở Giỏ hàng | Có phản hồi (thông báo/badge); giỏ có 1 dòng SP với số lượng 3 |
+| FR06-EP-02 | Mobile | EC-06-02 | R2 | Như EP-01 | 0 | Nhập 0 → Thêm vào giỏ hàng → mở Giỏ hàng | Không nhận: báo lỗi số lượng, giỏ không thay đổi (giả định A2: "chỉ nhận" = chặn, không tự sửa) |
+| FR06-EP-03 | Mobile | EC-06-03 | R2 | Như EP-01 | -2 | Như EP-02 | Không nhận; giỏ không thay đổi |
+| FR06-EP-04 | Mobile | EC-06-04 | R2 | Như EP-01 | 1.5 (hoặc 1,5 tùy bàn phím) | Như EP-02 | Không nhận số thập phân; giỏ không thay đổi |
+| FR06-EP-05 | Mobile | EC-06-05 | R2 | Như EP-01 | abc (dán từ clipboard nếu bàn phím số không gõ được chữ) | Như EP-02 | Không nhận; giỏ không thay đổi |
+| FR06-EP-06 | Mobile | EC-06-06 | R2 | Như EP-01 | Ô trống | Xóa hết ô → Thêm vào giỏ hàng | Không nhận; báo phải nhập số lượng |
+| FR06-EP-07 | Mobile | EC-06-07 | R2 | Như EP-01 | " " (khoảng trắng) | Như EP-02 | Không nhận |
+| FR06-EP-08 | Mobile | EC-06-08 | R2 | Như EP-01 | 2abc | Như EP-02 | Không nhận (không phải số nguyên) |
+| FR06-EP-09 | Mobile | EC-06-09 | R2, A3 | Như EP-01 | 05 | Nhập 05 → Thêm → Giỏ hàng | Nhận là 5 (giả định A3) |
+| FR06-EP-10 | Mobile | EC-06-12 | R3 | Giỏ đã có SP đó với số lượng 2 | Thêm 3 | Ở chi tiết cùng SP nhập 3 → Thêm → Giỏ hàng | Một dòng, số lượng 5 (không tạo dòng mới) |
+| FR06-EP-11 | Mobile | EC-06-13 | R1 | Mở chi tiết SP bất kỳ | — | Quan sát màn hình | Có đủ: ảnh lớn, tên, giá, mô tả, danh mục |
+| FR06-EP-12 | Mobile | EC-06-14 | R3, FR-24 | Như EP-01 | Số lượng mặc định | Bấm Thêm vào giỏ hàng | Có phản hồi trực quan ngay (toast/thông báo/badge) |
+<!-- /TC:S3 -->
