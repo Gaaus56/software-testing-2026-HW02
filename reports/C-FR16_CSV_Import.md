@@ -389,18 +389,18 @@ Bộ cuối có **38 TC** (EP 22, BVA 16). Trong đó BVA-10 dùng chung với E
 
 ## 8. Bug (S7)
 
-Tìm được **8 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+Tìm được **8 bug**. Mỗi bug có bản nháp issue đúng template "Bug report" của repo nhóm (tiêu đề, label, các ô của form, ảnh) trong `bugs/issues/`. Tổng hợp toàn bài ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md). Issue trên repo nhóm có ảnh chụp ở [`bugs/issue-screenshots/`](../bugs/issue-screenshots/).
 
-| Bug | Tiêu đề | Test case | Severity | Kỹ thuật |
-|---|---|---|---|---|
-| [BUG-FR16-01](../bugs/issues/BUG-FR16-01.md) | Import CSV không rollback: dòng lỗi bị bỏ qua, các dòng còn lại vẫn được thêm | FR16-EP-07, FR16-EP-15, FR16-BVA-13 | High | EP, BVA |
-| [BUG-FR16-02](../bugs/issues/BUG-FR16-02.md) | Import CSV chấp nhận giá bằng 0, giá âm và giá không phải số | FR16-EP-08, FR16-EP-09, FR16-EP-10, FR16-EP-14, FR16-BVA-01, FR16-BVA-02, FR16-BVA-14 | High | EP, BVA |
-| [BUG-FR16-03](../bugs/issues/BUG-FR16-03.md) | Import CSV không hỗ trợ trường có dấu phẩy bọc nháy kép (RFC 4180), dữ liệu bị lệch cột | FR16-EP-06, FR16-EP-16 | Medium | EP |
-| [BUG-FR16-04](../bugs/issues/BUG-FR16-04.md) | Import CSV không kiểm tra đuôi/loại file (.txt được import, file nhị phân bị đọc như CSV) | FR16-EP-02, FR16-EP-03 | Medium | EP |
-| [BUG-FR16-05](../bugs/issues/BUG-FR16-05.md) | Import CSV không kiểm tra header (sai tên cột, thiếu/thừa cột, không có header vẫn xử lý) | FR16-EP-04, FR16-EP-05, FR16-EP-19, FR16-BVA-15, FR16-BVA-16 | Medium | EP, BVA |
-| [BUG-FR16-06](../bugs/issues/BUG-FR16-06.md) | Tài khoản user thường gọi được API import sản phẩm (không kiểm tra role admin) | FR16-EP-13 | Critical | EP |
-| [BUG-FR16-07](../bugs/issues/BUG-FR16-07.md) | Import CSV chấp nhận category_id không tồn tại | FR16-EP-18 | Medium | EP |
-| [BUG-FR16-08](../bugs/issues/BUG-FR16-08.md) | Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255) | FR16-BVA-09 | Low | BVA |
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
+|---|---|---|---|---|---|
+| [BUG-FR16-01](../bugs/issues/BUG-FR16-01.md) | Import CSV không rollback: dòng lỗi bị bỏ qua, các dòng còn lại vẫn được thêm | FR16-EP-07, FR16-EP-15, FR16-BVA-13 | High | EP, BVA | [#102](https://github.com/angquoc/software-testing-2026-HW02-group/issues/102) |
+| [BUG-FR16-02](../bugs/issues/BUG-FR16-02.md) | Import CSV chấp nhận giá bằng 0, giá âm và giá không phải số | FR16-EP-08, FR16-EP-09, FR16-EP-10, FR16-EP-14, FR16-BVA-01, FR16-BVA-02, FR16-BVA-14 | High | EP, BVA | [#103](https://github.com/angquoc/software-testing-2026-HW02-group/issues/103) |
+| [BUG-FR16-03](../bugs/issues/BUG-FR16-03.md) | Import CSV không hỗ trợ trường có dấu phẩy bọc nháy kép (RFC 4180), dữ liệu bị lệch cột | FR16-EP-06, FR16-EP-16 | Medium | EP | [#104](https://github.com/angquoc/software-testing-2026-HW02-group/issues/104) |
+| [BUG-FR16-04](../bugs/issues/BUG-FR16-04.md) | Import CSV không kiểm tra đuôi/loại file (.txt được import, file nhị phân bị đọc như CSV) | FR16-EP-02, FR16-EP-03 | Medium | EP | [#105](https://github.com/angquoc/software-testing-2026-HW02-group/issues/105) |
+| [BUG-FR16-05](../bugs/issues/BUG-FR16-05.md) | Import CSV không kiểm tra header (sai tên cột, thiếu/thừa cột, không có header vẫn xử lý) | FR16-EP-04, FR16-EP-05, FR16-EP-19, FR16-BVA-15, FR16-BVA-16 | Medium | EP, BVA | [#106](https://github.com/angquoc/software-testing-2026-HW02-group/issues/106) |
+| [BUG-FR16-06](../bugs/issues/BUG-FR16-06.md) | Tài khoản user thường gọi được API import sản phẩm (không kiểm tra role admin) | FR16-EP-13 | Critical | EP | [#107](https://github.com/angquoc/software-testing-2026-HW02-group/issues/107) |
+| [BUG-FR16-07](../bugs/issues/BUG-FR16-07.md) | Import CSV chấp nhận category_id không tồn tại | FR16-EP-18 | Medium | EP | [#108](https://github.com/angquoc/software-testing-2026-HW02-group/issues/108) |
+| [BUG-FR16-08](../bugs/issues/BUG-FR16-08.md) | Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255) | FR16-BVA-09 | Low | BVA | [#109](https://github.com/angquoc/software-testing-2026-HW02-group/issues/109) |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
 
