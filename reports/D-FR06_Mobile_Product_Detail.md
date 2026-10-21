@@ -235,3 +235,56 @@ _Nguồn: `eshop-sut/api_specification.md`, dòng 117–127._
 - Bổ sung 3 TC.
 
 Bộ cuối có **22 TC** (EP 15, BVA 7). Trong đó BVA-01 dùng chung với EP-02, nên số TC cần chạy là 21.
+
+## 7. Kết quả thực thi (S6)
+
+**Trạng thái: chưa thực thi.** Các TC Mobile phải chạy trên điện thoại thật (Expo Go), không tự động hóa được trên máy dev, vì dự án không có `react-native-web`.
+
+**Hướng dẫn chạy** (khoảng 25 phút):
+1. Sửa `API_URL` ở `eshop-sut/frontend-mobile/App.js:16` thành `http://<IP LAN>:3000/api`, rồi chạy `npx expo start` và quét QR bằng Expo Go (SDK 54).
+2. Khởi động lại backend trước khi chạy, để giỏ hàng và dữ liệu sạch.
+3. Chạy lần lượt các TC trong mục 4–6. Trước mỗi TC không hợp lệ, xóa giỏ hàng (mở Giỏ hàng → Xóa).
+4. Với mỗi TC:
+   - Chụp màn hình chi tiết sau khi bấm Thêm, và màn hình Giỏ hàng.
+   - Lưu ảnh vào `evidence/FR06/<ID>.png`.
+5. Điền vào bảng dưới: cột "Kết quả thực tế" (ghi cụ thể số lượng trong giỏ, nội dung thông báo) và cột "Trạng thái" (Pass / Fail).
+6. Với TC Fail, tạo bug theo `bugs/issues/` (template giống các FR khác). Gắn label `platform: mobile`, `pool: D`, tiêu đề `[23120017][FR-06][Mobile] …`.
+
+| Thiết bị | Hệ điều hành | Expo Go | Ngày chạy |
+|---|---|---|---|
+| _(điền)_ | _(điền)_ | _(điền)_ | _(điền)_ |
+
+<!-- SUMMARY -->
+| Loại | Thiết kế | Đã chạy | Pass | Fail | Blocked / Khám phá | Chưa chạy |
+|---|---|---|---|---|---|---|
+| Domain (EP) | 15 | 0 | 0 | 0 | 0 | 15 |
+| BVA | 6 | 0 | 0 | 0 | 0 | 6 |
+| **Tổng** | 21 | 0 | 0 | 0 | 0 | 21 |
+<!-- /SUMMARY -->
+
+<!-- RESULTS -->
+| ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
+|---|---|---|---|---|---|
+| FR06-EP-01 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-02 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-03 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-04 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-05 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-06 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-07 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-08 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-09 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-10 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-11 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-12 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-01 | BVA | = FR06-EP-02 (dùng chung) | — | — | |
+| FR06-BVA-02 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-03 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-04 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-05 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-06 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-07 | BVA | _(chưa chạy)_ | Not run | | |
+| FR06-EP-13 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-14 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-15 | EP | _(chưa chạy)_ | Not run | | |
+<!-- /RESULTS -->
