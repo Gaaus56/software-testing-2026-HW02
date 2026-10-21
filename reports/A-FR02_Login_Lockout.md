@@ -155,3 +155,30 @@ Cách làm: mở `http://localhost:5173/login` bằng Edge (DevTools: Elements, 
 | O5 | Thuộc tính form | Output (tĩnh) | DOM | `type`, `*`, nhãn | — | R7–R9 |
 
 Biến bị loại: "Ghi nhớ đăng nhập", captcha (không có trong đặc tả lẫn giao diện).
+
+## 3. Lớp tương đương (S2)
+
+**Cách làm:**
+- Với mỗi biến ở mục 2, chia miền thành lớp hợp lệ (V) và không hợp lệ (I). Mỗi lớp là tập giá trị mà hệ thống phải xử lý giống nhau.
+- V3 và V4 là miền số có một ngưỡng, nên mỗi biến có 2 lớp; ranh giới giữa hai lớp sẽ được BVA xét ở mục 5.
+- Các lớp output (thông báo, token, form) lấy từ R4, R6, R8, để kiểm cả phía "kết quả", không chỉ phía input.
+
+| Mã | Biến | Lớp | V/I | Đại diện | Kết quả mong đợi | Căn cứ |
+|---|---|---|---|---|---|---|
+| EC-02-01 | V1 | Định dạng đúng, đã đăng ký | V | test@eshop.com | Xét tiếp mật khẩu | R1 |
+| EC-02-02 | V1 | Định dạng đúng, chưa đăng ký | I | khongtontai@eshop.com | Từ chối, thông báo chung | R4 |
+| EC-02-03 | V1 | Sai định dạng | I | abc | UI chặn (type=email); API từ chối | R7, A8 |
+| EC-02-04 | V1 | Rỗng | I | "" | UI chặn (bắt buộc) | R1 |
+| EC-02-05 | V2 | Đúng | V | Test1234! | Đăng nhập (nếu không khóa) | R5 |
+| EC-02-06 | V2 | Sai | I | Wrong123! | Từ chối, bộ đếm +1 | R2 |
+| EC-02-07 | V2 | Rỗng | I | "" | UI chặn | R1 |
+| EC-02-08 | V2 | Khác hoa/thường | I | test1234! | Từ chối | R2 |
+| EC-02-09 | V3 | 0 ≤ n ≤ 2 | V | 0, 2 | Chưa khóa | R3 |
+| EC-02-10 | V3 | n ≥ 3 | I | 3, 4 | Khóa, kể cả mật khẩu đúng | R3, A1 |
+| EC-02-11 | V4 | 0 ≤ t < 30 s | I | 0 s, 29 s | Vẫn khóa | R3, A4 |
+| EC-02-12 | V4 | t ≥ 30 s | V | 30 s, 31 s | Mở khóa | R3, A4 |
+| EC-02-13 | V5 | Có lần thành công xen giữa | V | 2 sai → đúng → 2 sai | Không khóa | A2 |
+| EC-02-14 | V6 | Tài khoản khác khi A bị khóa | V | admin@eshop.com | Đăng nhập bình thường | A3 |
+| EC-02-15 | O2 | Thông báo cho EC-02-02 so với EC-02-06 | — | — | Giống hệt nhau | R4, A6 |
+| EC-02-16 | O4 | Request cần xác thực sau đăng nhập | — | GET /api/orders/my-orders | Có `Authorization: Bearer` | R6 |
+| EC-02-17 | O5 | Thuộc tính form | — | DOM trang /login | type=email, type=password, `*`, nhãn tiếng Việt, lỗi trên nút | R7–R9 |
