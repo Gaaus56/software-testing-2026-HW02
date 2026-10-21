@@ -363,3 +363,28 @@ Tìm được **6 bug**. Mỗi bug có bản nháp issue đúng template "Bug re
 | [BUG-FR02-06](../bugs/issues/BUG-FR02-06.md) | Trang Đăng nhập có tiêu đề "Đăng Ký", nhãn "Username", nút "Sign In", thiếu dấu * ở trường bắt buộc | FR02-EP-09 | Low | EP |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
+
+## 9. Phân tích phần AI bỏ sót (S8)
+
+So sánh bản nháp do AI (Claude Code) tạo ở S1–S4 với bộ cuối sau review (S5) và thực thi (S6).
+
+| # | AI bỏ sót / làm sai | Phát hiện ở | Dẫn tới bug? | Nguyên nhân | Giải thích |
+|---|---|---|---|---|---|
+| G1 | Có lớp EC-02-13 (reset bộ đếm), EC-02-14 (tài khoản khác) trong bảng lớp nhưng **không sinh TC** | S5 (ma trận truy vết) | EP-11 Fail (cùng nguyên nhân BUG-FR02-01) | Prompt | Prompt S3 không yêu cầu AI tự lập ma trận truy vết. AI chỉ sinh TC cho các lớp "dễ thấy" |
+| G2 | Bản nháp BVA thời gian thử đăng nhập mỗi giây tới khi mở khóa | S5 (RV4) | Không | Giới hạn tool | AI ưu tiên viết script tiện, quên rằng việc thử liên tục có thể ảnh hưởng chính biến đang đo (A5) |
+| G3 | Khi khám phá (S0), AI kết luận "lần sai thứ 3 thì khóa, đúng đặc tả", vì chỉ thử toàn mật khẩu **sai** | S6 (BVA-01 Fail) | **BUG-FR02-01** | Độ phức tạp | Lỗi chỉ lộ ra khi kết hợp 2 lần sai **và** 1 lần đúng. Quan sát hời hợt dễ xác nhận cái mình đang muốn thấy (confirmation bias). BVA 3 giá trị (n = 2) mới bắt được |
+| G4 | Đề xuất TC "email viết hoa phải đăng nhập được" | S5 (RV6) | — | Giới hạn tool | AI tự thêm yêu cầu không có trong đặc tả (hallucination về "thói quen chung") |
+| G5 | Kết luận ban đầu rằng thời gian khóa sai chỉ là nghi vấn, chưa đo | S5 (RV7) | Làm rõ BUG-FR02-02 | Prompt | Không yêu cầu AI định lượng sai lệch; phải thêm TC khám phá 175 s / 185 s |
+
+**Chưa phủ, và lý do:**
+- SEC-01 (mật khẩu lưu plaintext): không kiểm được bằng hộp đen.
+- Thời hạn token JWT: đặc tả không nêu.
+- Nhiều request đăng nhập đồng thời: ngoài kỹ thuật Domain/BVA.
+- Khóa tài khoản trên Mobile: không thuộc phạm vi.
+
+**Số liệu:**
+- Bản nháp có 18 TC: VALID 13 (72 %), INCOMPLETE 4 (22 %), INVALID 1 (6 %). Bổ sung 6 TC.
+- Có 6 bug. Cả 6 đều có ít nhất 1 TC từ bản nháp phát hiện.
+- Riêng bug nặng nhất (BUG-FR02-01) có giả thuyết từ khám phá ban đầu bị sai, và chỉ được phát hiện nhờ BVA.
+
+> Lưu ý quy trình: do hạn thời gian, bước review S5 cũng do AI thực hiện (tự review lại bản nháp), theo yêu cầu của sinh viên. Sinh viên đã/ sẽ đọc lại và xác nhận từng dòng của bảng review và bảng này trước khi nộp. Xem AI Audit Report.
