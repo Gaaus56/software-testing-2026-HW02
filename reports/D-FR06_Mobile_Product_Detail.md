@@ -301,10 +301,10 @@ Tìm được **4 bug**. Mỗi bug có bản nháp issue trong `bugs/issues/`, k
 
 | Bug | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
 |---|---|---|---|---|---|
-| [BUG-FR06-01](../bugs/issues/BUG-FR06-01.md) | Ô Số lượng chấp nhận 0, số âm, số thập phân, chữ, ô trống: tự đổi thành 1 và báo "Thành công" | FR06-EP-02, FR06-EP-03, FR06-EP-04, FR06-EP-05, FR06-EP-06, FR06-EP-07, FR06-BVA-04 | Medium | EP, BVA | _(chưa tạo)_ |
-| [BUG-FR06-02](../bugs/issues/BUG-FR06-02.md) | Ô Số lượng nhận "2abc" thành 2 (chỉ đọc phần số ở đầu chuỗi) | FR06-EP-08 | Medium | EP | _(chưa tạo)_ |
-| [BUG-FR06-03](../bugs/issues/BUG-FR06-03.md) | Màn chi tiết sản phẩm trên Mobile không hiển thị Danh mục | FR06-EP-11 | Low | EP | _(chưa tạo)_ |
-| [BUG-FR06-04](../bugs/issues/BUG-FR06-04.md) | Số lượng rất lớn bị làm tròn sai (99999999999999999999 thành 100000000000000020000), không có giới hạn trên | FR06-BVA-07, FR06-BVA-05, FR06-BVA-06 | Low | BVA | _(chưa tạo)_ |
+| [BUG-FR06-01](../bugs/issues/BUG-FR06-01.md) | Ô Số lượng chấp nhận 0, số âm, số thập phân, chữ, ô trống: tự đổi thành 1 và báo "Thành công" | FR06-EP-02, FR06-EP-03, FR06-EP-04, FR06-EP-05, FR06-EP-06, FR06-EP-07, FR06-BVA-04 | Medium | EP, BVA | [#110](https://github.com/angquoc/software-testing-2026-HW02-group/issues/110) |
+| [BUG-FR06-02](../bugs/issues/BUG-FR06-02.md) | Ô Số lượng nhận "2abc" thành 2 (chỉ đọc phần số ở đầu chuỗi) | FR06-EP-08 | Medium | EP | [#111](https://github.com/angquoc/software-testing-2026-HW02-group/issues/111) |
+| [BUG-FR06-03](../bugs/issues/BUG-FR06-03.md) | Màn chi tiết sản phẩm trên Mobile không hiển thị Danh mục | FR06-EP-11 | Low | EP | [#112](https://github.com/angquoc/software-testing-2026-HW02-group/issues/112) |
+| [BUG-FR06-04](../bugs/issues/BUG-FR06-04.md) | Số lượng rất lớn bị làm tròn sai (99999999999999999999 thành 100000000000000020000), không có giới hạn trên | FR06-BVA-07, FR06-BVA-05, FR06-BVA-06 | Low | BVA | [#113](https://github.com/angquoc/software-testing-2026-HW02-group/issues/113) |
 
 Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
 <!-- /BUGS:FR06 -->
