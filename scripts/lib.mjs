@@ -24,9 +24,13 @@ export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // rồi chạy lại server tách rời khỏi script này.
 const BACKEND_DIR = join(REPO, "..", "eshop-sut", "backend");
 export function resetBackend() {
-  execFileSync("powershell", ["-NoProfile", "-Command",
-    "Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { $p = Get-CimInstance Win32_Process -Filter \"ProcessId=$($_.OwningProcess)\"; if ($p.CommandLine -like '*server.js*') { Stop-Process -Id $_.OwningProcess -Force } }"],
-    { stdio: "ignore" });
+  try {
+    execFileSync("powershell", ["-NoProfile", "-Command",
+      "Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { $p = Get-CimInstance Win32_Process -Filter \"ProcessId=$($_.OwningProcess)\"; if ($p.CommandLine -like '*server.js*') { Stop-Process -Id $_.OwningProcess -Force } }"],
+      { stdio: "ignore" });
+  } catch {
+    // Không có backend nào đang chạy → không cần tắt
+  }
   const child = spawn("node", ["server.js"], { cwd: BACKEND_DIR, detached: true, stdio: "ignore", windowsHide: true });
   child.unref();
   for (let i = 0; i < 50; i++) {
