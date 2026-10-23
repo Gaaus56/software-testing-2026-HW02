@@ -28,6 +28,7 @@ Claude Code (VS Code extension), model Claude Opus 5.5. Không dùng công cụ 
 
 **4. Specific parts of the work AI contributed to:**
 - AI trích đặc tả (mục 1.1–1.3), soạn S0–S8 cho FR-02, FR-09, FR-16, và S0–S6, S8 cho FR-06 (trong `reports/`).
+- Ngày 23/10, AI chạy 21 TC Mobile FR-06 trên Android Emulator (`scripts/fr06.mjs`) và ghi 4 bug.
 - AI viết toàn bộ script trong `scripts/`, sinh 35 file test trong `test-data/`, chạy 97 test case và chụp ảnh trong `evidence/`.
 - AI soạn 20 bug và bản nháp issue (`bugs/`), 3 Agent Skill (`.claude/skills/`), bản nháp AI Audit Report và AI Critique.
-- Sinh viên làm: chọn feature, dựng môi trường, review và xác nhận các mục ⬜ trong AI Audit Report, chạy test Mobile FR-06, tạo issue trên GitHub, quay video demo, viết lại AI Critique, tự chấm điểm.
+- Sinh viên làm: chọn feature, dựng môi trường, review và xác nhận các mục ⬜ trong AI Audit Report, tạo issue trên GitHub, viết lại AI Critique, tự chấm điểm.

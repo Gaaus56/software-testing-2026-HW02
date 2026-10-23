@@ -29,12 +29,12 @@ Bài cá nhân HW02 (Domain Testing + Boundary Value Analysis) trên EShop (http
 | [FR-02](reports/A-FR02_Login_Lockout.md) | 23 (EP 14, BVA 9) | 23 | 14 | 7 | 0 (+2 ca khám phá) | 6 |
 | [FR-09](reports/B-FR09_Coupon.md) | 37 (EP 19, BVA 18) | 37 | 26 | 11 | 0 | 6 |
 | [FR-16](reports/C-FR16_CSV_Import.md) | 37 (EP 22, BVA 15) ¹ | 37 | 15 | 22 | 0 | 8 |
-| [FR-06 Mobile](reports/D-FR06_Mobile_Product_Detail.md) | 21 (EP 15, BVA 6) ¹ | 0 | 0 | 0 | 21 | 0 |
-| **Tổng (4 feature)** | **118** | **97** | **55** | **40** | **21** | **20** |
+| [FR-06 Mobile](reports/D-FR06_Mobile_Product_Detail.md) | 21 (EP 15, BVA 6) ¹ | 21 | 10 | 10 | 0 (+1 ca khám phá) | 4 |
+| **Tổng (4 feature)** | **118** | **118** | **65** | **50** | **0** | **24** |
 
 ¹ Không tính các TC biên dùng chung với một TC EP (FR16-BVA-10 = EP-11, FR06-BVA-01 = EP-02).
 
-- Bug theo mức độ: **Critical 3, High 6, Medium 8, Low 3**. Danh sách: [`bugs/Bug_Report.md`](bugs/Bug_Report.md).
+- Bug theo mức độ: **Critical 3, High 6, Medium 10, Low 5**. Danh sách: [`bugs/Bug_Report.md`](bugs/Bug_Report.md).
 - Ca khám phá FR02-BVA-08a/b đo thời gian khóa thực tế (≈ 180 s), không có kết quả mong đợi riêng.
 - Test Web/Admin được thực thi tự động bằng [`scripts/`](scripts/) (Node + Edge). Kết quả gốc: `scripts/results/*.json`; ảnh: `evidence/`.
 
@@ -53,8 +53,8 @@ Bài cá nhân HW02 (Domain Testing + Boundary Value Analysis) trên EShop (http
 | Vite (Web, Admin) | 8.0.12 |
 | Expo CLI / SDK | 54.0.24 / ~54.0.33 |
 | Trình duyệt | Microsoft Edge 155.0.4283.62 (điều khiển bằng Playwright-core 1.48.2) |
-| Điện thoại / Expo Go | Không thực hiện (FR-06 chưa chạy trên thiết bị) |
-| Thay đổi trên SUT | Chỉ đổi `API_URL` trong `frontend-mobile/App.js` sang IP LAN |
+| Thiết bị Mobile / Expo Go | Android Emulator AVD Pixel_6 (Android SDK 37), Expo Go SDK 54, điều khiển bằng adb (`scripts/fr06.mjs`) |
+| Thay đổi trên SUT | Chỉ đổi `API_URL` trong `frontend-mobile/App.js` thành `http://10.0.2.2:3000/api` (máy host nhìn từ emulator) |
 
 ## Cấu trúc thư mục
 

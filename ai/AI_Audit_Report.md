@@ -24,6 +24,8 @@
 | 4 | 14:36 20/10/2026 | Hướng dẫn chạy EShop, khởi tạo repo cá nhân | Cài và chạy thử EShop; tạo khung repo |
 | 5 | 15:15 20/10/2026 | S0: trích đặc tả, giải thích chi tiết bước | Trích nguyên văn đặc tả 4 feature bằng script |
 | 6 | 08:08 21/10/2026 | "không còn thời gian … hãy hoàn thành toàn bộ bài tập này" | Thực hiện S0–S8 cho FR-02/09/16 (chạy test thật), S0–S6, S8 cho FR-06 (chưa chạy trên máy), viết script, bug, skill, bản nháp các phụ lục |
+| 7–11 | 21/10 – 23/10/2026 | Kiểm tra repo, chuẩn bị nộp, ghi link issue | Đối chiếu mục 14 của đề, sinh link tạo issue, ghi link #90–#109, xuất PDF/git log |
+| 12 | 23/10/2026 | Hoàn thành phần bài nhóm và test mobile | Điền dòng phân công vào README repo nhóm; chạy 21 TC FR-06 trên Android Emulator bằng adb, ghi 4 bug, cập nhật S6–S8 |
 
 **Minh bạch về cách dùng AI:**
 - Từ prompt 6, AI làm phần lớn bài theo **một yêu cầu tổng quát**, không phải từng prompt cho từng bước kỹ thuật như nguyên tắc "AI-First" của đề.
@@ -55,7 +57,7 @@
 | 11 | Như trên | FR-16 bản nháp 31 TC | INCOMPLETE | 7 lớp không có TC; TC "file 10 MB" ngoài kỹ thuật | Thêm 8 TC, loại 1 |
 | 12 | Như trên | Oracle FR16-EP-03, EP-05 ("0 SP được thêm" là Pass) | INVALID | Oracle không đủ: lý do từ chối sai vẫn ra Pass (§1.4 test oracle) | Siết oracle; chạy lại → Fail |
 | 13 | Như trên | 35 file CSV test (`test-data/FR16/`) | INCOMPLETE | Chỉ dùng tên ASCII, chưa kiểm tiếng Việt có dấu, xuống dòng trong trường bọc nháy | Chưa bổ sung |
-| 14 | Như trên | FR-06 S0–S5: 22 TC Mobile | INCOMPLETE | AI không chạy được app trên thiết bị; khám phá U4–U6 còn trống | Chưa thực thi trên thiết bị (21 TC Not run) |
+| 14 | Claude Code, 23/10/2026 | FR-06: 22 TC Mobile, thực thi trên Android Emulator (`scripts/fr06.mjs`) | INCOMPLETE | Thiết kế ban đầu chưa lường trước việc app tự sửa giá trị sai về 1 và header nằm dưới thanh trạng thái (S8 G5, G6) | AI sửa script (điều hướng bằng bàn phím), chạy 21 TC, ghi 4 bug |
 | 15 | Như trên | Script thực thi `scripts/*.mjs` | INCOMPLETE | Lần đầu treo khi reset backend, lỗi ECONNRESET, selector trùng | AI tự sửa 3 lỗi rồi chạy lại |
 | 16 | Như trên | Kết quả thực thi 97 TC (`scripts/results/*.json`) | VALID | Kết quả máy ghi lại, có ảnh minh chứng | SV đã xem |
 | 17 | Như trên | 20 bug + bản nháp issue (`bugs/`) | VALID | Đủ trường theo §5.5 và template nhóm; severity theo cây quyết định | SV xác nhận severity BUG-FR02-03 (High hay Critical) |
