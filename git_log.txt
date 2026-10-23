@@ -1,3 +1,6 @@
+cbe03ce | 2026-10-23 10:57:56 +0700 | Tran Thanh An | [report] Refresh PDF exports
+41b37f0 | 2026-10-23 10:57:50 +0700 | Tran Thanh An | [D-FR06][S7] Add GitHub issue links and screenshots
+0316b6d | 2026-10-23 10:42:47 +0700 | Tran Thanh An | [report] Export git commit log
 d2b13f6 | 2026-10-23 10:42:47 +0700 | Tran Thanh An | [report] Refresh PDF exports
 8377364 | 2026-10-23 10:42:41 +0700 | Tran Thanh An | [report] Update AI prompt log
 26e5a1b | 2026-10-23 10:42:41 +0700 | Tran Thanh An | [report] Update README, audit and disclosure for mobile execution
