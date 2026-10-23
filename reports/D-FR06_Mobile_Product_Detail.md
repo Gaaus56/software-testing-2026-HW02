@@ -238,55 +238,60 @@ Bộ cuối có **22 TC** (EP 15, BVA 7). Trong đó BVA-01 dùng chung với EP
 
 ## 7. Kết quả thực thi (S6)
 
-**Trạng thái: chưa thực thi.** Các TC Mobile phải chạy trên điện thoại thật (Expo Go), không tự động hóa được trên máy dev, vì dự án không có `react-native-web`.
+**Môi trường:**
 
-**Hướng dẫn chạy** (khoảng 25 phút):
-1. Sửa `API_URL` ở `eshop-sut/frontend-mobile/App.js:16` thành `http://<IP LAN>:3000/api`, rồi chạy `npx expo start` và quét QR bằng Expo Go (SDK 54).
-2. Khởi động lại backend trước khi chạy, để giỏ hàng và dữ liệu sạch.
-3. Chạy lần lượt các TC trong mục 4–6. Trước mỗi TC không hợp lệ, xóa giỏ hàng (mở Giỏ hàng → Xóa).
-4. Với mỗi TC:
-   - Chụp màn hình chi tiết sau khi bấm Thêm, và màn hình Giỏ hàng.
-   - Lưu ảnh vào `evidence/FR06/<ID>.png`.
-5. Điền vào bảng dưới: cột "Kết quả thực tế" (ghi cụ thể số lượng trong giỏ, nội dung thông báo) và cột "Trạng thái" (Pass / Fail).
-6. Với TC Fail, tạo bug theo `bugs/issues/` (template giống các FR khác). Gắn label `platform: mobile`, `pool: D`, tiêu đề `[23120017][FR-06][Mobile] …`.
+| Thành phần | Giá trị |
+|---|---|
+| Thiết bị | Android Emulator, AVD **Pixel_6** (Android SDK 37, 1080 × 2400), tăng tốc WHPX, GPU `swiftshader_indirect` |
+| App | Expo Go (SDK 54) mở `frontend-mobile` qua Metro (`npx expo start --android`) |
+| Thay đổi SUT | `frontend-mobile/App.js:16`: `API_URL = "http://10.0.2.2:3000/api"` (địa chỉ của máy host khi nhìn từ emulator) |
+| Backend | `eshop-sut/backend`, seed mới trước khi chạy |
+| Ngày chạy | 23/10/2026 |
 
-| Thiết bị | Hệ điều hành | Expo Go | Ngày chạy |
-|---|---|---|---|
-| _(điền)_ | _(điền)_ | _(điền)_ | _(điền)_ |
+**Cách thực thi:**
+- Các TC được chạy tự động bằng [`scripts/fr06.mjs`](../scripts/fr06.mjs), điều khiển emulator qua `adb`:
+  - Đọc cây giao diện bằng `uiautomator dump`.
+  - Chạm bằng `input tap`.
+  - Nhập liệu bằng `input text`. Cách này tương đương dán từ clipboard, nên đưa được cả ký tự không phải số vào ô `numeric`.
+  - Chụp màn hình bằng `screencap`.
+- Header của app nằm dưới thanh trạng thái Android nên không chạm được. Script điều hướng header bằng bàn phím (TAB / DPAD + ENTER).
+- Mỗi TC nhập số lượng đều bắt đầu từ giỏ trống. Script ghi lại hộp thoại phản hồi, rồi mở Giỏ hàng để đọc số lượng và thành tiền.
+- Ảnh minh chứng: `evidence/FR06/<ID>.png` là màn chi tiết sau khi bấm Thêm; `<ID>_cart.png` là màn Giỏ hàng.
+- Kết quả gốc: [`scripts/results/FR06.json`](../scripts/results/FR06.json).
 
 <!-- SUMMARY -->
 | Loại | Thiết kế | Đã chạy | Pass | Fail | Blocked / Khám phá | Chưa chạy |
 |---|---|---|---|---|---|---|
-| Domain (EP) | 15 | 0 | 0 | 0 | 0 | 15 |
-| BVA | 6 | 0 | 0 | 0 | 0 | 6 |
-| **Tổng** | 21 | 0 | 0 | 0 | 0 | 21 |
+| Domain (EP) | 15 | 15 | 6 | 8 | 1 | 0 |
+| BVA | 6 | 6 | 4 | 2 | 0 | 0 |
+| **Tổng** | 21 | 21 | 10 | 10 | 1 | 0 |
 <!-- /SUMMARY -->
 
 <!-- RESULTS -->
 | ID | Kỹ thuật | Kết quả thực tế | Trạng thái | Bằng chứng | Bug |
 |---|---|---|---|---|---|
-| FR06-EP-01 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-02 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-03 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-04 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-05 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-06 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-07 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-08 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-09 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-10 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-11 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-12 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-EP-01 | EP | Nhập "3" (ô hiển thị "3") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 3, Thành tiền: 18,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-EP-01.png) |  |
+| FR06-EP-02 | EP | Nhập "0" (ô hiển thị "0") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-02.png) | BUG-FR06-01 |
+| FR06-EP-03 | EP | Nhập "-2" (ô hiển thị "-2") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-03.png) | BUG-FR06-01 |
+| FR06-EP-04 | EP | Nhập "1.5" (ô hiển thị "1.5") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-04.png) | BUG-FR06-01 |
+| FR06-EP-05 | EP | Nhập "abc" (ô hiển thị "abc") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-05.png) | BUG-FR06-01 |
+| FR06-EP-06 | EP | Nhập "" (ô hiển thị "") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-06.png) | BUG-FR06-01 |
+| FR06-EP-07 | EP | Nhập " " (ô hiển thị " ") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-07.png) | BUG-FR06-01 |
+| FR06-EP-08 | EP | Nhập "2abc" (ô hiển thị "2abc") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 2, Thành tiền: 12,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-EP-08.png) | BUG-FR06-02 |
+| FR06-EP-09 | EP | Nhập "05" (ô hiển thị "05") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 5, Thành tiền: 30,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-EP-09.png) |  |
+| FR06-EP-10 | EP | Nhập "3" (ô hiển thị "3") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 5, Thành tiền: 30,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-EP-10.png) |  |
+| FR06-EP-11 | EP | Ảnh: có; tên: có; giá: "6,000,000 ₫"; mô tả: có; danh mục: KHÔNG có. Các chữ trên màn: EShop Mobile \| Đăng nhập \| Giỏ (0) \| Tai nghe AirPods Pro 2 \| 6,000,000 ₫ \| Chống ồn chủ động xuất sắc \| Số lượng: \| Thêm vào giỏ hàng \| © 2026 EShop SUT. Dành cho mục đích kiểm thử. | **Fail** | [ảnh](../evidence/FR06/FR06-EP-11.png) | BUG-FR06-03 |
+| FR06-EP-12 | EP | Hiện hộp thoại "Thành công — Đã thêm vào giỏ hàng" | **Pass** | [ảnh](../evidence/FR06/FR06-EP-13.png) |  |
 | FR06-BVA-01 | BVA | = FR06-EP-02 (dùng chung) | — | — | |
-| FR06-BVA-02 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-BVA-03 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-BVA-04 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-BVA-05 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-BVA-06 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-BVA-07 | BVA | _(chưa chạy)_ | Not run | | |
-| FR06-EP-13 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-14 | EP | _(chưa chạy)_ | Not run | | |
-| FR06-EP-15 | EP | _(chưa chạy)_ | Not run | | |
+| FR06-BVA-02 | BVA | Nhập "1" (ô hiển thị "1") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-BVA-02.png) |  |
+| FR06-BVA-03 | BVA | Nhập "2" (ô hiển thị "2") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 2, Thành tiền: 12,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-BVA-03.png) |  |
+| FR06-BVA-04 | BVA | Nhập "-1" (ô hiển thị "-1") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-BVA-04.png) | BUG-FR06-01 |
+| FR06-BVA-05 | BVA | Nhập "2147483647" (ô hiển thị "2147483647") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 2147483647, Thành tiền: 12,884,901,882,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-BVA-05.png) | BUG-FR06-04 |
+| FR06-BVA-06 | BVA | Nhập "2147483648" (ô hiển thị "2147483648") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 2147483648, Thành tiền: 12,884,901,888,000,000 ₫ | **Pass** | [ảnh](../evidence/FR06/FR06-BVA-06.png) | BUG-FR06-04 |
+| FR06-BVA-07 | BVA | Nhập "99999999999999999999" (ô hiển thị "99999999999999999999") → thông báo: "Thành công — Đã thêm vào giỏ hàng"; giỏ: 1 dòng, số lượng 100000000000000020000, Thành tiền: 600,000,000,000,000,100,000,000,000 ₫ | **Fail** | [ảnh](../evidence/FR06/FR06-BVA-07.png) | BUG-FR06-04 |
+| FR06-EP-13 | EP | Mặc định "1"; thông báo "Thành công — Đã thêm vào giỏ hàng"; giỏ 1 dòng, SL 1 | **Pass** | [ảnh](../evidence/FR06/FR06-EP-13.png) |  |
+| FR06-EP-14 | EP | Giá hiển thị "6,000,000 ₫" | **Pass** | [ảnh](../evidence/FR06/FR06-EP-11.png) |  |
+| FR06-EP-15 | EP | Ô số lượng là EditText với bàn phím số (keyboardType=numeric). Script nhập bằng `adb input text` (tương đương dán), nên mọi ký tự đều đưa vào được; ký tự lọt vào ô được ghi ở các TC EP-03…08 _(Khám phá)_ | **Blocked** |  |  |
 <!-- /RESULTS -->
 
 ## 9. Phân tích phần AI bỏ sót (S8)

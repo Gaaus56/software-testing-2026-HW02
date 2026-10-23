@@ -1,0 +1,170 @@
+[
+  {
+    "id": "FR06-EP-11",
+    "status": "Fail",
+    "actual": "Ảnh: có; tên: có; giá: \"6,000,000 ₫\"; mô tả: có; danh mục: KHÔNG có. Các chữ trên màn: EShop Mobile | Đăng nhập | Giỏ (0) | Tai nghe AirPods Pro 2 | 6,000,000 ₫ | Chống ồn chủ động xuất sắc | Số lượng: | Thêm vào giỏ hàng | © 2026 EShop SUT. Dành cho mục đích kiểm thử.",
+    "evidence": "evidence/FR06/FR06-EP-11.png",
+    "note": "",
+    "time": "2026-10-23T03:21:34.028Z"
+  },
+  {
+    "id": "FR06-EP-14",
+    "status": "Pass",
+    "actual": "Giá hiển thị \"6,000,000 ₫\"",
+    "evidence": "evidence/FR06/FR06-EP-11.png",
+    "note": "",
+    "time": "2026-10-23T03:21:34.028Z"
+  },
+  {
+    "id": "FR06-EP-15",
+    "status": "Blocked",
+    "actual": "Ô số lượng là EditText với bàn phím số (keyboardType=numeric). Script nhập bằng `adb input text` (tương đương dán), nên mọi ký tự đều đưa vào được; ký tự lọt vào ô được ghi ở các TC EP-03…08",
+    "evidence": "",
+    "note": "Khám phá",
+    "time": "2026-10-23T03:21:34.029Z"
+  },
+  {
+    "id": "FR06-EP-13",
+    "status": "Pass",
+    "actual": "Mặc định \"1\"; thông báo \"Thành công — Đã thêm vào giỏ hàng\"; giỏ 1 dòng, SL 1",
+    "evidence": "evidence/FR06/FR06-EP-13.png",
+    "note": "",
+    "time": "2026-10-23T03:22:20.353Z"
+  },
+  {
+    "id": "FR06-EP-12",
+    "status": "Pass",
+    "actual": "Hiện hộp thoại \"Thành công — Đã thêm vào giỏ hàng\"",
+    "evidence": "evidence/FR06/FR06-EP-13.png",
+    "note": "",
+    "time": "2026-10-23T03:22:20.353Z"
+  },
+  {
+    "id": "FR06-EP-01",
+    "status": "Pass",
+    "actual": "Nhập \"3\" (ô hiển thị \"3\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 3, Thành tiền: 18,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-01.png",
+    "note": "",
+    "time": "2026-10-23T03:23:22.380Z"
+  },
+  {
+    "id": "FR06-EP-02",
+    "status": "Fail",
+    "actual": "Nhập \"0\" (ô hiển thị \"0\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-02.png",
+    "note": "",
+    "time": "2026-10-23T03:24:24.059Z"
+  },
+  {
+    "id": "FR06-EP-03",
+    "status": "Fail",
+    "actual": "Nhập \"-2\" (ô hiển thị \"-2\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-03.png",
+    "note": "",
+    "time": "2026-10-23T03:25:25.766Z"
+  },
+  {
+    "id": "FR06-EP-04",
+    "status": "Fail",
+    "actual": "Nhập \"1.5\" (ô hiển thị \"1.5\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-04.png",
+    "note": "",
+    "time": "2026-10-23T03:26:27.550Z"
+  },
+  {
+    "id": "FR06-EP-05",
+    "status": "Fail",
+    "actual": "Nhập \"abc\" (ô hiển thị \"abc\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-05.png",
+    "note": "",
+    "time": "2026-10-23T03:27:29.308Z"
+  },
+  {
+    "id": "FR06-EP-06",
+    "status": "Fail",
+    "actual": "Nhập \"\" (ô hiển thị \"\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-06.png",
+    "note": "",
+    "time": "2026-10-23T03:28:30.998Z"
+  },
+  {
+    "id": "FR06-EP-07",
+    "status": "Fail",
+    "actual": "Nhập \" \" (ô hiển thị \" \") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-07.png",
+    "note": "",
+    "time": "2026-10-23T03:29:32.625Z"
+  },
+  {
+    "id": "FR06-EP-08",
+    "status": "Fail",
+    "actual": "Nhập \"2abc\" (ô hiển thị \"2abc\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 2, Thành tiền: 12,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-08.png",
+    "note": "",
+    "time": "2026-10-23T03:30:34.271Z"
+  },
+  {
+    "id": "FR06-EP-09",
+    "status": "Pass",
+    "actual": "Nhập \"05\" (ô hiển thị \"05\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 5, Thành tiền: 30,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-09.png",
+    "note": "",
+    "time": "2026-10-23T03:31:36.659Z"
+  },
+  {
+    "id": "FR06-BVA-02",
+    "status": "Pass",
+    "actual": "Nhập \"1\" (ô hiển thị \"1\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-02.png",
+    "note": "",
+    "time": "2026-10-23T03:32:38.237Z"
+  },
+  {
+    "id": "FR06-BVA-03",
+    "status": "Pass",
+    "actual": "Nhập \"2\" (ô hiển thị \"2\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 2, Thành tiền: 12,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-03.png",
+    "note": "",
+    "time": "2026-10-23T03:33:40.058Z"
+  },
+  {
+    "id": "FR06-BVA-04",
+    "status": "Fail",
+    "actual": "Nhập \"-1\" (ô hiển thị \"-1\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 1, Thành tiền: 6,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-04.png",
+    "note": "",
+    "time": "2026-10-23T03:34:41.889Z"
+  },
+  {
+    "id": "FR06-BVA-05",
+    "status": "Pass",
+    "actual": "Nhập \"2147483647\" (ô hiển thị \"2147483647\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 2147483647, Thành tiền: 12,884,901,882,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-05.png",
+    "note": "",
+    "time": "2026-10-23T03:35:43.911Z"
+  },
+  {
+    "id": "FR06-BVA-06",
+    "status": "Pass",
+    "actual": "Nhập \"2147483648\" (ô hiển thị \"2147483648\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 2147483648, Thành tiền: 12,884,901,888,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-06.png",
+    "note": "",
+    "time": "2026-10-23T03:36:45.743Z"
+  },
+  {
+    "id": "FR06-BVA-07",
+    "status": "Fail",
+    "actual": "Nhập \"99999999999999999999\" (ô hiển thị \"99999999999999999999\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 100000000000000020000, Thành tiền: 600,000,000,000,000,100,000,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-BVA-07.png",
+    "note": "",
+    "time": "2026-10-23T03:37:47.844Z"
+  },
+  {
+    "id": "FR06-EP-10",
+    "status": "Pass",
+    "actual": "Nhập \"3\" (ô hiển thị \"3\") → thông báo: \"Thành công — Đã thêm vào giỏ hàng\"; giỏ: 1 dòng, số lượng 5, Thành tiền: 30,000,000 ₫",
+    "evidence": "evidence/FR06/FR06-EP-10.png",
+    "note": "",
+    "time": "2026-10-23T03:39:43.118Z"
+  }
+]
