@@ -725,3 +725,137 @@ Mình gắn thêm cột Issue vào bảng bug (mục 8) của từng report. Sau
 **Claude:**
 
 Giờ mình cập nhật prompt log (cả bản trong `docs/AIgui` lẫn bản trong repo), xuất lại PDF và git log, rồi push.
+
+**Claude:**
+
+Đã ghi link cho cả 20 issue, xuất lại PDF và `git_log.txt`. Repo cá nhân đã clean: không còn thay đổi chưa commit, không còn commit chưa push, tổng cộng 62 commit.
+
+**Đã làm:**
+- **Link issue:** BUG-FR02-01 đến BUG-FR16-08 lần lượt ứng với #90 đến #109. Mình đã mở ảnh để kiểm tra 2 cặp: BUG-FR09-01 đúng là #96, BUG-FR16-08 đúng là #109. Danh sách link nằm trong `bugs/issue-links.json`.
+- **`bugs/Bug_Report.md`:** thêm cột Issue (#90…#109) và cột ảnh issue, có link tới ảnh danh sách `issue-list.png`.
+- **Report FR-02, FR-09, FR-16:** bảng bug ở mục 8 có thêm cột Issue. Mỗi feature một commit `[..][S7] Add GitHub issue links and screenshots`, kèm ảnh issue của feature đó.
+- **Phần bạn đã sửa** (điểm tự chấm 70, Audit, Critique) đã được commit với message `[report] Finalize audit, critique and self-assessment`.
+- **Prompt log:** đã cập nhật ở cả `docs/AIgui/` và `ai/prompt_logs/`. Câu trả lời này viết sau khi xuất log nên không có trong đó.
+- **9 file PDF và `git_log.txt`** đã xuất lại sau tất cả thay đổi.
+
+**Bạn kiểm tra lại trước khi nộp:**
+- Trong `ai/AI_Audit_Report.md`, dòng 17 vẫn ghi "SV xác nhận severity BUG-FR02-03 (High hay Critical)", tức là chưa chốt. Nên sửa thành, ví dụ, "SV xác nhận: High". Nếu sửa thì sau đó phải chạy lại lệnh xuất PDF và `git_log.txt`.
+
+**Tự đóng gói và nộp:**
+```powershell
+cd D:\codeStudy\test\Homeworks\HW02\software-testing-2026-HW02
+.\scripts\make_zip.ps1 -Grade 070
+```
+Lệnh này tạo file `HW02\23120017_HW02_AI_DomainTesting_070.zip`. Giải nén thử để kiểm tra, rồi nộp lên Moodle.
+
+## Prompt 12 — 10:01 23/10/2026
+
+```text
+Giờ ta cần hoàn thành phần bài nhóm:
+- có thành hoàn thành phần test mobile không
+- bám theo docs và repo nhóm
+```
+
+**Claude:**
+
+Mình kiểm tra 2 việc: trạng thái hiện tại của repo nhóm, và máy có công cụ nào chạy được app mobile không (Android emulator / adb).
+
+**Claude:**
+
+Có sẵn máy ảo **Pixel_6**. Mình khởi động nó để thử chạy app mobile trên emulator.
+
+**Claude:**
+
+Trong lúc emulator khởi động, mình điền dòng phân công của bạn vào README của repo nhóm, đúng định dạng 2 dòng của Hương và Ngọc.
+
+**Claude:**
+
+Emulator có tăng tốc phần cứng (WHPX), chỉ là chưa boot xong. Mình chờ thêm.
+
+**Claude:**
+
+Sau khoảng 10 phút vẫn `offline`. Đây thường là lỗi kết nối của adb chứ không phải emulator treo, nên mình thử khởi động lại adb server.
+
+**Claude:**
+
+Backend đang tắt, nên mình khởi động lại (tách rời, giống lúc chạy test). Sau đó chạy Expo cho Android.
+
+**Claude:**
+
+Hàm reset báo lỗi khi cổng 3000 không có tiến trình nào lắng nghe. Đây là bug nhỏ trong `lib.mjs`, mình sửa luôn để bước tắt server không làm hỏng cả lệnh.
+
+**Claude:**
+
+Backend đã chạy. Mình chờ Expo đóng gói app và cài Expo Go lên emulator.
+
+**Claude:**
+
+Expo Go đã cài xong và đang mở app (lưu ý: IP LAN của máy giờ đã đổi thành `192.168.1.4`). Mình chờ app tải xong rồi chụp màn hình emulator.
+
+**Claude:**
+
+Git Bash tự đổi đường dẫn `/sdcard` thành đường dẫn Windows, nên mình tắt tính năng chuyển đổi đó rồi chạy lại.
+
+**Claude:**
+
+Không thấy "EShop Mobile". Có thể phím Back đã thoát khỏi app. Mình chụp màn hình để xem.
+
+**Claude:**
+
+Đúng như dự đoán: thanh trạng thái (vùng y = 0–128) chặn mất thao tác chạm, nên app vẫn ở màn chi tiết. Mình thử vài cách ẩn thanh trạng thái trên emulator.
+
+**Claude:**
+
+Không có lệnh ẩn thanh trạng thái. Mình thử cách khác: dùng phím điều hướng (TAB / DPAD) để chuyển focus lên header rồi nhấn Enter.
+
+**Claude:**
+
+Điều hướng bằng phím chạy được: sau 3 lần TAB, focus đã nằm ở "Giỏ (0)". Mình thử nhấn Enter để kích hoạt.
+
+**Claude:**
+
+Nhấn Enter đã mở được Giỏ hàng. Mình đưa cách "TAB tới phần tử rồi Enter" vào script, dùng cho mọi thao tác trên header.
+
+**Claude:**
+
+Script không focus được vào "EShop Mobile". Mình in ra thứ tự các phần tử nhận focus khi nhấn TAB để xem chuyện gì xảy ra.
+
+**Claude:**
+
+Focus bị kẹt ở "Giỏ (0)", là phần tử cuối có thể focus. Mình thử đi ngược lại bằng DPAD_LEFT hoặc Shift+TAB.
+
+**Claude:**
+
+Script vẫn đang chạy (mỗi lần đọc cây giao diện mất khoảng 1–2 giây). Mình xem tiến độ một lần.
+
+**Claude:**
+
+Output đang qua `tail` nên chỉ hiện khi script chạy xong. Mình đợi thông báo hoàn tất.
+
+**Claude:**
+
+Script đang chạy tốt, đã tới EP-09. Mình chờ nó hoàn tất.
+
+**Claude:**
+
+Đã tới TC cuối cùng (EP-10). Mình chờ script lưu kết quả.
+
+**Claude:**
+
+FR-06 đã chạy xong trên emulator: 21 TC. Kết quả: 10 Pass, 10 Fail, 1 ca khám phá. Mình xem một ảnh minh chứng để kiểm tra, ví dụ ca nhập "0".
+
+**Claude:**
+
+Lệnh bị lỗi quote của bash do heredoc quá dài. Mình tách phần Python ra file riêng trong scratchpad rồi chạy.
+
+**Claude:**
+
+Report FR-06 giờ có đủ: 21 TC đã chạy (10 Pass, 10 Fail, 1 khám phá) và 4 bug. Mình tách thay đổi thành 3 commit đúng từng bước S6, S7, S8, theo quy ước của nhóm.
+
+**Claude:**
+
+`lib.mjs` vẫn hiện là đã sửa. Mình xem nội dung thay đổi.
+
+**Claude:**
+
+Commit sửa `lib.mjs` lúc trước chưa được tạo, nên mình commit lại. Sau đó mình xem README, Audit và form AI-03 để cập nhật phần mobile.
