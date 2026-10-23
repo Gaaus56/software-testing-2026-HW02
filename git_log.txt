@@ -1,3 +1,11 @@
+d2b13f6 | 2026-10-23 10:42:47 +0700 | Tran Thanh An | [report] Refresh PDF exports
+8377364 | 2026-10-23 10:42:41 +0700 | Tran Thanh An | [report] Update AI prompt log
+26e5a1b | 2026-10-23 10:42:41 +0700 | Tran Thanh An | [report] Update README, audit and disclosure for mobile execution
+1b336c0 | 2026-10-23 10:42:18 +0700 | Tran Thanh An | [setup] Fix backend reset when no server is running
+e5cd3a8 | 2026-10-23 10:42:08 +0700 | Tran Thanh An | [D-FR06][S8] Update AI gap analysis after execution
+203ddde | 2026-10-23 10:42:08 +0700 | Tran Thanh An | [D-FR06][S7] Report bugs
+0f0146c | 2026-10-23 10:42:08 +0700 | Tran Thanh An | [D-FR06][S6] Execute tests on Android emulator and record results
+ce8015b | 2026-10-21 11:22:42 +0700 | Tran Thanh An | [report] Export git commit log
 b647d9c | 2026-10-21 11:22:42 +0700 | Tran Thanh An | [report] Refresh PDF exports
 8b7140b | 2026-10-21 11:22:36 +0700 | Tran Thanh An | [report] Update AI prompt log
 95dbb98 | 2026-10-21 11:22:29 +0700 | Tran Thanh An | [report] Link bug report to GitHub issues
