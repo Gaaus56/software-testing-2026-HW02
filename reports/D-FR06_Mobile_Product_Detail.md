@@ -310,13 +310,17 @@ Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 
 <!-- /BUGS:FR06 -->
 ## 9. Phân tích phần AI bỏ sót (S8)
 
-Đánh giá ở mức thiết kế (chưa thực thi trên thiết bị):
+Ban đầu (21/10), phân tích này chỉ ở mức thiết kế vì chưa chạy được trên thiết bị. Ngày 23/10, các TC đã được thực thi trên Android Emulator, và bảng dưới được cập nhật theo kết quả thật.
 
-| # | AI bỏ sót / làm sai | Phát hiện ở | Nguyên nhân | Giải thích |
-|---|---|---|---|---|
-| G1 | Không kiểm giá trị mặc định và định dạng giá | S5 (RV1, RV2) | Prompt | Prompt chỉ nhấn vào "ô số lượng"; AI bỏ qua output hiển thị (R1, R4) |
-| G2 | EP-05 (nhập chữ) không thực hiện được với bàn phím số | S5 (RV3) | Giới hạn tool | AI **không chạy được app** nên thiết kế theo giả định là ô nhập văn bản thông thường |
-| G3 | Khám phá giao diện (mục 1.5) dựa trên cấu trúc màn hình, chưa có quan sát thật | S0 | Giới hạn tool | AI không điều khiển được thiết bị di động; sinh viên phải bổ sung U4–U6 khi chạy |
-| G4 | Biên trên không có trong đặc tả; AI dùng biên kỹ thuật (2^31) | S4 | Độ phức tạp | Biên khám phá, cần ghi kết quả thực tế để đề xuất bổ sung đặc tả |
+| # | AI bỏ sót / làm sai | Phát hiện ở | Dẫn tới bug? | Nguyên nhân | Giải thích |
+|---|---|---|---|---|---|
+| G1 | Không kiểm giá trị mặc định và định dạng giá | S5 (RV1, RV2) | Không (EP-13, EP-14 Pass) | Prompt | Prompt chỉ nhấn vào "ô số lượng"; AI bỏ qua output hiển thị (R1, R4) |
+| G2 | EP-05 (nhập chữ) chưa có cách thực hiện với bàn phím số | S5 (RV3) | BUG-FR06-01 | Giới hạn tool | Khi thiết kế, AI chưa chạy app. Lúc thực thi phải dùng `adb input text` (tương đương dán) để đưa chữ vào ô |
+| G3 | Khám phá (mục 1.5) chỉ dựa trên cấu trúc màn hình | S0 → S6 | **BUG-FR06-03** (thiếu danh mục) | Giới hạn tool | Lần chạy thật mới xác nhận màn chi tiết không có danh mục (R1) |
+| G4 | Biên trên không có trong đặc tả | S4 → S6 | **BUG-FR06-04** | Độ phức tạp | Chuỗi 20 chữ số bị làm tròn thành 100000000000000020000 (mất chính xác số học). Với 2^31 thì không tràn số, nhưng thành tiền lên tới hàng triệu tỷ mà không có cảnh báo |
+| G5 | Không lường trước việc hệ thống **tự sửa** giá trị sai (giả định A2: phải chặn) | S6 | **BUG-FR06-01, BUG-FR06-02** | Độ phức tạp | Kết quả thực tế: 0, số âm, 1.5, abc, rỗng, khoảng trắng đều bị âm thầm đổi thành 1 và vẫn báo "Thành công"; còn "2abc" được hiểu là 2. Oracle "giỏ không đổi" (S3) bắt được ngay. Đây là lý do oracle phải kiểm trạng thái dữ liệu, không chỉ kiểm thông báo |
+| G6 | Thiết kế ban đầu giả định chạm được mọi nút | S6 | — | Giới hạn tool | Header nằm dưới thanh trạng thái. Phải điều hướng bằng bàn phím. Trên máy thật người dùng vẫn chạm được, nên chưa coi là bug |
 
-**Rủi ro còn lại:** toàn bộ kết quả của FR-06 còn phụ thuộc vào lần chạy trên thiết bị. Sau khi chạy, cập nhật bảng này: TC nào lộ ra hành vi AI không lường trước (ví dụ ô tự sửa giá trị sai về 1, thiếu danh mục trên màn chi tiết) và vì sao.
+**Số liệu:**
+- Bản nháp có 20 TC: VALID 18, INCOMPLETE 1, INVALID 1. Bổ sung 3 TC.
+- Khi thực thi: 21 TC chạy, 10 Pass, 10 Fail, 1 khám phá. Phát hiện 4 bug.
