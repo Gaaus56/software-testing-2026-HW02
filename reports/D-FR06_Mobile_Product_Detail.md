@@ -294,6 +294,20 @@ Bộ cuối có **22 TC** (EP 15, BVA 7). Trong đó BVA-01 dùng chung với EP
 | FR06-EP-15 | EP | Ô số lượng là EditText với bàn phím số (keyboardType=numeric). Script nhập bằng `adb input text` (tương đương dán), nên mọi ký tự đều đưa vào được; ký tự lọt vào ô được ghi ở các TC EP-03…08 _(Khám phá)_ | **Blocked** |  |  |
 <!-- /RESULTS -->
 
+## 8. Bug (S7)
+
+<!-- BUGS:FR06 -->
+Tìm được **4 bug**. Mỗi bug có bản nháp issue trong `bugs/issues/`, kèm link tạo issue đã điền sẵn trong [`bugs/issue-urls.md`](../bugs/issue-urls.md). Tổng hợp ở [`bugs/Bug_Report.md`](../bugs/Bug_Report.md).
+
+| Bug | Tiêu đề | Test case | Severity | Kỹ thuật | Issue |
+|---|---|---|---|---|---|
+| [BUG-FR06-01](../bugs/issues/BUG-FR06-01.md) | Ô Số lượng chấp nhận 0, số âm, số thập phân, chữ, ô trống: tự đổi thành 1 và báo "Thành công" | FR06-EP-02, FR06-EP-03, FR06-EP-04, FR06-EP-05, FR06-EP-06, FR06-EP-07, FR06-BVA-04 | Medium | EP, BVA | _(chưa tạo)_ |
+| [BUG-FR06-02](../bugs/issues/BUG-FR06-02.md) | Ô Số lượng nhận "2abc" thành 2 (chỉ đọc phần số ở đầu chuỗi) | FR06-EP-08 | Medium | EP | _(chưa tạo)_ |
+| [BUG-FR06-03](../bugs/issues/BUG-FR06-03.md) | Màn chi tiết sản phẩm trên Mobile không hiển thị Danh mục | FR06-EP-11 | Low | EP | _(chưa tạo)_ |
+| [BUG-FR06-04](../bugs/issues/BUG-FR06-04.md) | Số lượng rất lớn bị làm tròn sai (99999999999999999999 thành 100000000000000020000), không có giới hạn trên | FR06-BVA-07, FR06-BVA-05, FR06-BVA-06 | Low | BVA | _(chưa tạo)_ |
+
+Severity chọn theo cây quyết định của nhóm (README repo nhóm, mục 4.3); lý do ghi trong từng bản nháp.
+<!-- /BUGS:FR06 -->
 ## 9. Phân tích phần AI bỏ sót (S8)
 
 Đánh giá ở mức thiết kế (chưa thực thi trên thiết bị):

@@ -1,6 +1,6 @@
 # Bug Report — Trần Thanh An (23120017) — HW02
 
-Tổng số bug: **20** (Critical 3, High 6, Medium 8, Low 3).
+Tổng số bug: **24** (Critical 3, High 6, Medium 10, Low 5).
 Mỗi bug có một file chi tiết trong [`issues/`](issues/), đúng các ô của template Bug report trên repo nhóm. Ảnh chụp trang GitHub Issues lưu ở [`issue-screenshots/`](issue-screenshots/); danh sách issue: [issue-list.png](issue-screenshots/issue-list.png).
 
 | Bug ID | FR | Tiêu đề | Test case | Severity | Kỹ thuật | Issue | Ảnh issue |
@@ -25,3 +25,7 @@ Mỗi bug có một file chi tiết trong [`issues/`](issues/), đúng các ô c
 | [BUG-FR16-06](issues/BUG-FR16-06.md) | FR-16 | Tài khoản user thường gọi được API import sản phẩm (không kiểm tra role admin) | FR16-EP-13 | Critical | EP | [#107](https://github.com/angquoc/software-testing-2026-HW02-group/issues/107) | [ảnh 1](issue-screenshots/BUG-FR16-06.png) |
 | [BUG-FR16-07](issues/BUG-FR16-07.md) | FR-16 | Import CSV chấp nhận category_id không tồn tại | FR16-EP-18 | Medium | EP | [#108](https://github.com/angquoc/software-testing-2026-HW02-group/issues/108) | [ảnh 1](issue-screenshots/BUG-FR16-07.png) |
 | [BUG-FR16-08](issues/BUG-FR16-08.md) | FR-16 | Import CSV chấp nhận tên sản phẩm dài 256 ký tự (vượt giới hạn 255) | FR16-BVA-09 | Low | BVA | [#109](https://github.com/angquoc/software-testing-2026-HW02-group/issues/109) | [ảnh 1](issue-screenshots/BUG-FR16-08.png) |
+| [BUG-FR06-01](issues/BUG-FR06-01.md) | FR-06 | Ô Số lượng chấp nhận 0, số âm, số thập phân, chữ, ô trống: tự đổi thành 1 và báo "Thành công" | FR06-EP-02, FR06-EP-03, FR06-EP-04, FR06-EP-05, FR06-EP-06, FR06-EP-07, FR06-BVA-04 | Medium | EP, BVA | _(chưa tạo)_ | — |
+| [BUG-FR06-02](issues/BUG-FR06-02.md) | FR-06 | Ô Số lượng nhận "2abc" thành 2 (chỉ đọc phần số ở đầu chuỗi) | FR06-EP-08 | Medium | EP | _(chưa tạo)_ | — |
+| [BUG-FR06-03](issues/BUG-FR06-03.md) | FR-06 | Màn chi tiết sản phẩm trên Mobile không hiển thị Danh mục | FR06-EP-11 | Low | EP | _(chưa tạo)_ | — |
+| [BUG-FR06-04](issues/BUG-FR06-04.md) | FR-06 | Số lượng rất lớn bị làm tròn sai (99999999999999999999 thành 100000000000000020000), không có giới hạn trên | FR06-BVA-07, FR06-BVA-05, FR06-BVA-06 | Low | BVA | _(chưa tạo)_ | — |

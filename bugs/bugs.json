@@ -601,5 +601,131 @@
    "evidence/FR16/FR16-BVA-09.png"
   ],
   "severityReason": "Ảnh hưởng nhỏ, dựa trên giả định → câu 4."
+ },
+ {
+  "fr": "FR06",
+  "frLabel": "FR-06 – Chi tiết sản phẩm",
+  "pool": "D",
+  "platform": "mobile",
+  "platformLabel": "Mobile",
+  "id": "BUG-FR06-01",
+  "severity": "medium",
+  "technique": [
+   "EP",
+   "BVA"
+  ],
+  "title": "Ô Số lượng chấp nhận 0, số âm, số thập phân, chữ, ô trống: tự đổi thành 1 và báo \"Thành công\"",
+  "tcs": [
+   "FR06-EP-02",
+   "FR06-EP-03",
+   "FR06-EP-04",
+   "FR06-EP-05",
+   "FR06-EP-06",
+   "FR06-EP-07",
+   "FR06-BVA-04"
+  ],
+  "pre": "App EShop Mobile (Expo Go, Android Emulator Pixel_6); giỏ hàng trống; mở chi tiết SP \"Tai nghe AirPods Pro 2\" (6.000.000 ₫)",
+  "steps": [
+   "Xóa ô Số lượng, nhập 0 (lặp lại với -1, -2, 1.5, abc, để trống, một khoảng trắng)",
+   "Bấm \"Thêm vào giỏ hàng\"",
+   "Mở Giỏ hàng"
+  ],
+  "data": "0, -1, -2, 1.5, abc, \"\", \" \"",
+  "expected": "FR-06: \"Có ô nhập **Số lượng** (chỉ nhận số nguyên dương, tối thiểu là 1)\" → giá trị không hợp lệ phải bị từ chối, có thông báo, giỏ hàng không đổi (giả định A2).",
+  "actual": "Mọi giá trị đều hiện hộp thoại \"Thành công — Đã thêm vào giỏ hàng\"; giỏ có 1 dòng với số lượng 1 (giá trị bị âm thầm đổi thành 1).",
+  "evidence": [
+   "evidence/FR06/FR06-EP-02.png",
+   "evidence/FR06/FR06-EP-02_cart.png",
+   "evidence/FR06/FR06-BVA-04_cart.png"
+  ],
+  "severityReason": "Sai validation; người dùng vẫn sửa được số lượng trong giỏ → câu 3. Dựa trên giả định A2 (\"chỉ nhận\" = chặn)."
+ },
+ {
+  "fr": "FR06",
+  "frLabel": "FR-06 – Chi tiết sản phẩm",
+  "pool": "D",
+  "platform": "mobile",
+  "platformLabel": "Mobile",
+  "id": "BUG-FR06-02",
+  "severity": "medium",
+  "technique": [
+   "EP"
+  ],
+  "title": "Ô Số lượng nhận \"2abc\" thành 2 (chỉ đọc phần số ở đầu chuỗi)",
+  "tcs": [
+   "FR06-EP-08"
+  ],
+  "pre": "App EShop Mobile (Expo Go, Android Emulator Pixel_6); giỏ hàng trống; mở chi tiết SP \"Tai nghe AirPods Pro 2\" (6.000.000 ₫)",
+  "steps": [
+   "Nhập 2abc vào ô Số lượng",
+   "Bấm \"Thêm vào giỏ hàng\"",
+   "Mở Giỏ hàng"
+  ],
+  "data": "2abc",
+  "expected": "FR-06: chỉ nhận số nguyên dương → \"2abc\" không phải số nguyên, phải bị từ chối.",
+  "actual": "Báo \"Thành công\"; giỏ có số lượng 2, thành tiền 12,000,000 ₫.",
+  "evidence": [
+   "evidence/FR06/FR06-EP-08.png",
+   "evidence/FR06/FR06-EP-08_cart.png"
+  ],
+  "severityReason": "Chấp nhận dữ liệu sai một phần, có cách đi vòng → câu 3."
+ },
+ {
+  "fr": "FR06",
+  "frLabel": "FR-06 – Chi tiết sản phẩm",
+  "pool": "D",
+  "platform": "mobile",
+  "platformLabel": "Mobile",
+  "id": "BUG-FR06-03",
+  "severity": "low",
+  "technique": [
+   "EP"
+  ],
+  "title": "Màn chi tiết sản phẩm trên Mobile không hiển thị Danh mục",
+  "tcs": [
+   "FR06-EP-11"
+  ],
+  "pre": "Mở chi tiết SP \"Tai nghe AirPods Pro 2\" (danh mục Phụ kiện)",
+  "steps": [
+   "Quan sát các thông tin trên màn chi tiết"
+  ],
+  "data": "—",
+  "expected": "FR-06: \"Hiển thị đầy đủ: Ảnh lớn, Tên, Giá, Mô tả, Danh mục\".",
+  "actual": "Màn hình có ảnh, tên, giá (6,000,000 ₫), mô tả; không có danh mục.",
+  "evidence": [
+   "evidence/FR06/FR06-EP-11.png"
+  ],
+  "severityReason": "Thiếu thông tin hiển thị, không ảnh hưởng dữ liệu → câu 4."
+ },
+ {
+  "fr": "FR06",
+  "frLabel": "FR-06 – Chi tiết sản phẩm",
+  "pool": "D",
+  "platform": "mobile",
+  "platformLabel": "Mobile",
+  "id": "BUG-FR06-04",
+  "severity": "low",
+  "technique": [
+   "BVA"
+  ],
+  "title": "Số lượng rất lớn bị làm tròn sai (99999999999999999999 thành 100000000000000020000), không có giới hạn trên",
+  "tcs": [
+   "FR06-BVA-07",
+   "FR06-BVA-05",
+   "FR06-BVA-06"
+  ],
+  "pre": "App EShop Mobile (Expo Go, Android Emulator Pixel_6); giỏ hàng trống; mở chi tiết SP \"Tai nghe AirPods Pro 2\" (6.000.000 ₫)",
+  "steps": [
+   "Nhập 99999999999999999999 (20 chữ số)",
+   "Bấm \"Thêm vào giỏ hàng\"",
+   "Mở Giỏ hàng"
+  ],
+  "data": "99999999999999999999; 2147483647; 2147483648",
+  "expected": "Biên khám phá (giả định A4): số lượng phải được lưu đúng giá trị đã nhập hoặc bị chặn có thông báo; không hiển thị giá trị sai.",
+  "actual": "Giỏ hiển thị số lượng 100000000000000020000 và thành tiền 600,000,000,000,000,100,000,000,000 ₫. Với 2147483647 / 2147483648 vẫn nhận, thành tiền hàng triệu tỷ, không cảnh báo.",
+  "evidence": [
+   "evidence/FR06/FR06-BVA-07_cart.png"
+  ],
+  "severityReason": "Ảnh hưởng nhỏ, dựa trên biên khám phá → câu 4."
  }
 ]
